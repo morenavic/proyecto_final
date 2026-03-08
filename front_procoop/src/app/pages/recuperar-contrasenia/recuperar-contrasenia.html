@@ -1,0 +1,26 @@
+<main class="main-contenedor">
+   <!-- ============================
+         8. RECUPERAR CONTRASEÑA
+         ============================ -->
+    <section id="recuperar" class="pantalla">
+      <div style="max-width:520px;margin:0 auto" class="form-card">
+        <h2 class="titulo">Recuperar contraseña</h2>
+
+        <form onsubmit="return false;">
+          <label for="rec-email">Email</label>
+          <input id="rec-email" type="email" placeholder="cliente@cooperativa.com" required>
+
+          <label for="rec-num">Número de cuenta (opcional)</label>
+          <input id="rec-num" type="text" placeholder="12345">
+
+          <div style="margin-top:8px">
+            <button class="btn-principal">Enviar enlace</button>
+          </div>
+
+          <div style="margin-top:10px">
+            <a href="/acceso" data-target="login">← Volver al login</a>
+          </div>
+        </form>
+      </div>
+    </section>
+</main>

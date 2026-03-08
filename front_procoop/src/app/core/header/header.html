@@ -1,0 +1,106 @@
+<!-- ==================================================
+     HEADER / NAVBAR FIJO
+     Navegación principal persistente en toda la app
+     ================================================== -->
+
+     <!--
+     ⚠️ Mejora: Centralizar estado de layout (opcional): si el proyecto crece crear un LayoutService y mover ahí:
+      - estado de dropdowns
+      - estados de menú mobile
+      Útil si aparecen sidebars, overlays, etc.
+      -->
+
+<header class="nav-fijo" role="banner">
+  <!-- Logo institucional + nombre de la empresa -->
+  <!-- Se mantiene simple y clickeable visualmente, sin navegación asociada por el momento -->
+  <div class="logo">
+    <img src="images/images_azul.png" alt="Logo ProCoop" class="logo-img" />
+    <span class="empresa">ProCoop</span>
+  </div>
+
+  <!-- Navegación principal del sitio -->
+  <!-- Uso exclusivo de routerLink para navegación interna -->
+  <nav class="nav-links" aria-label="Navegación principal">
+    <!-- Ruta inicio -->
+    <!-- Se marca activa solo cuando la URL es exactamente /inicio -->
+    <button
+      class="nav-link"
+      routerLink="/inicio"
+      routerLinkActive="activo"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Inicio
+    </button>
+
+    <!-- Sección empresa -->
+    <button class="nav-link" routerLink="/empresa" routerLinkActive="activo">Empresa</button>
+
+    <!-- ===============================
+         Productos
+         - Botón principal navega al listado general
+         - Submenú permite acceso directo a productos específicos
+         =============================== -->
+    <div class="dropdown">
+      <!-- Navegación principal de productos -->
+      <button class="nav-link" routerLink="/productos-listado" routerLinkActive="activo">
+        Productos
+      </button>
+
+      <!-- Dropdown controlado por estado del componente -->
+      <!-- Se cierra manualmente al navegar a una opción -->
+      <ul class="dropdown-menu" [class.abierto]="dropdownProductosAbierto">
+        <li>
+          <a routerLink="/productos/procoop-gestion" (click)="cerrarDropdown('productos')">
+            ProCoop Gestión
+          </a>
+        </li>
+        <li>
+          <a routerLink="/productos/p-movil" (click)="cerrarDropdown('productos')"> P-Móvil </a>
+        </li>
+        <li>
+          <a routerLink="/productos/3s" (click)="cerrarDropdown('productos')"> 3S </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ===============================
+         Servicios
+         - Misma lógica que productos
+         - Permite escalar a más servicios sin cambiar estructura
+         =============================== -->
+    <div class="dropdown">
+      <!-- Ruta principal de servicios -->
+      <button class="nav-link" routerLink="/servicios" routerLinkActive="activo">Servicios</button>
+
+      <!-- Dropdown controlado desde el componente -->
+      <ul class="dropdown-menu" [class.abierto]="dropdownServiciosAbierto">
+        <li>
+          <a routerLink="/servicios/soporte-general" (click)="cerrarDropdown('servicios')">
+            Soporte General
+          </a>
+        </li>
+        <li>
+          <a routerLink="/servicios/soporte-contable" (click)="cerrarDropdown('servicios')">
+            Soporte Contable
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Página de contacto -->
+    <button class="nav-link" routerLink="/contacto" routerLinkActive="activo">Contacto</button>
+
+    <!-- Acceso / login -->
+    <button class="nav-link" routerLink="/acceso" routerLinkActive="activo">Acceso</button>
+
+    <!-- ===============================
+         ⚠️​ Accesos temporales
+         Uso exclusivo para testing / desarrollo
+          Posteriormente se accederá a dichos paneles desde los guard de rutas
+         y botones en el área de usuario autenticado
+         =============================== -->
+    <button routerLink="/panel-cliente-home">Panel Cliente</button>
+
+    <button routerLink="/panel-admin-home">Panel Admin</button>
+  </nav>
+</header>

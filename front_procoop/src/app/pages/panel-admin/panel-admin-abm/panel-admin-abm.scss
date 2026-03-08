@@ -1,0 +1,165 @@
+/*
+  Contenedor principal del formulario ABM.
+
+  Se limita el ancho máximo para mantener una lectura cómoda
+  y consistencia visual con el layout del panel admin.
+  Evita formularios demasiado extensos en pantallas grandes.
+*/
+.form-card {
+  max-width: 760px;
+}
+
+/*
+  Estructura vertical estándar para los campos del formulario.
+
+  Se utiliza flex-column para desacoplar el layout
+  del tipo de input que se renderiza dinámicamente
+  desde la configuración del componente.
+*/
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+/*
+  Estilo tipográfico consistente para etiquetas.
+
+  Se mantiene dentro del módulo para evitar depender
+  de estilos globales y asegurar uniformidad visual
+  entre distintos formularios del panel admin.
+*/
+.form-group label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/*
+  Estilo base unificado para todos los campos editables.
+
+  Se aplica a input, textarea y select para mantener
+  consistencia visual aunque el formulario sea generado
+  dinámicamente según la entidad configurada.
+*/
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  font-size: 14px;
+}
+
+/*
+  Contenedor de acciones del formulario.
+
+  Layout horizontal simple que mantiene
+  jerarquía clara entre acción principal
+  (guardar/actualizar) y cancelación.
+*/
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/*
+  Mensaje de error de validación.
+
+  Feedback visual discreto que comunica el error
+  sin romper la estética limpia del formulario.
+*/
+.error-text {
+  font-size: 12px;
+  color: #b3261e;
+}
+
+/* ===============================
+   FILE CUSTOM
+================================= */
+
+/*
+  Implementación inicial del contenedor del input file.
+
+  Posteriormente se redefine más abajo para adoptar
+  una estructura más flexible para el componente visual.
+*/
+.file-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/*
+  Estilo del nombre del archivo seleccionado.
+
+  Se mantiene neutro para no competir
+  visualmente con los botones de acción.
+*/
+.file-name {
+  font-size: 14px;
+  color: var(--gris-carbon);
+}
+
+/* ===============================
+   FILE CUSTOM PROFESIONAL
+================================= */
+
+/*
+  Versión final del wrapper de archivo.
+
+  Se redefine con layout vertical para permitir
+  agregar mensajes adicionales o feedback visual
+  debajo del selector si fuera necesario.
+
+  ⚠ Nota de mantenimiento:
+  la definición anterior de .file-wrapper podría
+  eliminarse si ya no se utiliza en el proyecto.
+*/
+.file-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/*
+  Caja visual que reemplaza el input file nativo.
+
+  Se utiliza un borde dashed para comunicar
+  interacción tipo "drop / selección de archivo"
+  manteniendo coherencia con el estilo del panel.
+*/
+.file-box {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 2px dashed rgba(0, 82, 166, 0.25);
+  background: rgba(0, 82, 166, 0.04);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  color: var(--gris-carbon);
+}
+
+/*
+  Feedback sutil al pasar el cursor.
+
+  Mejora la percepción de interactividad
+  sin romper la estética sobria del panel admin.
+*/
+.file-box:hover {
+  background: rgba(0, 82, 166, 0.08);
+}
+
+/*
+  Estado visual cuando existe un archivo cargado.
+
+  El borde pasa de dashed a sólido para indicar
+  que la acción se completó correctamente.
+*/
+.file-box.file-cargado {
+  border: 2px solid var(--azul-procoop);
+  background: rgba(0, 82, 166, 0.08);
+  color: var(--azul-procoop);
+  font-weight: 500;
+}

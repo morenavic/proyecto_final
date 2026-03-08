@@ -1,0 +1,126 @@
+/* ======================================
+   CONTACTO
+   ======================================
+   Estilos específicos del componente de contacto.
+   Definen layout, estados del formulario y responsive.
+*/
+
+/* Contenedor principal de la sección contacto */
+.pantalla-contacto {
+  margin-bottom: 40px;
+}
+
+/* Layout general: formulario + información lateral */
+.contacto-layout {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+/* Contenedor del formulario */
+.contacto-formulario {
+  flex: 1;
+}
+
+/* Separación visual del formulario respecto al mapa */
+.form-contacto {
+  margin-top: 12px;
+}
+
+/* Contenedor de acciones (submit) */
+.acciones-formulario {
+  margin-top: 8px;
+}
+
+/* Contenedor visual del mapa embebido.
+   Se define altura fija para mantener consistencia de layout. */
+.mapa-placeholder {
+  height: 320px;
+  background: var(--gris-claro);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bloque lateral con información de contacto */
+.contacto-info {
+  width: 320px;
+}
+
+/* Ajustes finos de espaciado del contenido informativo */
+.contacto-info p {
+  margin: 0;
+}
+
+.contacto-info p:first-of-type {
+  margin-top: 8px;
+}
+
+.contacto-info hr {
+  margin: 12px 0;
+}
+
+/* Estilos del iframe del mapa.
+   El iframe se adapta al contenedor definido en mapa-placeholder. */
+.mapa-placeholder iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 8px;
+}
+
+/* Estados visuales del proceso de envío del formulario.
+   Actualmente controlados desde frontend (envío simulado).
+   En el futuro podrán mapearse a respuestas reales del backend. */
+.estado {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.estado.enviando {
+  color: #555;
+}
+
+.estado.exito {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.estado.error {
+  color: #c62828;
+  font-weight: 500;
+}
+
+/* Mensajes de error de validación del formulario */
+.error {
+  color: #c62828;
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Responsive: reorganiza el layout para tablet y mobile */
+@media (max-width: 768px) {
+  .contacto-layout {
+    flex-direction: column;
+  }
+
+  .contacto-info {
+    width: 100%;
+  }
+
+  /* Se reduce la altura del mapa para mejorar la visualización en mobile */
+  .mapa-placeholder {
+    height: 220px;
+  }
+}
+
+/* Ajustes de padding para pantallas pequeñas */
+@media (max-width: 480px) {
+  .pantalla-contacto {
+    padding: 0 12px;
+  }
+}
+

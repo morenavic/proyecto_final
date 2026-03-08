@@ -1,0 +1,114 @@
+/*
+  Separación vertical utilizada en el Home del panel admin.
+  Se aplica entre bloques para mantener ritmo visual consistente.
+*/
+.separacion-superior {
+  margin-top: 12px;
+}
+
+/*
+  Contenedor pensado originalmente para acciones rápidas.
+  Actualmente no se utiliza, pero se mantiene para evaluar
+  reutilización o eliminación en una futura limpieza del Home.
+*/
+.acciones-rapidas {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/*
+  Variante de separación vertical ajustada.
+  Queda como referencia hasta unificar criterios
+  cuando se consolide el diseño del panel completo.
+*/
+.separacion-superior {
+  margin-top: 16px;
+}
+
+/*
+  Bloque principal de actividad reciente.
+  Agrupa información de solo lectura para el administrador.
+*/
+.actividad {
+  margin-top: 24px;
+}
+
+/*
+  Lista vertical de eventos recientes del sistema.
+  En el futuro se alimentará con datos provenientes del backend.
+*/
+.actividad-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/*
+  Item individual de actividad.
+  Se diseña como card liviana para mantener coherencia
+  con el resto del panel admin.
+*/
+.actividad-item {
+  background: var(--blanco);
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: var(--sombra-leve);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/*
+  Texto principal de la actividad.
+  Describe la acción realizada de forma resumida.
+*/
+.actividad-texto {
+  font-size: 14px;
+  color: var(--gris-carbon);
+}
+
+/*
+  Fecha o referencia temporal de la actividad.
+  Se muestra con menor jerarquía visual.
+*/
+.actividad-fecha {
+  font-size: 12px;
+  color: rgba(43, 43, 44, 0.6);
+}
+
+/*
+  Encabezado de cada métrica.
+  Permite comparar rápidamente etiqueta y valor.
+*/
+.metrica-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/*
+  Contenedor base de la barra de progreso.
+  Representa visualmente proporciones entre métricas.
+*/
+.barra {
+  height: 8px;
+  background: var(--gris-claro);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+/*
+  Barra de progreso activa.
+  El ancho se define dinámicamente desde el componente.
+  En el futuro, el porcentaje vendrá calculado desde backend.
+*/
+.barra-progreso {
+  height: 100%;
+  background: var(--azul-procoop);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}

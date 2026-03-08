@@ -1,0 +1,64 @@
+<!--
+  Footer global fijo.
+  Componente puramente presentacional, sin lógica de negocio.
+  Se mantiene simple y reutilizable en toda la aplicación.
+-->
+<footer class="footer-fijo">
+
+  <!--
+    Contenedor de layout.
+    Centraliza el contenido y mantiene coherencia con el ancho general del sitio.
+  -->
+  <div class="footer-contenido">
+
+    <!--
+      Texto institucional.
+      El año se calcula dinámicamente para evitar hardcodeo y mantenimiento manual.
+    -->
+    <span class="footer-texto">
+      © {{ anioActual }} ProCoop — Soluciones tecnológicas para cooperativas
+    </span>
+
+    <!--
+      Bloque de enlaces externos a redes sociales.
+      Se abren en nueva pestaña y se protegen con noopener/noreferrer
+      como medida básica de seguridad.
+    -->
+
+    <!-- ⚠️ Mejora: Centralizar enlaces externos (redes) en otro componente -->
+
+    <nav class="footer-redes">
+
+      <!-- Red social: Instagram -->
+      <a
+        href="https://instagram.com/procoop"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram"
+      >
+        <i class="bi bi-instagram"></i>
+      </a>
+
+      <!-- Red social: LinkedIn -->
+      <a
+        href="https://linkedin.com/company/procoop-srl"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+      >
+        <i class="bi bi-linkedin"></i>
+      </a>
+
+      <!-- Red social: Facebook -->
+      <a
+        href="https://facebook.com/procoop"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Facebook"
+      >
+        <i class="bi bi-facebook"></i>
+      </a>
+
+    </nav>
+  </div>
+</footer>

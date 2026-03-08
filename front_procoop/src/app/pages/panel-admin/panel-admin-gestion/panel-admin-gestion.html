@@ -1,0 +1,199 @@
+<main class="main-contenedor">
+  <section class="pantalla">
+    <div class="panel-layout">
+
+      <!--
+        Sidebar compartido del panel administrativo.
+
+        Se reutiliza en todas las secciones del panel para mantener
+        navegación consistente entre módulos.
+
+        Cada enlace apunta al componente de gestión utilizando
+        el parámetro dinámico :tipo para cambiar la entidad activa.
+      -->
+      <aside class="sidebar">
+        <h5>Admin</h5>
+        <a routerLink="/panel-admin-home" routerLinkActive="activo">Home</a>
+        <a routerLink="/panel-admin-gestion/novedades" routerLinkActive="activo">Novedades</a>
+        <a routerLink="/panel-admin-gestion/productos" routerLinkActive="activo">Productos</a>
+        <a routerLink="/panel-admin-gestion/servicios" routerLinkActive="activo">Servicios</a>
+        <a routerLink="/panel-admin-gestion/clientes" routerLinkActive="activo">Clientes</a>
+        <a routerLink="/panel-admin-gestion/documentos" routerLinkActive="activo">Documentos</a>
+      </aside>
+
+      <!--
+        Contenedor principal del módulo de gestión.
+
+        Este componente funciona de manera genérica:
+        la entidad gestionada depende del parámetro de ruta (:tipo)
+        y de la configuración cargada en el componente TS.
+      -->
+      <section class="panel-contenido">
+
+        <div class="encabezado-gestion">
+
+          <!--
+            Título dinámico definido por la configuración
+            de la entidad actualmente gestionada.
+          -->
+          <h2 class="titulo">{{ config?.titulo }}</h2>
+
+          <!--
+            Botón principal de creación.
+
+            Redirige al componente ABM reutilizable,
+            pasando el tipo de entidad como parámetro.
+          -->
+          <button
+            class="btn-gestion-principal"
+            [routerLink]="['/panel-admin-abm', tipo]">
+            {{ config?.boton }}
+          </button>
+
+        </div>
+
+        <!--
+          Tabla genérica de gestión.
+
+          Las columnas se generan dinámicamente desde
+          la configuración de cada entidad.
+        -->
+        <div class="tabla-wrapper">
+          <table class="tabla-gestion">
+
+            <thead>
+              <tr>
+
+                <!--
+                  Columnas dinámicas definidas en configuraciones
+                  del componente TS.
+                -->
+                @for (col of config?.columnas; track col.key) {
+                  <th>{{ col.label }}</th>
+                }
+
+                <!-- Columna fija de acciones -->
+                <th class="col-acciones">Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <!--
+                Filas generadas a partir de los datos obtenidos
+                desde el DataService.
+
+                En backend real:
+                estos datos vendrán de llamadas HTTP.
+              -->
+              @for (item of items; track item.id) {
+
+                <!--
+                  Para clientes se aplica estilo visual de inactivo
+                  cuando el registro fue deshabilitado.
+                -->
+                <tr [class.fila-inactiva]="tipo === 'clientes' && item.inactivo">
+
+                  <!-- Render dinámico de columnas -->
+                  @for (col of config?.columnas; track col.key) {
+                    <td>{{ item[col.key] }}</td>
+                  }
+
+                  <td class="acciones-btn">
+
+                    <!--
+                      Acción de edición.
+
+                      Se oculta si el registro está inactivo
+                      para evitar modificaciones sobre datos deshabilitados.
+                    -->
+                    @if (config?.acciones.includes('editar') && !item.inactivo) {
+                      <button
+                        class="btn-accion"
+                        [routerLink]="['/panel-admin-abm', tipo, item.id]">
+                        Editar
+                      </button>
+                    }
+
+                    <!--
+                      Acción de eliminación o inactivación.
+
+                      El comportamiento cambia según la entidad:
+                      - clientes → inactivación
+                      - resto → eliminación
+                    -->
+                    @if (config?.acciones.includes('eliminar') && !item.inactivo) {
+                      <button
+                        class="btn-accion btn-danger"
+                        (click)="abrirModalEliminar(item)">
+                        {{ tipo === 'clientes' ? 'Inactivar' : 'Eliminar' }}
+                      </button>
+                    }
+
+                    <!--
+                      Acción de descarga para documentos.
+
+                      En backend real:
+                      deberá disparar descarga desde el servidor.
+                    -->
+                    @if (config?.acciones.includes('descargar')) {
+                      <button class="btn-accion">
+                        Descargar
+                      </button>
+                    }
+
+                  </td>
+
+                </tr>
+
+              }
+
+            </tbody>
+
+          </table>
+        </div>
+
+      </section>
+    </div>
+  </section>
+
+  <!--
+    Modal de confirmación para acciones destructivas.
+
+    Se muestra únicamente cuando mostrarModal es true
+    y permite confirmar o cancelar la operación.
+  -->
+  @if (mostrarModal) {
+  <div class="modal-backdrop">
+
+    <div class="modal-confirmacion">
+
+      <!--
+        El texto del modal cambia dependiendo
+        del tipo de entidad gestionada.
+      -->
+      <h3>
+        {{ tipo === 'clientes' ? 'Inactivar cliente' : 'Eliminar registro' }}
+      </h3>
+
+      <p>
+        ¿Estás segura que querés continuar?
+      </p>
+
+      <div class="modal-actions">
+
+        <button class="nav-link" (click)="cerrarModal()">
+          Cancelar
+        </button>
+
+        <button class="btn-accion btn-danger" (click)="confirmarEliminar()">
+          Confirmar
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+}
+</main>

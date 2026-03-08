@@ -1,0 +1,38 @@
+<main class="main-contenedor">
+  <!-- 12. PANEL CLIENTE - CAMBIAR CONTRASEÑA -->
+  <section id="panel-cliente-cambiar-clave" class="pantalla">
+    <div class="panel-layout">
+      <aside class="sidebar">
+        <h5>Mi cuenta</h5>
+        <a href="/panel-cliente-home" data-target="panel-cliente-home">Inicio</a>
+        <a href="/panel-cliente-noticias" data-target="panel-cliente-noticias">Noticias</a>
+        <a href="/panel-cliente-cambiar-contrasenia" data-target="panel-cliente-cambiar-contrasenia"
+          >Cambiar contraseña</a
+        >
+        <a href="/panel-cliente-mi-perfil" data-target="panel-cliente-mi-perfil">Mi perfil</a>
+        <a href="/panel-cliente-documentos" data-target="panel-cliente-documentos">Documentos</a>
+        <a href="/acceso" onclick="volverALogin()">Salir</a>
+      </aside>
+
+      <section class="panel-contenido">
+        <h2 class="titulo">Cambiar contraseña</h2>
+        <div style="max-width: 520px" class="form-card">
+          <form onsubmit="return false;">
+            <label>Contraseña actual</label>
+            <input type="password" />
+            <label>Nueva contraseña</label>
+            <input type="password" />
+            <label>Repetir nueva contraseña</label>
+            <input type="password" />
+            <div style="margin-top: 8px">
+              <button class="btn-principal">Guardar cambios</button>
+            </div>
+            <div style="margin-top: 8px">
+              <a href="/panel-cliente-home" data-target="panel-cliente-home">← Volver al panel</a>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>

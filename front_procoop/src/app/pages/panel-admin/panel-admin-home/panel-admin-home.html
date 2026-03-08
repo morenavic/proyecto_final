@@ -1,0 +1,80 @@
+<main class="main-contenedor">
+  <!--
+    Home del Panel Administrador.
+    Funciona como vista de resumen general del sistema:
+    muestra estado, métricas y actividad reciente.
+    No contiene acciones CRUD directas.
+  -->
+  <section class="pantalla">
+    <div class="panel-layout">
+      <!--
+        Sidebar común a todo el panel admin.
+        Centraliza la navegación y evita repetir botones
+        de acción dentro del contenido principal.
+      -->
+      <aside class="sidebar">
+        <h5>Admin</h5>
+        <a routerLink="/panel-admin-home" routerLinkActive="activo">Home</a>
+        <a routerLink="/panel-admin-gestion/novedades" routerLinkActive="activo">Novedades</a>
+        <a routerLink="/panel-admin-gestion/productos" routerLinkActive="activo">Productos</a>
+        <a routerLink="/panel-admin-gestion/servicios" routerLinkActive="activo">Servicios</a>
+        <a routerLink="/panel-admin-gestion/clientes" routerLinkActive="activo">Clientes</a>
+        <a routerLink="/panel-admin-gestion/documentos" routerLinkActive="activo">Documentos</a>
+      </aside>
+
+      <!--
+        Contenido principal del Home.
+        Presenta información de lectura rápida
+        para tener una visión general del sistema.
+      -->
+      <section class="panel-contenido">
+        <h2 class="titulo">Hola, {{ usuario }}</h2>
+
+        <!--
+          Métricas generales del sistema.
+          Actualmente se renderizan desde datos simulados.
+          En el futuro, este bloque se conectará a un servicio
+          que provea los totales reales desde el backend.
+        -->
+        <div class="estadisticas-grid separacion-superior">
+          @for (metrica of metricas; track metrica.label) {
+            <div class="stat-card">
+              <div class="metrica-header">
+                <span>{{ metrica.label }}</span>
+                <strong>{{ metrica.total }}</strong>
+              </div>
+
+              <!--
+                Indicador visual para comparar métricas.
+                El porcentaje será calculado dinámicamente
+                cuando se integren datos reales.
+              -->
+              <div class="barra">
+                <div class="barra-progreso" [style.width.%]="metrica.porcentaje"></div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!--
+          Actividad reciente del sistema.
+          Resume acciones relevantes para el administrador.
+          Más adelante podrá alimentarse desde un endpoint
+          de auditoría o historial.
+        -->
+        <section class="actividad separacion-superior">
+          <h3 class="titulo">Actividad reciente</h3>
+
+          <div class="actividad-lista">
+            @for (item of actividadReciente; track item.texto) {
+              <div class="actividad-item">
+                <span class="actividad-texto">{{ item.texto }}</span>
+                <span class="actividad-fecha">{{ item.fecha }}</span>
+              </div>
+            }
+          </div>
+        </section>
+      </section>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,188 @@
+/* ============================
+   LOGIN
+   Estilos específicos del componente de acceso.
+   Define jerarquía visual, UX y feedback del formulario.
+   ============================ */
+
+/* Layout general del login.
+   Centra el bloque principal y refuerza el foco del usuario. */
+.pantalla-login {
+  display: flex;
+  justify-content: center;
+}
+
+/* Card contenedora del formulario.
+   Se le da mayor padding para generar aire visual
+   y sensación de bloque principal. */
+.login-card {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+/* Acciones del formulario.
+   Se separa claramente la acción principal
+   de las acciones secundarias. */
+.login-acciones {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Refuerzo visual del CTA principal dentro del login.
+   Asegura consistencia de tamaño y jerarquía. */
+.login-acciones .nav-link {
+  min-width: 160px;
+  justify-content: center;
+}
+
+/* Texto informativo inferior.
+   Guía al usuario en casos de cuentas no activadas
+   sin competir con la acción principal. */
+.login-ayuda {
+  margin-top: 22px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(43, 43, 44, 0.65);
+}
+
+/* Se enfatiza el link relevante dentro del texto de ayuda
+   sin romper el tono secundario del bloque. */
+.login-ayuda .link-secundario {
+  font-weight: 600;
+}
+
+/* Links secundarios del login.
+   Se diseñan como acciones complementarias,
+   con feedback visual sutil y profesional. */
+.link-secundario {
+  color: var(--azul-procoop);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.15s ease;
+
+  /* Subrayado animado para reforzar interactividad
+     sin recurrir a estilos agresivos. */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: var(--azul-procoop);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.15s ease;
+  }
+
+  /* Hover sutil para no competir con el CTA principal */
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Estado focus accesible para navegación por teclado */
+  &:focus-visible {
+    outline: 2px solid var(--azul-procoop);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Ajuste específico de links secundarios dentro
+   del bloque de acciones del formulario. */
+.login-acciones .link-secundario {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+/* Estado visual de botones deshabilitados.
+   Refuerza la percepción de bloqueo de acción. */
+button[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Feedback visual en foco de inputs.
+   Mejora percepción de calidad y accesibilidad. */
+input:focus {
+  outline: none;
+  border-color: var(--azul-procoop);
+  box-shadow: 0 0 0 3px rgba(0, 82, 166, 0.12);
+}
+
+
+/* ============================
+   MODAL
+   Feedback visual para estados relevantes del login.
+   Bloquea interacción y fuerza confirmación del usuario.
+   ============================ */
+
+/* Overlay que oscurece y desenfoca el fondo,
+   aislando el mensaje del sistema. */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+/* Contenedor principal del modal.
+   Diseño limpio, centrado y consistente con el sistema. */
+.modal {
+  background: var(--blanco);
+  padding: 26px;
+  border-radius: 14px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: var(--sombra-leve);
+  text-align: center;
+  animation: aparecer 0.2s ease-out;
+}
+
+/* Título del modal.
+   Refuerza jerarquía y comunica estado al usuario. */
+.modal-titulo {
+  margin: 0 0 10px 0;
+  font-family: var(--fuente-tit);
+  color: var(--azul-procoop);
+}
+
+/* Mensaje principal del modal.
+   Texto claro, legible y sin distracciones. */
+.modal-mensaje {
+  margin-bottom: 20px;
+  color: rgba(43, 43, 44, 0.85);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+
+/* ============================
+   Animaciones
+   ============================ */
+
+/* Animación de entrada sutil del modal.
+   Mejora UX sin generar distracción. */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

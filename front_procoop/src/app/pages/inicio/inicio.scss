@@ -1,0 +1,159 @@
+/* ======================================================
+   HERO – Inicio
+   ======================================================
+   Estilos específicos del hero de la pantalla Inicio.
+   No deben reutilizarse en otras vistas.
+*/
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 36px;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+/*
+  Contenedor principal del contenido del hero.
+  Se usa fondo claro y sombra leve para destacarlo
+  visualmente del layout general.
+*/
+.hero-contenido {
+  padding: 36px;
+  background: linear-gradient(180deg, var(--blanco), #f9fbff);
+  border-radius: 20px;
+  box-shadow: var(--sombra-leve);
+}
+
+/*
+  Título institucional principal.
+  Mantiene tipografía y color de marca definidos a nivel global.
+*/
+.hero h1 {
+  font-family: var(--fuente-tit);
+  font-size: 36px;
+  margin: 0;
+  color: var(--azul-procoop);
+}
+
+/*
+  Texto descriptivo introductorio.
+  El ancho se limita para mejorar legibilidad.
+  A futuro, este contenido podría provenir de backend (CMS/config).
+*/
+.hero p {
+  margin-top: 10px;
+  max-width: 520px;
+  line-height: 1.5;
+  color: rgba(43, 43, 44, 0.75);
+}
+
+/* ======================================================
+   Tarjetas grandes
+   ======================================================
+   Bloque de accesos directos (CTAs) a secciones clave.
+*/
+
+.tarjetas-grandes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 24px;
+  flex: 1;
+}
+
+/*
+  Card base reutilizada dentro del hero.
+  Mantiene coherencia visual con otras cards del proyecto.
+*/
+.card-grande {
+  background: var(--blanco);
+  padding: 20px 22px;
+  border-radius: 16px;
+  box-shadow: var(--sombra-leve);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/*
+  Título de cada card.
+  Representa la sección destino del CTA.
+*/
+.card-grande h3 {
+  margin: 0 0 6px 0;
+  font-family: var(--fuente-tit);
+  font-size: 18px;
+  color: var(--azul-procoop);
+}
+
+/*
+  Descripción breve de la sección.
+  Texto estático en esta etapa.
+*/
+.card-grande p {
+  margin: 0 0 10px 0;
+  line-height: 1.45;
+  color: rgba(43, 43, 44, 0.78);
+}
+
+/*
+  Detalle secundario de la card.
+  Podría escalar a contenido dinámico desde backend.
+*/
+.card-grande h5 {
+  margin: 0;
+  font-family: var(--fuente-tit);
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 82, 166, 0.85);
+}
+
+/*
+  Contenedor del CTA.
+  Permite separar visualmente la acción del contenido.
+*/
+.card-accion {
+  margin-top: 14px;
+}
+
+/* ======================================================
+   Ilustración
+   ======================================================
+   Elemento decorativo del hero.
+   No cumple función funcional ni de navegación.
+*/
+
+.hero-ill {
+  height: 340px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #eef5ff, #ddeafe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--sombra-leve);
+}
+
+.hero-ill-contenido {
+  text-align: center;
+}
+
+/*
+  Imagen ilustrativa.
+  El tamaño se controla desde CSS para mantener consistencia.
+*/
+.hero-imagen {
+  width: 360px;
+  height: auto;
+  border-radius: 16px;
+}
+
+/*
+  Texto descriptivo visual.
+  No es crítico para UX ni accesibilidad.
+*/
+.hero-caption {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--azul-procoop);
+  opacity: 0.85;
+}

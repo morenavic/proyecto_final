@@ -1,0 +1,77 @@
+/*
+  Estilos propios del Footer.
+  Definen su posición fija, layout interno y comportamiento responsive.
+  No contienen reglas reutilizables por otros componentes.
+*/
+
+/* Footer fijo en la parte inferior de la pantalla */
+.footer-fijo {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--footer-height);
+  background: var(--blanco);
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  z-index: 2000;
+  font-size: 14px;
+}
+
+/*
+  Contenedor interno del footer.
+  Centra el contenido y mantiene coherencia con el ancho general del sitio.
+*/
+.footer-contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Texto institucional del footer */
+.footer-texto {
+  color: rgba(43, 43, 44, 0.75);
+}
+
+/*
+  Contenedor de enlaces a redes sociales.
+  Agrupa los íconos y controla el espaciado entre ellos.
+*/
+.footer-redes {
+  display: flex;
+  gap: 14px;
+}
+
+/*
+  Estilo de los íconos de redes.
+  Se aplica una micro-animación para reforzar feedback visual.
+*/
+.footer-redes a {
+  color: var(--azul-procoop);
+  font-size: 18px;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+/*
+  Estado hover de los íconos.
+  Se utiliza un desplazamiento sutil para dar sensación de interacción.
+*/
+.footer-redes a:hover {
+  transform: translateY(-2px);
+  opacity: 0.8;
+}
+
+/*
+  Ajustes responsive para pantallas pequeñas.
+  El contenido del footer se apila verticalmente para mejorar legibilidad.
+*/
+@media (max-width: 600px) {
+  .footer-contenido {
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+  }
+}

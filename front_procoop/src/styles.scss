@@ -1,0 +1,377 @@
+/* ======================================================
+   ESTILOS GLOBALES DE LA APLICACIÓN
+   ======================================================
+   Este archivo contiene únicamente estilos transversales
+   a toda la aplicación:
+   - variables de diseño
+   - reset/base
+   - layout general
+   - botones genéricos
+   - formularios base
+   - utilidades reutilizables
+
+   Todo estilo específico de una pantalla o componente
+   debe vivir en su SCSS correspondiente.
+*/
+
+/* ======================================================
+   SISTEMA DE DISEÑO (variables CSS)
+   ======================================================
+   Variables globales reutilizadas en toda la aplicación.
+   Centralizan colores, tipografías y medidas estructurales.
+*/
+:root {
+  --azul-procoop: #0052a6;
+  --azul-claro: #e6f0fa;
+  --gris-carbon: #2b2b2c;
+  --gris-claro: #f5f7fa;
+  --blanco: #ffffff;
+
+  --radio-suave: 12px;
+  --radio-pill: 999px;
+  --sombra-leve: 0 6px 18px rgba(11, 27, 50, 0.08);
+
+  --fuente-tit: 'Poppins', sans-serif;
+  --fuente-text: 'Roboto', sans-serif;
+
+  --nav-height: 72px;
+  --footer-height: 56px;
+}
+
+/* ======================================================
+   RESET Y BASE
+   ======================================================
+   Normaliza comportamientos básicos del navegador y
+   define estilos base de tipografía y fondo.
+*/
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--fuente-text);
+  color: var(--gris-carbon);
+
+  /*
+    Fondo global continuo.
+    Se fija el gradiente para que no se repita
+    ni se recalcule al crecer el contenido.
+  */
+  background-image: linear-gradient(180deg, var(--blanco) 0%, var(--azul-claro) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ======================================================
+   BOTONES Y LINKS GENERALES
+   ======================================================
+   Estilos reutilizables para acciones principales.
+   No representan un botón específico de negocio.
+*/
+.nav-link {
+  background: var(--blanco);
+  border: 2px solid transparent;
+  color: var(--azul-procoop);
+  padding: 8px 16px;
+  border-radius: var(--radio-pill);
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--fuente-text);
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background: var(--azul-claro);
+}
+
+/*
+  Estado activo utilizado en navegación
+  para reflejar la ruta actual.
+*/
+.nav-link.activo {
+  background: var(--azul-procoop);
+  color: var(--blanco);
+}
+/* ===============================
+   NAV LINK DESHABILITADO
+================================= */
+
+.nav-link:disabled {
+  background: rgba(0, 82, 166, 0.08); /* azul muy suave */
+  color: rgba(0, 82, 166, 0.5);
+  cursor: not-allowed;
+  border: 2px solid rgba(0, 82, 166, 0.15);
+  pointer-events: none;
+}
+
+.nav-link:disabled:hover {
+  background: rgba(0, 82, 166, 0.08);
+}
+
+/* ======================================================
+   LAYOUT GENERAL
+   ======================================================
+   Contenedor principal que contempla
+   navbar y footer fijos.
+*/
+.main-contenedor {
+  padding-top: calc(var(--nav-height) + 28px);
+  padding-bottom: calc(var(--footer-height) + 28px);
+  min-height: calc(100vh - var(--nav-height) - var(--footer-height));
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ======================================================
+   FORMULARIOS (BASE)
+   ======================================================
+   Estilos base compartidos por todos los formularios
+   de la aplicación.
+*/
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+textarea,
+select {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 14px;
+  font-family: var(--fuente-text);
+}
+
+textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/*
+  Contenedor visual genérico para formularios y bloques
+  de contenido que requieren destaque.
+*/
+.form-card {
+  background: var(--blanco);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: var(--sombra-leve);
+}
+
+/* ======================================================
+   UTILIDADES
+   ======================================================
+   Clases helper reutilizables para layout y estructura.
+*/
+.fila {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modo-contenedor {
+  background: var(--gris-claro);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: var(--sombra-leve);
+}
+
+/* ======================================================
+   TIPOGRAFÍA
+   ======================================================
+   Estilos semánticos reutilizables para títulos y subtítulos.
+*/
+.titulo {
+  font-family: var(--fuente-tit);
+  font-weight: 600;
+  color: var(--gris-carbon);
+}
+
+.subtitulo {
+  color: rgba(43, 43, 44, 0.72);
+  font-size: 15px;
+}
+/* ======================================
+   Panel admin/cliente
+   ====================================== */
+.panel-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--nav-height) + 24px);
+  background: var(--blanco);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: var(--sombra-leve);
+  height: calc(100vh - var(--nav-height) - var(--footer-height) - 48px);
+  overflow: auto;
+}
+
+.sidebar h5 {
+  margin: 0 0 12px 0;
+  font-family: var(--fuente-tit);
+  color: var(--azul-procoop);
+}
+
+.sidebar a {
+  padding: 10px;
+  border-radius: 10px;
+  display: block;
+  margin-bottom: 8px;
+  color: var(--gris-carbon);
+}
+
+.sidebar a:hover {
+  background: var(--azul-claro);
+}
+
+.panel-contenido {
+  padding: 12px;
+}
+
+.estadisticas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-card {
+  background: var(--blanco);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: var(--sombra-leve);
+}
+
+// table {
+//   width: 100%;
+//   border-collapse: collapse;
+// }
+
+// th,
+// td {
+//   padding: 10px;
+//   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+// }
+
+// .acciones-btn {
+//   display: flex;
+//   gap: 8px;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ======================================
+   Productos
+   ====================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.producto-card {
+  background: var(--blanco);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--sombra-leve);
+}
+
+.producto-card h4 {
+  margin: 0;
+  color: var(--azul-procoop);
+  font-family: var(--fuente-tit);
+}
+
+.producto-card p {
+  margin: 8px 0 12px 0;
+  color: rgba(43, 43, 44, 0.8);
+}
+
+.btn-link {
+  background: transparent;
+  border: none;
+  color: var(--azul-procoop);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+
+/* ======================================
+   Responsive
+   ====================================== */
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: relative;
+    height: auto;
+  }
+
+  .bloque-filosofia {
+    width: 100%;
+  }
+}

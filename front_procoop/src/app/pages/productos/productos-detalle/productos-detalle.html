@@ -1,0 +1,58 @@
+<main class="main-contenedor">
+  <!-- ============================
+         4. PRODUCTO - DETALLE
+         ============================ -->
+  <section class="pantalla">
+    <div style="display: flex; gap: 18px; flex-wrap: wrap">
+      <div style="flex: 1" class="modo-contenedor">
+        <h2 class="titulo">{{ producto.titulo }}</h2>
+        <p class="subtitulo">{{ producto.subtitulo }}</p>
+        <div style="margin-top: 12px">
+          <img
+            [src]="producto.imagen"
+            alt="Imagen del producto"
+            style="width: 100%; border-radius: 10px"
+          />
+        </div>
+
+        <div style="margin-top: 12px">
+          <p style="line-height: 1.6">
+            {{ producto.descripcion }}
+          </p>
+
+
+          <div style="margin-top: 12px">
+            <button routerLink="/contacto" class="btn-principal">Solicitar información</button>
+          </div>
+        </div>
+      </div>
+
+      <aside style="width: 320px">
+
+        <div class="modo-contenedor">
+          <strong>Ficha rápida</strong>
+          <ul style="padding-left: 18px; margin: 10px 0 0 0">
+            <li>Instalación: On-premise / Cloud</li>
+            <li>Soporte: 24/7</li>
+            <li>Integraciones: APIs REST</li>
+          </ul>
+        </div>
+
+
+        <div style="width: 360px">
+          <h3 class="titulo" style="font-size: 18px">Información extra</h3>
+          <div class="filosofia-cards">
+            <div class="filo-card">
+              <p class="info-extra" style="font-size: 13px; color: rgba(43, 43, 44, 0.75)">
+                {{ producto.infoExtra }}
+              </p>
+            </div>
+
+
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+</main>

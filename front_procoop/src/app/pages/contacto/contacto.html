@@ -1,0 +1,145 @@
+<main class="main-contenedor">
+  <!-- ============================
+       CONTACTO
+       ============================
+       Sección de contacto institucional.
+       Centraliza formulario, mapa y datos de contacto.
+  -->
+  <section id="contacto" class="pantalla-contacto">
+    <h2 class="titulo">Contacto</h2>
+
+    <!-- Layout principal: formulario + información lateral -->
+    <div class="contacto-layout">
+      <!-- Bloque formulario + mapa -->
+      <div class="contacto-formulario form-card">
+        <!--
+          Mapa embebido.
+          Se utiliza iframe para mostrar ubicación sin lógica adicional.
+          En el futuro podría reemplazarse por un componente propio o SDK
+          si se requiere mayor interacción.
+        -->
+        <div class="mapa-placeholder">
+          <iframe
+            src="https://www.google.com/maps?q=Córdoba%20Argentina&output=embed"
+            title="Mapa de ubicación de la empresa Procoop en Córdoba"
+          ></iframe>
+        </div>
+
+        <!--
+          Formulario de contacto.
+          Implementado con Reactive Forms para:
+          - validaciones del lado cliente
+          - control del estado de envío
+          - futura integración con backend real
+        -->
+        <form class="form-contacto" [formGroup]="contactoForm" (ngSubmit)="enviarFormulario()">
+          <label for="nombre">Nombre y apellido</label>
+          <input id="nombre" type="text" placeholder="Tu nombre" formControlName="nombre" />
+
+          <!--
+            Mensajes de error del campo nombre.
+            Se muestran solo cuando el usuario interactuó con el campo.
+          -->
+          @if (contactoForm.get('nombre')?.touched && contactoForm.get('nombre')?.errors) {
+            <small class="error">
+              @if (contactoForm.get('nombre')?.errors?.['required']) {
+                El nombre es obligatorio.
+              }
+              @if (contactoForm.get('nombre')?.errors?.['minlength']) {
+                El nombre debe tener al menos 3 caracteres.
+              }
+            </small>
+          }
+
+          <label for="emailContacto">Email</label>
+          <input
+            id="emailContacto"
+            type="email"
+            placeholder="tu@email.com"
+            formControlName="email"
+          />
+
+          <!--
+            Validaciones de email.
+            Se prioriza claridad del mensaje para mejorar la experiencia del usuario.
+          -->
+          @if (contactoForm.get('email')?.touched && contactoForm.get('email')?.errors) {
+            <small class="error">
+              @if (contactoForm.get('email')?.errors?.['required']) {
+                El email es obligatorio.
+              }
+              @if (contactoForm.get('email')?.errors?.['email']) {
+                Ingresá un email válido.
+              }
+            </small>
+          }
+
+          <label for="mensaje">Mensaje</label>
+          <textarea
+            id="mensaje"
+            placeholder="Escribe tu consulta..."
+            formControlName="mensaje"
+          ></textarea>
+
+          <!--
+            Límite de caracteres definido para evitar mensajes excesivamente largos.
+            Esta validación es solo del lado cliente.
+          -->
+          @if (
+            contactoForm.get('mensaje')?.touched &&
+            contactoForm.get('mensaje')?.errors?.['maxlength']
+          ) {
+            <small class="error"> El mensaje no puede superar los 500 caracteres. </small>
+          }
+
+          <!--
+            Acción de envío.
+            El botón se deshabilita mientras el formulario es inválido
+            o durante el proceso de envío simulado.
+          -->
+          <div class="acciones-formulario">
+            <button class="nav-link" type="submit" [disabled]="contactoForm.invalid || enviando">
+              Enviar
+            </button>
+          </div>
+        </form>
+
+        <!--
+          Feedback de estado del envío.
+          Actualmente el envío es simulado desde el frontend.
+          Cuando exista backend real, estos estados se controlarán
+          según la respuesta del servidor.
+        -->
+        @if (enviando) {
+          <p class="estado enviando">Enviando mensaje…</p>
+        }
+
+        @if (envioExitoso) {
+          <p class="estado exito">Tu mensaje fue enviado correctamente.</p>
+        }
+
+        @if (envioError) {
+          <p class="estado error">Ocurrió un error. Intentá nuevamente.</p>
+        }
+      </div>
+
+      <!--
+        Información de contacto fija.
+        No forma parte del formulario ni del flujo de envío.
+      -->
+      <aside class="contacto-info">
+        <div class="modo-contenedor">
+          <strong>Teléfonos</strong>
+          <p>Córdoba: +54 351 1234567</p>
+          <p>Monte Maíz: +54 353 7654321</p>
+
+          <hr />
+
+          <strong>Medios</strong>
+          <p>Email: contacto@procoop.example</p>
+          <p>WhatsApp: +54 9 351 123456</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>

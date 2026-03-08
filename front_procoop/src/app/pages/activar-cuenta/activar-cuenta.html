@@ -1,0 +1,130 @@
+<main class="main-contenedor">
+  <!--
+    Pantalla de activación de cuenta.
+    Centraliza todo el flujo de activación dentro de un único formulario reactivo,
+    priorizando claridad de validaciones y feedback inmediato al usuario.
+  -->
+  <section class="pantalla-activar">
+    <div class="activar-contenedor form-card">
+      <h2 class="titulo">Activar cuenta</h2>
+
+      <!--
+        Formulario controlado por Reactive Forms.
+        El submit se gestiona desde el componente para:
+        - validar el estado completo del formulario
+        - simular el envío
+        - manejar el feedback visual y la redirección
+      -->
+      <form [formGroup]="activarForm" (ngSubmit)="activarCuenta()">
+        <!-- ======================
+             Número de cuenta
+             ======================
+             Se valida como obligatorio y solo numérico.
+             Los mensajes se muestran únicamente luego de interacción del usuario
+             para evitar feedback agresivo al cargar la pantalla.
+        -->
+        <label for="numeroCuenta">Número de cuenta</label>
+        <input id="numeroCuenta" type="text" formControlName="numeroCuenta" placeholder="12345" />
+
+        @if ( activarForm.get('numeroCuenta')?.touched &&
+        activarForm.get('numeroCuenta')?.hasError('required') ) {
+        <small class="error-msg">Campo obligatorio</small>
+        } @else if ( activarForm.get('numeroCuenta')?.touched &&
+        activarForm.get('numeroCuenta')?.hasError('pattern') ) {
+        <small class="error-msg">Este campo solo debe contener números</small>
+        }
+
+        <!-- ======================
+             Email
+             ======================
+             Se valida formato y obligatoriedad.
+             Se mantiene un solo mensaje visible a la vez para mejorar la UX.
+        -->
+        <label for="email">Email registrado</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="cliente@cooperativa.com"
+        />
+
+        @if ( activarForm.get('email')?.touched && activarForm.get('email')?.hasError('required') )
+        {
+        <small class="error-msg">Campo obligatorio</small>
+        } @else if ( activarForm.get('email')?.touched &&
+        activarForm.get('email')?.hasError('email') ) {
+        <small class="error-msg">Email inválido</small>
+        }
+
+        <!-- ======================
+             Contraseña
+             ======================
+             Se incluye un texto de ayuda previo para orientar al usuario
+             antes de que aparezcan los mensajes de error.
+        -->
+        <label for="password">Crear contraseña</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Nueva contraseña"
+        />
+
+        <!-- Hint informativo no bloqueante -->
+        <small class="hint"> Mínimo 8 caracteres, una mayúscula y un número </small>
+
+        @if ( activarForm.get('password')?.touched &&
+        activarForm.get('password')?.hasError('required') ) {
+        <small class="error-msg">Campo obligatorio</small>
+        } @else if ( activarForm.get('password')?.touched &&
+        activarForm.get('password')?.hasError('minlength') ) {
+        <small class="error-msg">Mínimo 8 caracteres</small>
+        } @else if ( activarForm.get('password')?.touched &&
+        activarForm.get('password')?.hasError('pattern') ) {
+        <small class="error-msg"> Debe tener mayúscula, minúscula y número </small>
+        }
+
+        <!-- ======================
+             Confirmación de contraseña
+             ======================
+             El error se evalúa a nivel formulario completo,
+             ya que depende de la comparación entre dos campos.
+        -->
+        <label for="passwordRepeat">Repetir contraseña</label>
+        <input
+          id="passwordRepeat"
+          type="password"
+          formControlName="passwordRepeat"
+          placeholder="Repetir contraseña"
+        />
+
+        @if ( activarForm.touched && activarForm.hasError('contraseniasNoCoinciden') ) {
+        <small class="error-msg">Las contraseñas no coinciden</small>
+        }
+
+        <!-- ======================
+             Acciones
+             ======================
+             El botón se deshabilita automáticamente cuando el formulario es inválido
+             para prevenir envíos incorrectos.
+        -->
+        <div class="acciones-form">
+          <button class="nav-link" type="submit" [disabled]="activarForm.invalid">Activar</button>
+        </div>
+
+        <!--
+          Mensaje de éxito mostrado luego de simular el envío correcto.
+          Este estado es independiente del formulario y refuerza el cierre del flujo.
+        -->
+        @if (envioExitoso) {
+        <div class="mensaje-exito">Cuenta activada correctamente</div>
+        }
+
+        <!-- Navegación secundaria -->
+        <div class="link-secundario">
+          <a routerLink="/acceso">Iniciar sesión →</a>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>

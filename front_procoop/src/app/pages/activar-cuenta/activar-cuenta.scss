@@ -1,0 +1,105 @@
+/* ============================
+   Activar cuenta
+   ============================
+   Estilos específicos del módulo de activación.
+   Se prioriza claridad visual, feedback inmediato y
+   estabilidad del layout durante la interacción.
+*/
+
+.pantalla-activar {
+  /* Centra la pantalla de activación dentro del layout principal */
+  display: flex;
+  justify-content: center;
+}
+
+.activar-contenedor {
+  /* Limita el ancho para mejorar legibilidad y foco del usuario */
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ============================
+   Mensajes de feedback
+   ============================
+   Se utilizan alturas mínimas para evitar saltos visuales
+   cuando los mensajes aparecen o desaparecen.
+*/
+.error-msg {
+  display: block;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  min-height: 16px;
+  font-size: 13px;
+  color: #c62828;
+}
+
+.hint {
+  /* Texto informativo previo que guía sin bloquear */
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* ============================
+   Acciones
+   ============================ */
+.acciones-form {
+  margin-top: 8px;
+}
+
+/* ============================
+   Navegación secundaria
+   ============================
+   Enlace visualmente discreto para no competir
+   con la acción principal del formulario.
+*/
+.link-secundario {
+  margin-top: 10px;
+}
+
+.link-secundario a {
+  font-weight: 500;
+  color: var(--azul-procoop);
+}
+
+/* ============================
+   Estados del botón
+   ============================
+   El estado disabled refuerza visualmente que la acción
+   no está disponible hasta completar el formulario.
+*/
+.nav-link:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.3);
+}
+
+/* ============================
+   Feedback visual en inputs
+   ============================
+   Se aprovechan las clases que Angular agrega automáticamente
+   para reflejar el estado del formulario sin lógica extra.
+*/
+input.ng-touched.ng-invalid {
+  border-color: #c62828;
+}
+
+input.ng-touched.ng-valid {
+  border-color: #2e7d32;
+}
+
+/* ============================
+   Mensaje de éxito
+   ============================
+   Refuerza el cierre del flujo de activación
+   antes de la redirección automática.
+*/
+.mensaje-exito {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 14px;
+}

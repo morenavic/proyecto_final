@@ -1,0 +1,28 @@
+<main class="main-contenedor">
+ <!-- ============================
+         3. PRODUCTOS - LISTADO
+         ============================ -->
+    <section id="productos-listado" class="pantalla">
+      <h2 class="titulo">Productos</h2>
+      <p class="subtitulo">Listado de productos principales</p>
+
+      <div style="margin-top:12px" class="grid">
+        <!-- 3 cards solicitadas -->
+        <div class="producto-card">
+          <h4>ProCoop Gestión</h4>
+          <p>ProCoop Gestión es el Sistema de Gestión Integral desarrollado exclusivamente para Cooperativas y empresas de Servicios.</p>
+          <button  [routerLink]="['/productos', 'procoop-gestion']" class="btn-principal" data-target="producto-detalle">Ver más</button>
+        </div>
+        <div class="producto-card">
+          <h4>P-Móvil</h4>
+          <p>Aplicación móvil para toma de estados de medidores con dispositivos de lectura de bajo costo.</p>
+          <button [routerLink]="['/productos', 'p-movil']" class="btn-principal" data-target="producto-detalle">Ver más</button>
+        </div>
+        <div class="producto-card">
+          <h4>3S</h4>
+          <p>El apoyo permanente que necesita todo usuario de Sistemas de Gestión de Servicios Públicos.</p>
+          <button [routerLink]="['/productos', '3s']" class="btn-principal" data-target="producto-detalle">Ver más</button>
+        </div>
+      </div>
+    </section>
+</main>

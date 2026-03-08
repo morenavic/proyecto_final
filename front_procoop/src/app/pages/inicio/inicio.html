@@ -1,0 +1,93 @@
+<main class="main-contenedor">
+  <!--
+    Pantalla de inicio.
+    Sección puramente presentacional que introduce la empresa
+    y ofrece accesos directos a productos y servicios.
+  -->
+  <section id="inicio" class="pantalla activa">
+    <div class="hero">
+      <!--
+        Bloque principal del hero.
+        Contiene el mensaje institucional y los CTAs primarios.
+      -->
+      <div class="hero-contenido">
+        <h1>Procoop S.R.L.</h1>
+
+        <!--
+          Descripción institucional breve.
+          Texto estático que en el futuro podría venir desde backend (CMS o config).
+        -->
+        <p>
+          Somos una empresa de consultoría y servicios informáticos con más de 10 años de
+          experiencia.
+        </p>
+
+        <!--
+          Contenedor de tarjetas destacadas.
+          Se reutiliza la clase de layout (.fila) definida a nivel global.
+        -->
+        <div class="fila">
+          <div class="tarjetas-grandes">
+            <!--
+              Card de acceso a productos.
+              CTA principal hacia el listado de productos.
+            -->
+            <div class="card-grande">
+              <h3>Productos</h3>
+              <p>Soluciones de software para cooperativas y empresas de servicios públicos.</p>
+
+              <!--
+                Detalle descriptivo.
+                A futuro podría generarse dinámicamente desde backend.
+              -->
+              <h5>ProCoop Gestión, P-móvil, TeleMedición, Energía Prepaga.</h5>
+
+              <div class="card-accion">
+                <!--
+                  Navegación interna mediante routerLink.
+                  Mantiene coherencia con la navegación SPA.
+                -->
+                <button routerLink="/productos-listado" class="nav-link">Leer más</button>
+              </div>
+            </div>
+
+            <!--
+              Card de acceso a servicios.
+              CTA secundario con misma estructura visual que productos.
+            -->
+            <div class="card-grande">
+              <h3>Servicios</h3>
+              <p>Soluciones llave en mano. Asesoramiento integral.</p>
+
+              <!--
+                Texto descriptivo fijo.
+                Puede escalar a contenido dinámico en una etapa posterior.
+              -->
+              <h5>Implementación de sistemas, Capacitación y entrenamiento.</h5>
+
+              <div class="card-accion">
+                <button routerLink="/servicios" class="nav-link">Leer más</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--
+        Ilustración decorativa del hero.
+        No aporta información funcional, solo refuerza lo visual.
+      -->
+      <div class="hero-ill" aria-hidden="true">
+        <div class="hero-ill-contenido">
+          <img src="/images/imagen.jpg" alt="Ilustración tecnológica" class="hero-imagen" />
+
+          <!--
+            Texto descriptivo visual.
+            No es crítico para la navegación ni la lógica.
+          -->
+          <div class="hero-caption">Ilustración tecnológica</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

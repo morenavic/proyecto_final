@@ -1,0 +1,230 @@
+<main class="main-contenedor">
+  <!--
+    Pantalla institucional "Nuestra Empresa".
+    Sección principalmente informativa y estática.
+    En el futuro, algunos textos podrían provenir de backend (CMS o endpoint institucional).
+  -->
+  <section id="nuestra-empresa" class="pantalla seccion-empresa">
+    <div class="seccion-larga">
+      <!--
+        Encabezado de la sección.
+        Combina título principal + bloque de experiencia para reforzar credibilidad institucional.
+      -->
+      <div class="encabezado-empresa">
+        <div class="encabezado-titulo">
+          <h2 class="titulo">Nuestra empresa</h2>
+        </div>
+
+        <div class="encabezado-experiencia">
+          <!--
+            Bloque destacado reutilizando contenedor visual genérico.
+            En una versión futura, los años de experiencia podrían venir desde backend.
+          -->
+          <div class="modo-contenedor">
+            <strong>Años de experiencia</strong>
+            <p class="texto-encabezado-experiencia">
+              Más de 15 años acompañando a organizaciones del sector.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--
+        Cuerpo principal de la sección.
+        Se divide en dos grandes bloques:
+        - Contenido descriptivo de la empresa
+        - Filosofía institucional (misión, calidad, valores)
+      -->
+      <div class="cuerpo-empresa quienes-somos">
+        <!--
+          Bloque de texto largo.
+          Se prioriza legibilidad y jerarquía visual sobre interactividad.
+        -->
+        <div class="modo-contenedor bloque-texto">
+          <h3 class="titulo subtitulo-seccion">Quiénes somos y qué hacemos</h3>
+
+          <p class="parrafo">
+            Somos una empresa de consultoría y servicios informáticos con más de 15 años de
+            experiencia , orientada a la satisfacción de las necesidades competitivas de las
+            empresas, mediante la aplicación de las tecnologías de la información.
+          </p>
+
+          <p class="parrafo">
+            Todas nuestras soluciones, tienen como base la innovación, integración y simplicidad, y
+            están orientadas a optimizar cada una de las decisiones empresariales que ha de tomar un
+            directivo en la empresa actual que busca la excelencia y ventajas competitivas reales
+            para su organización.
+          </p>
+
+          <!--
+            Imagen ilustrativa de apoyo visual.
+            Actualmente es una URL externa.
+            A futuro podría moverse a assets o provenir desde backend.
+          -->
+          <div class="bloque-imagen">
+            <img
+              src="https://www.zitelia.es/wp-content/uploads/2024/01/desarrollo-software-a-medida-scaled.jpg"
+              alt="Equipo de trabajo"
+            />
+          </div>
+
+          <h3 class="titulo subtitulo-seccion">Perfil</h3>
+
+          <p class="parrafo">
+            Nuestra visión de crear soluciones integrales nos lleva a ofrecer a nuestros clientes la
+            posibilidad de incluir en los proyectos los aspectos de infraestructura técnica y
+            soporte de estas soluciones, convirtiéndonos en estos casos en verdaderos socios
+            tecnológicos.
+          </p>
+
+          <p class="parrafo">
+            En la actualidad, ProCoop ofrece una gama completa de soluciones tecnológicamente
+            avanzadas, consultoría y servicios informáticos, que tienen como meta principal una
+            mejora continua de la productividad de las organizaciones, impulsando su crecimiento a
+            través de las herramientas tecnológicas más avanzadas del mercado.
+          </p>
+
+          <p class="parrafo">
+            Como integrador de soluciones, mantenemos acuerdos de colaboración con compañías líderes
+            del sector, para ofrecer servicios de Ingeniería de Software, Consultoría e
+            Implementación, Dirección de Proyectos y provisión de equipos.
+          </p>
+
+          <p class="parrafo">
+            El conocimiento de la dinámica del sector cooperativo y comercial, nos permite
+            proporcionar soluciones realmente eficientes que se traducen en beneficios medibles para
+            la organización.
+          </p>
+
+          <!--
+            Segunda imagen para cerrar el bloque textual.
+            Se utiliza inversión visual para cortar la monotonía del contenido largo.
+          -->
+          <div class="quienes-somos inverso">
+            <div class="bloque-imagen">
+              <img
+                src="https://www.grupocsi.com/hubfs/web_GCSI/recurso_003.png"
+                alt="Oficinas de la empresa"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!--
+          Bloque lateral de Filosofía.
+          Presenta información institucional en formato de tarjetas para mejorar escaneo visual.
+        -->
+        <div class="bloque-filosofia">
+          <h3 class="titulo subtitulo-seccion">Filosofía</h3>
+
+          <div class="filosofia-cards">
+            <!-- Misión -->
+            <div class="filo-card">
+              <span class="icono">🎯</span>
+              <strong>Misión</strong>
+
+              <p class="texto-mini">
+                Aportamos inteligencia informática, tecnología e información al proceso de gestión
+                cooperativa y comercial de nuestros clientes para que éstos alcancen la mayor
+                eficiencia en el logro de sus objetivos y la prestación de sus servicios.
+              </p>
+
+              <p class="texto-mini">
+                Aspiramos a ser referentes en la provisión de herramientas para la gestión
+                cooperativa y comercial.
+              </p>
+
+              <p class="texto-mini">
+                Estamos comprometidos con la excelencia de los servicios, trabajamos en equipo con
+                creatividad e incorporando los últimos avances de gestión e informática.
+              </p>
+            </div>
+
+            <!-- Política de Calidad -->
+            <div class="filo-card">
+              <span class="icono">✅</span>
+              <strong>Política de Calidad</strong>
+
+              <p class="texto-mini">
+                La calidad es nuestra forma de vida y determina la imagen de ProCoop SRL.
+              </p>
+
+              <p class="texto-mini">
+                Todas nuestras acciones, productos y servicios son identificados como símbolo de
+                nuestra calidad y búsqueda de la excelencia.
+              </p>
+
+              <p class="texto-mini">
+                Nuestro compromiso mas importante es satisfacer las necesidades de nuestros clientes
+                tanto internos como externos y superar sus expectativas, en una carrera permanente
+                de mejora continua.
+              </p>
+
+              <!--
+                Enlace a documento estático.
+                Se sirve desde /public/docs.
+                En el futuro podría reemplazarse por un enlace dinámico desde backend.
+              -->
+              <a
+                href="docs/certificado-procoopsrl-2014.pdf"
+                target="_blank"
+                rel="noopener"
+                class="link-pdf"
+              >
+                Certificado de calidad
+              </a>
+            </div>
+
+            <!-- Valores -->
+            <div class="filo-card">
+              <span class="icono">💎</span>
+              <strong>Valores</strong>
+
+              <p class="texto-mini">
+                Los valores corporativos que han permitido el posicionamiento actual y que definen
+                cada actuación de ProCoop son:
+              </p>
+
+              <p class="texto-mini">
+                Orientación a la satisfacción de nuestros clientes: La satisfacción que generamos en
+                nuestros clientes y el mantenimiento de relaciones comerciales a largo plazo son
+                parte importante de nuestro éxito.
+              </p>
+
+              <p class="texto-mini">
+                Tratamiento de la problemática del cliente en forma individual: Todas las soluciones
+                que proponemos a nuestros clientes, son el resultado del análisis particular de cada
+                uno de ellos.
+              </p>
+
+              <p class="texto-mini">
+                Búsqueda de la máxima calidad: El trabajo bien hecho es un valor insustituible y se
+                convierte en una máxima en cada proyecto que abordamos.
+              </p>
+
+              <p class="texto-mini">
+                Valor añadido a través del trabajo en equipo: Las soluciones que ProCoop proporciona
+                a sus clientes se basan en el conocimiento y la experiencia de sus profesionales.
+              </p>
+
+              <p class="texto-mini">
+                Evolución tecnológica permanente: Aplicar soluciones tecnológicas de vanguardia
+                requiere un proceso constante de renovación tecnológica.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--
+        Banner de cierre institucional.
+        Refuerza posicionamiento y trayectoria.
+        No cumple función de CTA.
+      -->
+      <div class="banner-ancho">
+        Más de 15 años brindando soluciones tecnológicas con impacto real en organizaciones y
+        cooperativas
+      </div>
+    </div>
+  </section>
+</main>
