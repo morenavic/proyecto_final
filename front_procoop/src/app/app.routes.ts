@@ -9,7 +9,6 @@ import { Acceso } from './pages/acceso/acceso';
 import { RecuperarContrasenia } from './pages/recuperar-contrasenia/recuperar-contrasenia';
 import { ActivarCuenta } from './pages/activar-cuenta/activar-cuenta';
 import { PanelClienteHome } from './pages/panel-cliente/panel-cliente-home/panel-cliente-home';
-import { PanelClienteNoticias } from './pages/panel-cliente/panel-cliente-noticias/panel-cliente-noticias';
 import { PanelClienteCambiarContrasenia } from './pages/panel-cliente/panel-cliente-cambiar-contrasenia/panel-cliente-cambiar-contrasenia';
 import { PanelClienteMiPerfil } from './pages/panel-cliente/panel-cliente-mi-perfil/panel-cliente-mi-perfil';
 import { PanelClienteDocumentos } from './pages/panel-cliente/panel-cliente-documentos/panel-cliente-documentos';
@@ -61,12 +60,6 @@ export const routes: Routes = [
   {
     path: 'panel-cliente-home',
     component: PanelClienteHome,
-    canActivate: [authGuard, rolGuard],
-    data: { rol: 'cliente' },
-  },
-  {
-    path: 'panel-cliente-noticias',
-    component: PanelClienteNoticias,
     canActivate: [authGuard, rolGuard],
     data: { rol: 'cliente' },
   },

@@ -1,53 +1,134 @@
 <main class="main-contenedor">
-  <!-- ============================
-          PANEL CLIENTE: estructura con sidebar
-          ============================ -->
+  <section class="panel-cliente-home">
+    <!-- =========================
+         NOTICIAS
+         ========================= -->
 
-  <!-- 10. PANEL CLIENTE - HOME -->
-  <section id="panel-cliente-home" class="pantalla">
-    <div class="panel-layout">
-      <aside class="sidebar" aria-label="Sidebar cliente">
-        <h5>Mi cuenta</h5>
-        <a href="/panel-cliente-home" data-target="panel-cliente-home">Inicio</a>
-        <a href="/panel-cliente-noticias" data-target="panel-cliente-noticias">Noticias</a>
-        <a href="/panel-cliente-cambiar-contrasenia" data-target="panel-cliente-cambiar-contrasenia"
-          >Cambiar contraseña</a
-        >
-        <a href="/panel-cliente-mi-perfil" data-target="panel-cliente-mi-perfil">Mi perfil</a>
-        <a href="/panel-cliente-documentos" data-target="panel-cliente-documentos">Documentos</a>
-        <a href="/acceso" onclick="volverALogin()">Salir</a>
-      </aside>
+    <header class="panel-header">
+      <h2 class="titulo">Noticias</h2>
+      <p class="subtitulo">Últimas novedades del sistema</p>
+    </header>
 
-      <section class="panel-contenido">
-        <h2 class="titulo">Servicios contratados</h2>
-        <p class="subtitulo">Resumen rápido</p>
+    <div class="noticias-lista">
+      @if (mostrarTodasNoticias) {
+        @for (noticia of noticias; track noticia.id) {
+          <article class="noticia-item aparecer-scroll">
+            <div class="noticia-imagen">
+              <img src="/images/imagen.jpg" alt="Ilustración tecnológica" />
+            </div>
 
-        <div style="margin-top: 12px" class="modo-contenedor">
-          <ul>
-            <li>ProCoop Gestión — Licencia anual</li>
-            <li>P-Móvil — Licencia móvil</li>
-          </ul>
-        </div>
+            <div class="noticia-contenido">
+              <h3 class="titulo-noticia">
+                {{ noticia.titulo }}
+              </h3>
 
-        <h3 style="margin-top: 12px" class="titulo">Últimas noticias</h3>
-        <div class="grid" style="margin-top: 8px">
-          <div class="producto-card">
-            <h4>Actualización 3.2</h4>
-            <p>Mejoras en reporte de facturas.</p>
-          </div>
-          <div class="producto-card">
-            <h4>Mantenimiento programado</h4>
-            <p>Viernes 10:00 - 12:00</p>
-          </div>
-        </div>
+              <p class="descripcion">
+                {{ noticia.descripcion }}
+              </p>
 
-        <h3 style="margin-top: 14px" class="titulo">Descargas rápidas</h3>
-        <div style="display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap">
-          <div class="producto-card" style="min-width: 180px">Manual Gestión</div>
-          <div class="producto-card" style="min-width: 180px">Guía P-Móvil</div>
-          <div class="producto-card" style="min-width: 180px">Instalador 3S</div>
-        </div>
-      </section>
+              <small class="fecha">
+                {{ noticia.fecha }}
+              </small>
+            </div>
+          </article>
+        }
+      } @else {
+        @for (noticia of noticias.slice(0, 3); track noticia.id) {
+          <article class="noticia-item aparecer-scroll">
+            <div class="noticia-imagen">
+              <img src="/images/imagen.jpg" alt="Ilustración tecnológica" />
+            </div>
+
+            <div class="noticia-contenido">
+              <h3 class="titulo-noticia">
+                {{ noticia.titulo }}
+              </h3>
+
+              <p class="descripcion">
+                {{ noticia.descripcion }}
+              </p>
+
+              <small class="fecha">
+                {{ noticia.fecha }}
+              </small>
+            </div>
+          </article>
+        }
+      }
+    </div>
+
+    <div class="ver-mas">
+      <button class="btn-link" (click)="toggleNoticias()">
+        @if (mostrarTodasNoticias) {
+          Ver menos
+        } @else {
+          Ver más noticias
+        }
+      </button>
+    </div>
+
+    <!-- =========================
+         EVENTOS
+         ========================= -->
+
+    <header class="panel-header">
+      <h2 class="titulo">Eventos próximos</h2>
+    </header>
+
+    <div class="eventos-grid">
+      @if (mostrarTodosEventos) {
+        @for (evento of eventos; track evento.id) {
+          <article class="evento-card aparecer-scroll">
+            <h3 class="titulo-evento">
+              {{ evento.titulo }}
+            </h3>
+
+            <p class="descripcion">
+              {{ evento.descripcion }}
+            </p>
+
+            <small class="fecha">
+              {{ evento.fecha }}
+            </small>
+          </article>
+        }
+      } @else {
+        @for (evento of eventos.slice(0, 2); track evento.id) {
+          <article class="evento-card aparecer-scroll">
+            <h3 class="titulo-evento">
+              {{ evento.titulo }}
+            </h3>
+
+            <p class="descripcion">
+              {{ evento.descripcion }}
+            </p>
+
+            <small class="fecha">
+              {{ evento.fecha }}
+            </small>
+          </article>
+        }
+      }
+    </div>
+
+    <div class="ver-mas">
+      <button class="btn-link" (click)="toggleEventos()">
+        @if (mostrarTodosEventos) {
+          Ver menos
+        } @else {
+          Ver más eventos
+        }
+      </button>
+    </div>
+
+    <!-- =========================
+         MENSAJE SOPORTE
+         ========================= -->
+
+    <div class="mensaje-soporte">
+      <p>¿Necesitás más información sobre alguna novedad o evento?</p>
+
+      <strong> Comunicate con soporte al +54 351 1234567 </strong>
     </div>
   </section>
 </main>
