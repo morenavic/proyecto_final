@@ -3,7 +3,7 @@
      Navegación principal persistente en toda la app
      ================================================== -->
 
-     <!--
+<!--
      ⚠️ Mejora: Centralizar estado de layout (opcional): si el proyecto crece crear un LayoutService y mover ahí:
       - estado de dropdowns
       - estados de menú mobile
@@ -90,8 +90,47 @@
     <!-- Página de contacto -->
     <button class="nav-link" routerLink="/contacto" routerLinkActive="activo">Contacto</button>
 
-    <!-- Acceso / login -->
-    <button class="nav-link" routerLink="/acceso" routerLinkActive="activo">Acceso</button>
+    <!-- ======================================
+         ACCESO (solo si no está logueado)
+         ====================================== -->
+
+    @if (!auth.haySesionActiva()) {
+      <button class="nav-link" routerLink="/acceso">Acceso</button>
+    }
+
+    <!-- ======================================
+         MENÚ HAMBURGUESA USUARIO
+         ====================================== -->
+
+    @if (auth.haySesionActiva()) {
+      <div class="dropdown">
+        <button class="nav-link" (click)="toggleMenuUsuario()" aria-label="Menú usuario">☰</button>
+
+        <ul class="dropdown-menu" [class.abierto]="menuUsuarioAbierto">
+          <li>
+            <a routerLink="/panel-cliente-home" (click)="cerrarMenu()"> Inicio </a>
+          </li>
+
+          <li>
+            <a routerLink="/panel-cliente-mi-perfil" (click)="cerrarMenu()"> Mi perfil </a>
+          </li>
+
+          <li>
+            <a routerLink="/panel-cliente-cambiar-contrasenia" (click)="cerrarMenu()">
+              Cambiar contraseña
+            </a>
+          </li>
+
+          <li>
+            <a routerLink="/panel-cliente-documentos" (click)="cerrarMenu()"> Documentos </a>
+          </li>
+
+          <li>
+            <a routerLink="/acceso" (click)="logout()"> Salir </a>
+          </li>
+        </ul>
+      </div>
+    }
 
     <!-- ===============================
          ⚠️​ Accesos temporales

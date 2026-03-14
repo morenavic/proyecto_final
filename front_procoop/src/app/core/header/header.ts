@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -46,5 +47,22 @@ export class Header {
     } else {
       this.dropdownServiciosAbierto = false;
     }
+  }
+
+  constructor(public auth: AuthService) {}
+
+  menuUsuarioAbierto = false;
+
+  toggleMenuUsuario() {
+    this.menuUsuarioAbierto = !this.menuUsuarioAbierto;
+  }
+
+  cerrarMenu() {
+    this.menuUsuarioAbierto = false;
+  }
+
+  logout() {
+    this.auth.logout();
+    this.menuUsuarioAbierto = false;
   }
 }
