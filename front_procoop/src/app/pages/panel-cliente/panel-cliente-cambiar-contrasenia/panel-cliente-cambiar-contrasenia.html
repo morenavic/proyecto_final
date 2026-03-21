@@ -1,15 +1,20 @@
-
-  <section id="panel-cliente-cambiar-clave">
-
+<!--
+  Sección de cambio de contraseña del cliente.
+  Diseño en dos columnas:
+  - izquierda: contexto/guía de seguridad (UX)
+  - derecha: formulario principal
+-->
+<section id="panel-cliente-cambiar-clave">
   <div class="password-layout">
-
-    <!-- INFO -->
+    <!--
+      Bloque informativo:
+      Se decidió incluir recomendaciones de seguridad para mejorar UX
+      y reducir errores del usuario al definir una nueva contraseña.
+    -->
     <div class="password-info">
       <h2>Cambiar contraseña</h2>
 
-      <p>
-        Mantené tu cuenta segura actualizando tu contraseña regularmente.
-      </p>
+      <p>Mantené tu cuenta segura actualizando tu contraseña regularmente.</p>
 
       <ul>
         <li>✔ Usá al menos 8 caracteres</li>
@@ -18,79 +23,85 @@
       </ul>
     </div>
 
-    <!-- FORM -->
+    <!--
+      Card del formulario:
+      Se centraliza toda la interacción del usuario en un bloque visual claro.
+    -->
     <div class="password-card">
-
+      <!--
+        Formulario reactivo:
+        - Maneja validaciones desde el componente TS
+        - Submit controlado por método guardar()
+        ⚠️ En backend real: el submit deberá llamar a un service HTTP
+      -->
       <form [formGroup]="form" (ngSubmit)="guardar()" class="password-form">
-
-        <!-- ACTUAL -->
+        <!--
+          Campo contraseña actual:
+          Incluye toggle de visibilidad para mejorar usabilidad.
+        -->
         <div class="form-group">
           <label>Contraseña actual</label>
 
           <div class="input-wrapper">
-            <input
-              [type]="mostrarActual ? 'text' : 'password'"
-              formControlName="actual" />
+            <input [type]="mostrarActual ? 'text' : 'password'" formControlName="actual" />
 
             <span (click)="toggle('actual')">​👓​</span>
           </div>
         </div>
 
-        <!-- NUEVA -->
+        <!--
+          Campo nueva contraseña:
+          Incluye indicador de seguridad dinámico (feedback inmediato al usuario).
+        -->
         <div class="form-group">
           <label>Nueva contraseña</label>
 
           <div class="input-wrapper">
-            <input
-              [type]="mostrarNueva ? 'text' : 'password'"
-              formControlName="nueva" />
+            <input [type]="mostrarNueva ? 'text' : 'password'" formControlName="nueva" />
 
             <span (click)="toggle('nueva')">​👓​</span>
           </div>
 
-          <!-- seguridad -->
-          <small class="seguridad {{ nivelSeguridad }}">
-            Seguridad: {{ nivelSeguridad }}
-          </small>
+          <!--
+            Indicador visual del nivel de seguridad.
+            Se calcula en el componente según reglas simples.
+            ⚠️ En backend real: validar también del lado servidor.
+          -->
+          <small class="seguridad {{ nivelSeguridad }}"> Seguridad: {{ nivelSeguridad }} </small>
         </div>
 
-        <!-- REPETIR -->
+        <!--
+          Confirmación de contraseña:
+          Se valida coincidencia contra el campo "nueva".
+        -->
         <div class="form-group">
           <label>Repetir nueva contraseña</label>
 
           <div class="input-wrapper">
-            <input
-              [type]="mostrarRepetir ? 'text' : 'password'"
-              formControlName="repetir" />
+            <input [type]="mostrarRepetir ? 'text' : 'password'" formControlName="repetir" />
 
             <span (click)="toggle('repetir')">​👓​​</span>
           </div>
 
-          <!-- error -->
+          <!--
+            Mensaje de error controlado por lógica del componente.
+          -->
           @if (passwordsNoCoinciden) {
-            <small class="error">
-              Las contraseñas no coinciden
-            </small>
+            <small class="error"> Las contraseñas no coinciden </small>
           }
         </div>
 
-        <!-- ACCIONES -->
+        <!--
+          Acciones del formulario:
+          - Submit principal
+          - Navegación de retorno
+        -->
         <div class="acciones">
-          <button class="btn-principal" type="submit">
-            Guardar cambios
-          </button>
+          <button class="btn-principal" type="submit">Guardar cambios</button>
 
-          <a routerLink="/panel-cliente-home" class="link-volver">
-            ← Volver al panel
-          </a>
+          <a routerLink="/panel-cliente-home" class="link-volver"> ← Volver al panel </a>
         </div>
-
       </form>
-
     </div>
-
   </div>
-
 </section>
-
-

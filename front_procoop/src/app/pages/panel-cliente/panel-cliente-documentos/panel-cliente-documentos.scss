@@ -2,6 +2,13 @@
    CONTENEDOR GENERAL
    ========================= */
 
+/*
+  Sección centrada horizontalmente.
+
+  Decisión:
+  - usar flex para centrar el contenido principal
+  - alinear arriba (no vertical center) para evitar “pantalla vacía”
+*/
 #panel-cliente-documentos {
   display: flex;
   justify-content: center;
@@ -15,6 +22,13 @@
    WRAPPER CENTRADO
    ========================= */
 
+/*
+  Limita el ancho del contenido.
+
+  Decisión:
+  - ancho moderado (700px) para lectura cómoda
+  - mantiene consistencia con otras secciones tipo form/listado
+*/
 .docs-container {
   width: 100%;
   max-width: 700px;
@@ -24,6 +38,13 @@
    HEADER
    ========================= */
 
+/*
+  Header simple y centrado.
+
+  Decisión:
+  - mantener jerarquía visual clara
+  - reutilizar estilos globales (.titulo / .subtitulo)
+*/
 .docs-header {
   text-align: center;
   margin-bottom: 20px;
@@ -33,6 +54,13 @@
    CONTROLES
    ========================= */
 
+/*
+  Contenedor de búsqueda + filtros.
+
+  Decisión:
+  - layout vertical para simplicidad
+  - separación clara entre input y filtros
+*/
 .docs-controls {
   display: flex;
   flex-direction: column;
@@ -40,14 +68,28 @@
   margin-bottom: 20px;
 }
 
+/* input búsqueda */
+
+/*
+  Input minimalista, coherente con forms del sistema.
+*/
 .docs-controls input {
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-/* filtros */
+/* =========================
+   FILTROS
+   ========================= */
 
+/*
+  Botones tipo "chips".
+
+  Decisión:
+  - UI liviana
+  - feedback visual con estado activo
+*/
 .filtros {
   display: flex;
   justify-content: center;
@@ -72,15 +114,25 @@
   background: #e2ebf7;
 }
 
+/*
+  Estado activo controlado desde Angular.
+*/
 .filtros button.activo {
   background: var(--azul-procoop);
   color: #fff;
 }
 
 /* =========================
-   GRID
+   LISTADO
    ========================= */
 
+/*
+  Lista vertical simple.
+
+  Decisión:
+  - evitar grid complejo
+  - mantener lectura lineal (tipo lista)
+*/
 .docs-grid {
   display: flex;
   flex-direction: column;
@@ -88,9 +140,16 @@
 }
 
 /* =========================
-   CARD MÁS COMPACTA
+   CARD DOCUMENTO
    ========================= */
 
+/*
+  Card compacta.
+
+  Decisión clave:
+  - reducir altura para soportar muchos documentos
+  - evitar tarjetas pesadas visualmente
+*/
 .doc-card {
   display: flex;
   align-items: center;
@@ -100,7 +159,7 @@
   padding: 12px 14px;
   border-radius: 10px;
 
-  box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
 
   transition: 0.2s ease;
 }
@@ -111,12 +170,19 @@
 
 /* icono */
 
+/*
+  Indicador visual rápido del tipo de contenido.
+*/
 .doc-icon {
   font-size: 22px;
 }
 
 /* info */
 
+/*
+  Contenido principal del documento.
+  Se expande para empujar el botón a la derecha.
+*/
 .doc-info {
   flex: 1;
 }
@@ -129,11 +195,18 @@
 .doc-info p {
   margin: 2px 0 0;
   font-size: 12px;
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 
-/* botón */
+/* botón descargar */
 
+/*
+  Acción principal.
+
+  Decisión:
+  - tamaño chico → no competir con el contenido
+  - color primario para jerarquía
+*/
 .btn-descargar {
   padding: 6px 12px;
   border-radius: 6px;
@@ -149,12 +222,22 @@
    VER MÁS
    ========================= */
 
+/*
+  Contenedor centrado para acción secundaria.
+*/
 .ver-mas-container {
   margin-top: 16px;
   display: flex;
   justify-content: center;
 }
 
+/*
+  Botón de carga progresiva.
+
+  Decisión:
+  - formato pill (moderno)
+  - sombra suave para destacarlo sin exagerar
+*/
 .btn-ver-mas {
   padding: 10px 20px;
   border-radius: 999px;
@@ -176,12 +259,19 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0, 82, 166, 0.25);
 }
+
 /* =========================
    RESPONSIVE
    ========================= */
 
-@media (max-width: 768px) {
+/*
+  Adaptación a mobile.
 
+  Decisiones:
+  - cards pasan a vertical
+  - botón ocupa todo el ancho (mejor usabilidad táctil)
+*/
+@media (max-width: 768px) {
   .doc-card {
     flex-direction: column;
     align-items: flex-start;
@@ -190,7 +280,14 @@
   .btn-descargar {
     width: 100%;
   }
-
 }
+/*
+⚠️ FUTURO BACKEND
 
+Cuando haya API:
 
+- Agregar loading states (skeleton o spinner)
+- Manejar empty state (sin documentos)
+- Integrar paginación real (no solo "ver más")
+- Deshabilitar botón descargar mientras carga
+*/

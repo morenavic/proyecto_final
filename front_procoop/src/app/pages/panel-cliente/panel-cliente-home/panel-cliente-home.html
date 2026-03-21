@@ -1,22 +1,48 @@
 <main class="main-contenedor">
+  <!--
+    Home del panel cliente.
+
+    Responsabilidades:
+    - Mostrar noticias y eventos
+    - Limitar cantidad inicial (UX)
+    - Permitir expansión con "ver más"
+    - Dar acceso a información de soporte
+
+    ⚠️ Futuro backend:
+    - noticias y eventos deben venir desde API
+  -->
   <section class="panel-cliente-home">
     <!-- =========================
          NOTICIAS
          ========================= -->
 
+    <!--
+      Header de sección.
+      Mantiene consistencia visual con el resto del panel.
+    -->
     <header class="panel-header">
       <h2 class="titulo">Noticias</h2>
       <p class="subtitulo">Últimas novedades del sistema</p>
     </header>
 
+    <!--
+      Listado de noticias.
+
+      Decisión:
+      - mostrar 3 por defecto
+      - permitir expandir a todas
+      - uso de @if para evitar lógica compleja en TS
+    -->
     <div class="noticias-lista">
       @if (mostrarTodasNoticias) {
         @for (noticia of noticias; track noticia.id) {
           <article class="noticia-item aparecer-scroll">
+            <!-- Imagen mock (placeholder) -->
             <div class="noticia-imagen">
               <img src="/images/imagen.jpg" alt="Ilustración tecnológica" />
             </div>
 
+            <!-- Contenido -->
             <div class="noticia-contenido">
               <h3 class="titulo-noticia">
                 {{ noticia.titulo }}
@@ -57,6 +83,13 @@
       }
     </div>
 
+    <!--
+      Control de expansión de noticias.
+
+      Decisión:
+      - toggle simple en vez de paginación
+      - UX rápida y directa
+    -->
     <div class="ver-mas">
       <button class="btn-link" (click)="toggleNoticias()">
         @if (mostrarTodasNoticias) {
@@ -75,6 +108,13 @@
       <h2 class="titulo">Eventos próximos</h2>
     </header>
 
+    <!--
+      Listado de eventos.
+
+      Decisión:
+      - mostrar solo 2 inicialmente (contenido más corto)
+      - mismo patrón de toggle que noticias
+    -->
     <div class="eventos-grid">
       @if (mostrarTodosEventos) {
         @for (evento of eventos; track evento.id) {
@@ -111,6 +151,9 @@
       }
     </div>
 
+    <!--
+      Control de expansión de eventos.
+    -->
     <div class="ver-mas">
       <button class="btn-link" (click)="toggleEventos()">
         @if (mostrarTodosEventos) {
@@ -125,6 +168,13 @@
          MENSAJE SOPORTE
          ========================= -->
 
+    <!--
+      Mensaje informativo final.
+
+      Decisión:
+      - CTA indirecto
+      - evita saturar UI con botones adicionales
+    -->
     <div class="mensaje-soporte">
       <p>¿Necesitás más información sobre alguna novedad o evento?</p>
 

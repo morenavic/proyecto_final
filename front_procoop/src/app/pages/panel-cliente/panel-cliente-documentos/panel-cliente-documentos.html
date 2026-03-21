@@ -1,80 +1,127 @@
 <main class="main-contenedor">
+  <!--
+    Sección principal de documentos del cliente.
 
+    Responsabilidad:
+    - Mostrar documentos disponibles
+    - Permitir búsqueda y filtrado
+    - Controlar paginación simple con "Ver más"
+
+    ⚠️ Futuro backend:
+    - Reemplazar lista estática por datos de API
+    - Implementar paginación real (server-side)
+  -->
   <section id="panel-cliente-documentos">
-
     <div class="docs-container">
+      <!-- =========================
+           HEADER
+           ========================= -->
 
-      <!-- HEADER -->
+      <!--
+        Introducción de la sección.
+        Mantiene consistencia visual con el resto del panel.
+      -->
       <header class="docs-header">
         <h2 class="titulo">Documentos</h2>
         <p class="subtitulo">Manuales y guías disponibles para descarga</p>
       </header>
 
-      <!-- CONTROLES -->
+      <!-- =========================
+           CONTROLES
+           ========================= -->
+
+      <!--
+        Controles de interacción del usuario:
+        - búsqueda por texto
+        - filtros por tipo
+
+        Decisión:
+        Todo se resuelve en frontend (estado local).
+        No hay requests ni debounce aún.
+      -->
       <div class="docs-controls">
+        <!--
+          Búsqueda simple ligada por ngModel.
+          Filtra en tiempo real.
 
-        <input
-          type="text"
-          placeholder="Buscar documento..."
-          [(ngModel)]="busqueda" />
+          ⚠️ Futuro:
+          - agregar debounce
+          - mover lógica a service
+        -->
+        <input type="text" placeholder="Buscar documento..." [(ngModel)]="busqueda" />
 
+        <!--
+          Filtros por categoría.
+          Se controla visualmente con clase activa.
+        -->
         <div class="filtros">
-          <button
-  [class.activo]="filtro === 'todos'"
-  (click)="setFiltro('todos')">
-  Todos
-</button>
+          <button [class.activo]="filtro === 'todos'" (click)="setFiltro('todos')">Todos</button>
 
-<button
-  [class.activo]="filtro === 'manual'"
-  (click)="setFiltro('manual')">
-  Manuales
-</button>
+          <button [class.activo]="filtro === 'manual'" (click)="setFiltro('manual')">
+            Manuales
+          </button>
 
-<button
-  [class.activo]="filtro === 'guia'"
-  (click)="setFiltro('guia')">
-  Guías
-</button>
+          <button [class.activo]="filtro === 'guia'" (click)="setFiltro('guia')">Guías</button>
         </div>
-
-
-
       </div>
 
-      <!-- LISTA -->
-      <div class="docs-grid">
+      <!-- =========================
+           LISTA DOCUMENTOS
+           ========================= -->
 
+      <!--
+        Render dinámico de documentos visibles.
+
+        Decisiones:
+        - uso de @for (Angular moderno)
+        - track por nombre (asumiendo unicidad)
+
+        ⚠️ Futuro:
+        - usar id real desde backend
+      -->
+      <div class="docs-grid">
         @for (doc of documentosVisibles; track doc.nombre) {
           <div class="doc-card">
-
+            <!-- Ícono representativo -->
             <div class="doc-icon">📄</div>
 
+            <!-- Información -->
             <div class="doc-info">
               <h3>{{ doc.nombre }}</h3>
               <p>{{ doc.descripcion }}</p>
             </div>
 
-            <button class="btn-descargar">
-              Descargar
-            </button>
+            <!--
+              Acción principal.
 
+              ⚠️ Futuro:
+              - descargar archivo real (URL backend)
+              - tracking / logs de descarga
+            -->
+            <button class="btn-descargar">Descargar</button>
           </div>
         }
-
       </div>
 
-      <!-- VER MÁS -->
+      <!-- =========================
+           VER MÁS
+           ========================= -->
+
+      <!--
+        Paginación simple en frontend.
+
+        Decisión:
+        - no usar paginador complejo
+        - UX simple con carga progresiva
+
+        ⚠️ Futuro:
+        - reemplazar por paginación backend
+      -->
       @if (hayMasDocumentos) {
         <div class="ver-mas-container">
-          <button class="btn-ver-mas" (click)="verMas()">
-            Ver más
-          </button>
+          <button class="btn-ver-mas" (click)="verMas()">Ver más</button>
         </div>
       }
-
     </div>
-
   </section>
-
 </main>

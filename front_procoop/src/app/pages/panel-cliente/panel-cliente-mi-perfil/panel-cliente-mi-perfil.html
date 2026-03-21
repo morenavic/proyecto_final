@@ -1,69 +1,113 @@
 <main class="main-contenedor">
+  <!--
+    Sección de perfil del cliente.
+
+    Responsabilidad:
+    - Mostrar información básica del usuario
+    - Permitir acceso a acciones relacionadas (ej: cambiar contraseña)
+
+    ⚠️ Futuro backend:
+    - datos deben venir de un service (no hardcodeados)
+  -->
   <section id="panel-cliente-perfil" class="pantalla">
     <section class="panel-contenido">
+      <div class="perfil-card">
+        <!-- =========================
+             HEADER (NOMBRE)
+             ========================= -->
 
-<div class="perfil-card">
+        <!--
+          Nombre principal del cliente.
 
-  <!-- NOMBRE -->
-  <div class="perfil-top">
-    <h2 class="perfil-titulo">Cooperativa Ejemplo</h2>
+          Decisión:
+          - centrado
+          - línea decorativa para jerarquía visual
+        -->
+        <div class="perfil-top">
+          <h2 class="perfil-titulo">Cooperativa Ejemplo</h2>
 
-    <div class="perfil-linea">
-      <span></span>
-    </div>
-  </div>
-
-  <!-- CONTENIDO -->
-  <div class="perfil-body">
-
-    <!-- AVATAR -->
-    <div class="perfil-avatar"></div>
-
-    <!-- INFO -->
-    <div class="perfil-info">
-
-      <div class="perfil-grid">
-
-        <!-- IZQUIERDA -->
-        <div class="perfil-col">
-          <div class="item">
-            <span class="label">CUIT</span>
-            <p>30-12345678-9</p>
-          </div>
-
-          <div class="item">
-            <span class="label">Email</span>
-            <p>cliente@cooperativa.com</p>
+          <div class="perfil-linea">
+            <span></span>
           </div>
         </div>
 
-        <!-- DERECHA -->
-        <div class="perfil-col">
-          <div class="item">
-            <span class="label">N° de cuenta</span>
-            <p>12345</p>
-          </div>
+        <!-- =========================
+             CONTENIDO
+             ========================= -->
 
-          <div class="item">
-            <span class="label">Teléfono</span>
-            <p>+54 351 1234567</p>
+        <div class="perfil-body">
+          <!--
+            Avatar visual.
+
+            Decisión:
+            - elemento decorativo
+            - mejora percepción visual del perfil
+            ⚠️ Futuro: imagen dinámica del usuario
+          -->
+          <div class="perfil-avatar"></div>
+
+          <!-- =========================
+               INFORMACIÓN
+               ========================= -->
+
+          <!--
+            Grid de datos dividido en dos columnas.
+
+            Decisión:
+            - separación izquierda/derecha
+            - mejora legibilidad y orden visual
+          -->
+          <div class="perfil-info">
+            <div class="perfil-grid">
+              <!-- IZQUIERDA -->
+              <div class="perfil-col">
+                <div class="item">
+                  <span class="label">CUIT</span>
+                  <p>30-12345678-9</p>
+                </div>
+
+                <div class="item">
+                  <span class="label">Email</span>
+                  <p>cliente@cooperativa.com</p>
+                </div>
+              </div>
+
+              <!-- DERECHA -->
+              <div class="perfil-col">
+                <div class="item">
+                  <span class="label">N° de cuenta</span>
+                  <p>12345</p>
+                </div>
+
+                <div class="item">
+                  <span class="label">Teléfono</span>
+                  <p>+54 351 1234567</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
+        <!-- =========================
+             ACCIONES
+             ========================= -->
+
+        <!--
+          Acción principal del perfil.
+
+          Decisión:
+          - botón simple
+          - reutiliza estilos del navbar (nav-link)
+
+          ⚠️ Futuro:
+          - podrían agregarse más acciones (editar perfil, etc.)
+        -->
+        <div class="perfil-acciones">
+          <button routerLink="/panel-cliente-cambiar-contrasenia" class="nav-link">
+            Cambiar contraseña
+          </button>
+        </div>
       </div>
-
-    </div>
-
-  </div>
-
-  <!-- BOTÓN -->
-  <div class="perfil-acciones">
-    <button routerLink="/panel-cliente-cambiar-contrasenia" class="nav-link">
-      Cambiar contraseña
-    </button>
-  </div>
-
-</div>
     </section>
   </section>
 </main>

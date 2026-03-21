@@ -2,6 +2,13 @@
    PANEL CLIENTE HOME
    ====================================== */
 
+/*
+  Layout general del home.
+
+  Decisión:
+  - estructura vertical simple
+  - separación clara entre bloques (noticias, eventos, soporte)
+*/
 .panel-cliente-home {
   display: flex;
   flex-direction: column;
@@ -10,6 +17,10 @@
 
 /* encabezados */
 
+/*
+  Encabezados reutilizables.
+  Mantienen consistencia visual en todas las secciones.
+*/
 .panel-header {
   display: flex;
   flex-direction: column;
@@ -20,6 +31,12 @@
    NOTICIAS
    ====================================== */
 
+/*
+  Lista vertical de noticias.
+
+  Decisión:
+  - separación amplia para dar aire entre items
+*/
 .noticias-lista {
   display: flex;
   flex-direction: column;
@@ -28,6 +45,13 @@
 
 /* tarjeta noticia */
 
+/*
+  Card de noticia con layout en grid.
+
+  Decisión:
+  - imagen + contenido en dos columnas
+  - tamaño fijo de imagen para consistencia visual
+*/
 .noticia-item {
   display: grid;
   grid-template-columns: 220px 1fr;
@@ -40,8 +64,13 @@
   align-items: center;
 }
 
-/* alternar imagen */
+/*
+  Alterna posición de imagen automáticamente.
 
+  Decisión:
+  - genera dinamismo visual sin lógica en TS
+  - mejora lectura (zig-zag)
+*/
 .noticia-item:nth-child(even) {
   grid-template-columns: 1fr 220px;
 }
@@ -52,6 +81,9 @@
 
 /* imagen */
 
+/*
+  Imagen recortada con object-fit para evitar deformaciones.
+*/
 .noticia-imagen img {
   width: 100%;
   height: 140px;
@@ -61,6 +93,9 @@
 
 /* texto noticia */
 
+/*
+  Uso de variables globales para mantener identidad visual.
+*/
 .titulo-noticia {
   margin: 0;
   font-family: var(--fuente-tit);
@@ -81,12 +116,24 @@
    EVENTOS
    ====================================== */
 
+/*
+  Grid responsive automático.
+
+  Decisión:
+  - auto-fit + minmax → se adapta sin media queries extra
+*/
 .eventos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
 }
 
+/*
+  Card simple, más liviana que noticias.
+
+  Decisión:
+  - menos peso visual porque el contenido es más corto
+*/
 .evento-card {
   background: var(--blanco);
   padding: 18px;
@@ -104,6 +151,9 @@
    BOTON VER MAS
    ====================================== */
 
+/*
+  Separación mínima para mantener continuidad visual.
+*/
 .ver-mas {
   margin-top: 6px;
 }
@@ -112,6 +162,14 @@
    MENSAJE SOPORTE
    ====================================== */
 
+/*
+  Bloque destacado pero no invasivo.
+
+  Decisión:
+  - fondo suave
+  - centrado
+  - funciona como CTA indirecto
+*/
 .mensaje-soporte {
   background: var(--gris-claro);
   padding: 18px;
@@ -123,6 +181,13 @@
    ANIMACION SCROLL
    ====================================== */
 
+/*
+  Animación de entrada.
+
+  Decisión:
+  - simple (opacity + translate)
+  - mejora percepción sin afectar performance
+*/
 .aparecer-scroll {
   opacity: 0;
   transform: translateY(20px);
@@ -140,6 +205,11 @@
    RESPONSIVE
    ====================================== */
 
+/*
+  En mobile:
+  - elimina layout en columnas
+  - pasa a estructura vertical
+*/
 @media (max-width: 768px) {
   .noticia-item {
     grid-template-columns: 1fr;
@@ -149,3 +219,16 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ======================================
+   FUTURO
+   ====================================== */
+
+/*
+⚠️ Cuando haya backend:
+
+- reemplazar imágenes estáticas por dinámicas
+- agregar loading skeleton para noticias/eventos
+- manejar estado vacío
+- optimizar animaciones (trigger al hacer scroll real con IntersectionObserver)
+*/

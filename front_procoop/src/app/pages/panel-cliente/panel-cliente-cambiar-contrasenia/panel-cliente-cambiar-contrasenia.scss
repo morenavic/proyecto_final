@@ -2,6 +2,11 @@
    CONTENEDOR GENERAL
    ========================= */
 
+/*
+  Centra toda la pantalla de cambio de contraseña.
+  Se usa min-height dinámico para evitar scroll innecesario
+  cuando el contenido es corto.
+*/
 #panel-cliente-cambiar-clave {
   display: flex;
   align-items: center;
@@ -15,6 +20,12 @@
    LAYOUT
    ========================= */
 
+/*
+  Layout en dos columnas:
+  - izquierda: contenido informativo
+  - derecha: formulario
+  Se limita el ancho máximo para mantener legibilidad.
+*/
 .password-layout {
   display: grid;
   grid-template-columns: 1fr 420px;
@@ -29,36 +40,26 @@
    IZQUIERDA (INFO)
    ========================= */
 
+/*
+  Bloque informativo centrado verticalmente.
+  Mejora la experiencia del usuario dando contexto
+  antes de interactuar con el formulario.
+*/
 .password-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.password-info h2 {
-  font-size: 28px;
-  margin-bottom: 12px;
-}
-
-.password-info p {
-  margin-bottom: 18px;
-  color: rgba(0,0,0,0.6);
-}
-
-.password-info ul {
-  list-style: none;
-  padding: 0;
-}
-
-.password-info li {
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
 /* =========================
    CARD
    ========================= */
 
+/*
+  Contenedor principal del formulario.
+  Se utiliza estilo tipo "card" para separar visualmente
+  la interacción del resto del contenido.
+*/
 .password-card {
   background: var(--blanco);
   border-radius: 16px;
@@ -71,6 +72,10 @@
    FORM
    ========================= */
 
+/*
+  Espaciado consistente entre campos del formulario.
+  Se prioriza legibilidad y claridad visual.
+*/
 .password-form {
   display: flex;
   flex-direction: column;
@@ -81,21 +86,24 @@
    GRUPO INPUT
    ========================= */
 
+/*
+  Separación controlada entre label e input.
+  Decisión clave para evitar UI "apretada".
+*/
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px; /* 👈 clave para separar label/input */
+  gap: 6px;
 }
 
-.form-group label {
-  font-size: 13px;
-  color: rgba(0,0,0,0.7);
-}
-
+/*
+  Inputs con feedback visual en focus.
+  Refuerza interacción y coherencia con el color institucional.
+*/
 .form-group input {
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   font-size: 14px;
 
   transition: all 0.2s ease;
@@ -111,6 +119,10 @@
    ACCIONES
    ========================= */
 
+/*
+  Acciones separadas del resto del formulario
+  para dar jerarquía al botón principal.
+*/
 .acciones {
   display: flex;
   flex-direction: column;
@@ -120,6 +132,10 @@
 
 /* botón */
 
+/*
+  Botón principal con estilo consistente del sistema.
+  ⚠️ En backend real: podría deshabilitarse durante request (loading).
+*/
 .btn-principal {
   width: 100%;
   padding: 12px;
@@ -139,23 +155,16 @@
   opacity: 0.9;
 }
 
-/* link */
-
-.link-volver {
-  text-align: center;
-  font-size: 13px;
-  color: var(--azul-procoop);
-  text-decoration: none;
-}
-
-.link-volver:hover {
-  text-decoration: underline;
-}
-
 /* =========================
    RESPONSIVE
    ========================= */
 
+/*
+  En mobile:
+  - se elimina layout en columnas
+  - se apila contenido verticalmente
+  Mejora lectura y usabilidad en pantallas chicas.
+*/
 @media (max-width: 900px) {
   .password-layout {
     grid-template-columns: 1fr;
@@ -167,9 +176,14 @@
   }
 }
 
+/* =========================
+   INPUT CON ICONO
+   ========================= */
 
-/* INPUT CON ICONO */
-
+/*
+  Permite posicionar el icono (👁) dentro del input.
+  Mejora UX para mostrar/ocultar contraseña.
+*/
 .input-wrapper {
   position: relative;
 }
@@ -189,15 +203,21 @@
   opacity: 0.6;
 }
 
-/* ERRORES */
+/* =========================
+   ERRORES Y SEGURIDAD
+   ========================= */
 
+/*
+  Feedback visual inmediato al usuario:
+  - errores (rojo)
+  - nivel de seguridad (color semántico)
+  Mejora la interacción sin necesidad de enviar el formulario.
+*/
 .error {
   color: #d32f2f;
   font-size: 12px;
   margin-top: 4px;
 }
-
-/* SEGURIDAD */
 
 .seguridad {
   font-size: 12px;

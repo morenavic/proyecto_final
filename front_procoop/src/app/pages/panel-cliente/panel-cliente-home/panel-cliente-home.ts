@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+/*
+  Modelos de datos utilizados en el home.
+
+  ⚠️ Futuro backend:
+  - agregar id único consistente (UUID o DB id)
+  - posiblemente incluir imagen y metadata adicional
+*/
 interface Noticia {
   id: number;
   titulo: string;
@@ -15,6 +22,14 @@ interface Evento {
   fecha: string;
 }
 
+/*
+  Componente del home del panel cliente.
+
+  Responsabilidades:
+  - Mostrar noticias y eventos
+  - Controlar visualización parcial/completa
+  - Manejar interacción "ver más / ver menos"
+*/
 @Component({
   selector: 'app-panel-cliente-home',
   standalone: true,
@@ -23,17 +38,43 @@ interface Evento {
   styleUrls: ['./panel-cliente-home.scss'],
 })
 export class PanelClienteHome {
+  /*
+    Estados de UI para controlar expansión.
+
+    Decisión:
+    - booleanos simples
+    - evita lógica compleja o paginación innecesaria
+  */
   mostrarTodasNoticias = false;
   mostrarTodosEventos = false;
 
+  /*
+    Toggle de noticias.
+
+    Decisión:
+    - mismo patrón que eventos para mantener consistencia
+  */
   toggleNoticias() {
     this.mostrarTodasNoticias = !this.mostrarTodasNoticias;
   }
 
+  /*
+    Toggle de eventos.
+  */
   toggleEventos() {
     this.mostrarTodosEventos = !this.mostrarTodosEventos;
   }
 
+  /*
+    Datos mock de noticias.
+
+    Decisión:
+    - contenido enriquecido (texto largo) para simular casos reales
+
+    ⚠️ Futuro backend:
+    - reemplazar por API
+    - incluir imagen dinámica
+  */
   noticias: Noticia[] = [
     {
       id: 1,
@@ -65,6 +106,16 @@ export class PanelClienteHome {
     },
   ];
 
+  /*
+    Datos mock de eventos.
+
+    Decisión:
+    - contenido más corto (diferente jerarquía visual que noticias)
+
+    ⚠️ Futuro backend:
+    - consumir API
+    - agregar fecha en formato real (Date)
+  */
   eventos: Evento[] = [
     {
       id: 1,
