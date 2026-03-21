@@ -1,0 +1,164 @@
+/* =========================
+   CARD
+   ========================= */
+
+.perfil-card {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+/* =========================
+   TOP
+   ========================= */
+
+.perfil-top {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.perfil-titulo {
+  font-size: 26px;
+  margin: 0;
+}
+
+/* línea horizontal con centro marcado */
+
+.perfil-linea {
+  position: relative;
+  margin-top: 12px;
+  height: 1px;
+  background: rgba(0,0,0,0.2);
+}
+
+.perfil-linea span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(0,0,0,0.3);
+  top: -2px;
+}
+
+/* =========================
+   BODY
+   ========================= */
+
+.perfil-body {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* =========================
+   AVATAR
+   ========================= */
+
+.perfil-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+
+  background-image: url('/images/imagen.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* =========================
+   INFO
+   ========================= */
+
+.perfil-info {
+  flex: 1;
+  position: relative;
+  padding-left: 30px;
+}
+
+/* línea vertical */
+
+.perfil-info::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(0,0,0,0.2);
+}
+
+/* =========================
+   GRID (dos columnas)
+   ========================= */
+
+.perfil-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px 60px;
+}
+
+/* columnas */
+
+.perfil-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* items */
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* textos */
+
+.label {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.item p {
+  margin: 4px 0 0;
+  font-weight: 500;
+}
+
+/* =========================
+   BOTÓN
+   ========================= */
+
+.perfil-acciones {
+  margin-top: 32px;
+  display: flex;
+  justify-content: right;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 768px) {
+
+  .perfil-body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .perfil-info {
+    padding-left: 0;
+  }
+
+  .perfil-info::before {
+    display: none;
+  }
+
+  .perfil-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
