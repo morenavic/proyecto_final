@@ -1,31 +1,80 @@
 <main class="main-contenedor">
-  <!-- 14. PANEL CLIENTE - DOCUMENTOS -->
-  <section id="panel-cliente-documentos" class="pantalla">
-    <div class="panel-layout">
-      <aside class="sidebar">
-        <h5>Mi cuenta</h5>
-        <a href="/panel-cliente-home" data-target="panel-cliente-home">Inicio</a>
-        <a href="/panel-cliente-noticias" data-target="panel-cliente-noticias">Noticias</a>
-        <a href="/panel-cliente-cambiar-contrasenia" data-target="panel-cliente-cambiar-contrasenia"
-          >Cambiar contraseña</a
-        >
-        <a href="/panel-cliente-mi-perfil" data-target="panel-cliente-mi-perfil">Mi perfil</a>
-        <a href="/panel-cliente-documentos" data-target="panel-cliente-documentos">Documentos</a>
-        <a href="/acceso" onclick="volverALogin()">Salir</a>
-      </aside>
 
-      <section class="panel-contenido">
+  <section id="panel-cliente-documentos">
+
+    <div class="docs-container">
+
+      <!-- HEADER -->
+      <header class="docs-header">
         <h2 class="titulo">Documentos</h2>
-        <p class="subtitulo">Manuales y guías descargables</p>
+        <p class="subtitulo">Manuales y guías disponibles para descarga</p>
+      </header>
 
-        <div style="margin-top: 12px">
-          <ul>
-            <li>Manual Gestión — <button class="btn-link">Descargar</button></li>
-            <li>Guía P-Móvil — <button class="btn-link">Descargar</button></li>
-            <li>Manual 3S — <button class="btn-link">Descargar</button></li>
-          </ul>
+      <!-- CONTROLES -->
+      <div class="docs-controls">
+
+        <input
+          type="text"
+          placeholder="Buscar documento..."
+          [(ngModel)]="busqueda" />
+
+        <div class="filtros">
+          <button
+  [class.activo]="filtro === 'todos'"
+  (click)="setFiltro('todos')">
+  Todos
+</button>
+
+<button
+  [class.activo]="filtro === 'manual'"
+  (click)="setFiltro('manual')">
+  Manuales
+</button>
+
+<button
+  [class.activo]="filtro === 'guia'"
+  (click)="setFiltro('guia')">
+  Guías
+</button>
         </div>
-      </section>
+
+
+
+      </div>
+
+      <!-- LISTA -->
+      <div class="docs-grid">
+
+        @for (doc of documentosVisibles; track doc.nombre) {
+          <div class="doc-card">
+
+            <div class="doc-icon">📄</div>
+
+            <div class="doc-info">
+              <h3>{{ doc.nombre }}</h3>
+              <p>{{ doc.descripcion }}</p>
+            </div>
+
+            <button class="btn-descargar">
+              Descargar
+            </button>
+
+          </div>
+        }
+
+      </div>
+
+      <!-- VER MÁS -->
+      @if (hayMasDocumentos) {
+        <div class="ver-mas-container">
+          <button class="btn-ver-mas" (click)="verMas()">
+            Ver más
+          </button>
+        </div>
+      }
+
     </div>
+
   </section>
+
 </main>
