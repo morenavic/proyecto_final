@@ -1,38 +1,96 @@
-<main class="main-contenedor">
-  <!-- 12. PANEL CLIENTE - CAMBIAR CONTRASEÑA -->
-  <section id="panel-cliente-cambiar-clave" class="pantalla">
-    <div class="panel-layout">
-      <aside class="sidebar">
-        <h5>Mi cuenta</h5>
-        <a href="/panel-cliente-home" data-target="panel-cliente-home">Inicio</a>
-        <a href="/panel-cliente-noticias" data-target="panel-cliente-noticias">Noticias</a>
-        <a href="/panel-cliente-cambiar-contrasenia" data-target="panel-cliente-cambiar-contrasenia"
-          >Cambiar contraseña</a
-        >
-        <a href="/panel-cliente-mi-perfil" data-target="panel-cliente-mi-perfil">Mi perfil</a>
-        <a href="/panel-cliente-documentos" data-target="panel-cliente-documentos">Documentos</a>
-        <a href="/acceso" onclick="volverALogin()">Salir</a>
-      </aside>
 
-      <section class="panel-contenido">
-        <h2 class="titulo">Cambiar contraseña</h2>
-        <div style="max-width: 520px" class="form-card">
-          <form onsubmit="return false;">
-            <label>Contraseña actual</label>
-            <input type="password" />
-            <label>Nueva contraseña</label>
-            <input type="password" />
-            <label>Repetir nueva contraseña</label>
-            <input type="password" />
-            <div style="margin-top: 8px">
-              <button class="btn-principal">Guardar cambios</button>
-            </div>
-            <div style="margin-top: 8px">
-              <a href="/panel-cliente-home" data-target="panel-cliente-home">← Volver al panel</a>
-            </div>
-          </form>
-        </div>
-      </section>
+  <section id="panel-cliente-cambiar-clave">
+
+  <div class="password-layout">
+
+    <!-- INFO -->
+    <div class="password-info">
+      <h2>Cambiar contraseña</h2>
+
+      <p>
+        Mantené tu cuenta segura actualizando tu contraseña regularmente.
+      </p>
+
+      <ul>
+        <li>✔ Usá al menos 8 caracteres</li>
+        <li>✔ Combiná letras y números</li>
+        <li>✔ Evitá datos personales</li>
+      </ul>
     </div>
-  </section>
-</main>
+
+    <!-- FORM -->
+    <div class="password-card">
+
+      <form [formGroup]="form" (ngSubmit)="guardar()" class="password-form">
+
+        <!-- ACTUAL -->
+        <div class="form-group">
+          <label>Contraseña actual</label>
+
+          <div class="input-wrapper">
+            <input
+              [type]="mostrarActual ? 'text' : 'password'"
+              formControlName="actual" />
+
+            <span (click)="toggle('actual')">​👓​</span>
+          </div>
+        </div>
+
+        <!-- NUEVA -->
+        <div class="form-group">
+          <label>Nueva contraseña</label>
+
+          <div class="input-wrapper">
+            <input
+              [type]="mostrarNueva ? 'text' : 'password'"
+              formControlName="nueva" />
+
+            <span (click)="toggle('nueva')">​👓​</span>
+          </div>
+
+          <!-- seguridad -->
+          <small class="seguridad {{ nivelSeguridad }}">
+            Seguridad: {{ nivelSeguridad }}
+          </small>
+        </div>
+
+        <!-- REPETIR -->
+        <div class="form-group">
+          <label>Repetir nueva contraseña</label>
+
+          <div class="input-wrapper">
+            <input
+              [type]="mostrarRepetir ? 'text' : 'password'"
+              formControlName="repetir" />
+
+            <span (click)="toggle('repetir')">​👓​​</span>
+          </div>
+
+          <!-- error -->
+          @if (passwordsNoCoinciden) {
+            <small class="error">
+              Las contraseñas no coinciden
+            </small>
+          }
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="acciones">
+          <button class="btn-principal" type="submit">
+            Guardar cambios
+          </button>
+
+          <a routerLink="/panel-cliente-home" class="link-volver">
+            ← Volver al panel
+          </a>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+

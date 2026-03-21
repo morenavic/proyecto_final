@@ -1,0 +1,217 @@
+/* =========================
+   CONTENEDOR GENERAL
+   ========================= */
+
+#panel-cliente-cambiar-clave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: calc(100vh - var(--nav-height));
+  padding: 40px 20px;
+}
+
+/* =========================
+   LAYOUT
+   ========================= */
+
+.password-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 60px;
+
+  width: 100%;
+  max-width: 1000px;
+  align-items: center;
+}
+
+/* =========================
+   IZQUIERDA (INFO)
+   ========================= */
+
+.password-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.password-info h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.password-info p {
+  margin-bottom: 18px;
+  color: rgba(0,0,0,0.6);
+}
+
+.password-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.password-info li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* =========================
+   CARD
+   ========================= */
+
+.password-card {
+  background: var(--blanco);
+  border-radius: 16px;
+  padding: 32px;
+
+  box-shadow: 0 10px 30px rgba(11, 27, 50, 0.08);
+}
+
+/* =========================
+   FORM
+   ========================= */
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =========================
+   GRUPO INPUT
+   ========================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* 👈 clave para separar label/input */
+}
+
+.form-group label {
+  font-size: 13px;
+  color: rgba(0,0,0,0.7);
+}
+
+.form-group input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.15);
+  font-size: 14px;
+
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--azul-procoop);
+  box-shadow: 0 0 0 2px rgba(0, 82, 166, 0.1);
+}
+
+/* =========================
+   ACCIONES
+   ========================= */
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* botón */
+
+.btn-principal {
+  width: 100%;
+  padding: 12px;
+
+  border-radius: 8px;
+  border: none;
+
+  background: var(--azul-procoop);
+  color: #fff;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-principal:hover {
+  opacity: 0.9;
+}
+
+/* link */
+
+.link-volver {
+  text-align: center;
+  font-size: 13px;
+  color: var(--azul-procoop);
+  text-decoration: none;
+}
+
+.link-volver:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+  .password-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .password-info {
+    text-align: center;
+  }
+}
+
+
+/* INPUT CON ICONO */
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.input-wrapper span {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+/* ERRORES */
+
+.error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* SEGURIDAD */
+
+.seguridad {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.seguridad.débil {
+  color: #d32f2f;
+}
+
+.seguridad.media {
+  color: #f57c00;
+}
+
+.seguridad.fuerte {
+  color: #2e7d32;
+}

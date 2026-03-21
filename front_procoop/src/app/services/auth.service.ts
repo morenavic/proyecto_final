@@ -72,7 +72,7 @@ export class AuthService {
   */
   login(email: string, password: string): UsuarioSesion | null {
     const usuario = this.usuariosMock.find(
-      (u) => u.email === email && u.password === password && u.activo
+      (u) => u.email === email && u.password === password && u.activo,
     );
 
     if (!usuario) {
@@ -130,8 +130,41 @@ export class AuthService {
   private guardarSesion(usuario: UsuarioSesion): void {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(usuario));
   }
-}
+  /*
+    Metodo para cambiar contraseña, simula la lógica que tendría el backend.
+    Valida la contraseña actual, la coincidencia de las nuevas contraseñas
+    y actualiza el password en la base mock.
+     ⚠️ Se va cuando haya backend real.
+  */
+  cambiarContrasenia(value: {
+    actual: string | null;
+    nueva: string | null;
+    repetir: string | null;
+  }): boolean {
+    const sesion = this.obtenerSesion();
 
+    if (!sesion) return false;
+
+    const usuario = this.usuariosMock.find((u) => u.email === sesion.email);
+
+    if (!usuario) return false;
+
+    // validar contraseña actual
+    if (usuario.password !== value.actual) {
+      return false;
+    }
+
+    // validar coincidencia
+    if (value.nueva !== value.repetir) {
+      return false;
+    }
+
+    // actualizar contraseña
+    usuario.password = value.nueva || '';
+
+    return true;
+  }
+}
 
 /*
   ⚠️ NOTA PARA BACKEND FUTURO
@@ -158,5 +191,5 @@ export class AuthService {
   ⚠️ Tokens (JWT).
   ⚠️ Expiración de sesión.
   ⚠️ Refresh token.
-  
+
 */
