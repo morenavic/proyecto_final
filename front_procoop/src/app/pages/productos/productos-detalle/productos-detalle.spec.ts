@@ -4,6 +4,11 @@ import { provideRouter } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 describe('ProductosDetalle', () => {
+  /*
+    Se mockea ActivatedRoute para simular distintos escenarios de navegación.
+    Decisión: usar snapshot.paramMap para representar cómo el componente obtiene el id.
+  */
+
   it('debería crearse correctamente', async () => {
     const mockRoute = {
       snapshot: {
@@ -13,6 +18,10 @@ describe('ProductosDetalle', () => {
       },
     };
 
+    /*
+      Cada test configura su propio TestBed.
+      Decisión: evitar beforeEach compartido para poder cambiar providers (route) sin conflictos.
+    */
     await TestBed.configureTestingModule({
       imports: [ProductosDetalle],
       providers: [provideRouter([]), { provide: ActivatedRoute, useValue: mockRoute }],
@@ -43,6 +52,11 @@ describe('ProductosDetalle', () => {
     const component = fixture.componentInstance;
     fixture.detectChanges();
 
+    /*
+      Se valida el flujo principal:
+      - leer id desde la ruta
+      - buscar producto correspondiente
+    */
     expect(component.producto).toBeDefined();
     expect(component.producto?.id).toBe(1);
   });
@@ -65,6 +79,18 @@ describe('ProductosDetalle', () => {
     const component = fixture.componentInstance;
     fixture.detectChanges();
 
+    /*
+      Se cubre caso borde:
+      id inexistente → producto undefined
+      Evita errores en UI y navegación inválida.
+    */
     expect(component.producto).toBeUndefined();
   });
 });
+
+/*
+  ⚠️ FUTURO BACKEND:
+  - El producto ya no se buscará en un array local
+  - Se deberá mockear un ProductoService en lugar de ActivatedRoute únicamente
+  - Los tests deberán contemplar llamadas async (Observables / HTTP)
+*/
