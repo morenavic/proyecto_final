@@ -50,19 +50,17 @@
       <!-- Se cierra manualmente al navegar a una opción -->
       <ul class="dropdown-menu" [class.abierto]="dropdownProductosAbierto">
         <li>
-          <a routerLink="/productos/procoop-gestion" (click)="cerrarDropdown('productos')">
-            ProCoop Gestión
-          </a>
-        </li>
-        <li>
-          <a routerLink="/productos/p-movil" (click)="cerrarDropdown('productos')"> P-Móvil </a>
-        </li>
-        <li>
-          <a routerLink="/productos/3s" (click)="cerrarDropdown('productos')"> 3S </a>
+          @for (producto of productos; track producto.id) {
+            <li>
+              <a  [routerLink]="['/productos', producto.id]"
+  (click)="cerrarDropdown('productos')">
+                {{ producto.nombre }}
+              </a>
+            </li>
+          }
         </li>
       </ul>
     </div>
-
     <!-- ===============================
          Servicios
          - Misma lógica que productos

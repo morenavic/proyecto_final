@@ -3,3 +3,46 @@
   line-height: 1.6;
   margin-top: 16px;
 }
+
+.detalle-layout {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.detalle-info {
+  flex: 1;
+}
+
+.detalle-sidebar {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detalle-imagen {
+  width: 100%;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+
+.detalle-descripcion {
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.lista-ficha {
+  padding-left: 18px;
+  margin-top: 10px;
+}
+
+.titulo.chico {
+  font-size: 18px;
+}
+
+.estado-vacio {
+  text-align: center;
+  margin-top: 40px;
+  opacity: 0.7;
+}

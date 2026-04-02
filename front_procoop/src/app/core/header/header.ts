@@ -65,4 +65,10 @@ export class Header {
     this.auth.logout();
     this.menuUsuarioAbierto = false;
   }
+
+  productos = [
+    { id: 1, nombre: 'ProCoop Gestión' },
+    { id: 2, nombre: 'P-Móvil' },
+    { id: 3, nombre: '3S' },
+  ];
 }
