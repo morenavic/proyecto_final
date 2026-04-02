@@ -1,17 +1,28 @@
 <main class="main-contenedor">
-
   <section id="productos-listado" class="pantalla">
-
+    <!--
+      Encabezado de la sección.
+      Define contexto y propósito del listado.
+    -->
     <header class="encabezado-seccion">
       <h2 class="titulo">Productos</h2>
       <p class="subtitulo">Listado de productos principales</p>
     </header>
 
+    <!--
+      Contenedor de productos en formato grid.
+      Permite una distribución adaptable según cantidad de elementos.
+    -->
     <div class="grid-productos">
-
+      <!--
+        Render dinámico de productos.
+        Se utiliza @for con track por id para optimizar renderizado.
+      -->
       @for (producto of productos; track producto.id) {
         <div class="producto-card">
-
+          <!--
+            Se muestran datos básicos del producto para navegación rápida.
+          -->
           <h4 class="producto-titulo">
             {{ producto.nombre }}
           </h4>
@@ -20,17 +31,19 @@
             {{ producto.descripcion }}
           </p>
 
-          <button
-            [routerLink]="['/productos', producto.id]"
-            class="nav-link">
-            Ver más
-          </button>
-
+          <!--
+            Navegación hacia el detalle del producto.
+            Se utiliza id para mantener consistencia con la ruta dinámica.
+          -->
+          <button [routerLink]="['/productos', producto.id]" class="nav-link">Ver más</button>
         </div>
       }
-
     </div>
-
   </section>
-
 </main>
+
+<!--
+  ⚠️ FUTURO BACKEND:
+  - La colección "productos" debería provenir de un servicio (ProductoService)
+  - Este componente solo debería consumir datos, no definirlos
+-->

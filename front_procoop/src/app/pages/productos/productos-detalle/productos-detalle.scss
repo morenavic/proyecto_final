@@ -1,19 +1,36 @@
+/*
+  Permite respetar saltos de línea provenientes del texto dinámico (infoExtra).
+  Mejora la legibilidad sin necesidad de formatear el contenido manualmente.
+*/
 .info-extra {
   white-space: pre-line;
   line-height: 1.6;
   margin-top: 16px;
 }
 
+/*
+  Layout principal del detalle.
+  Uso de flex + wrap para adaptar el contenido en pantallas más chicas
+  sin necesidad de media queries complejas.
+*/
 .detalle-layout {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
 
+/*
+  Contenedor principal del contenido.
+  Ocupa el espacio disponible y empuja el sidebar hacia un lado.
+*/
 .detalle-info {
   flex: 1;
 }
 
+/*
+  Sidebar con ancho fijo para mantener consistencia visual.
+  Se organiza en columna para separar bloques de información.
+*/
 .detalle-sidebar {
   width: 300px;
   display: flex;
@@ -21,28 +38,54 @@
   gap: 16px;
 }
 
+/*
+  Imagen responsive del producto.
+  Se adapta al contenedor y mantiene estética consistente.
+*/
 .detalle-imagen {
   width: 100%;
   border-radius: 10px;
   margin: 12px 0;
 }
 
+/*
+  Mejora la lectura del contenido principal.
+  Espaciado pensado para bloques de texto largos.
+*/
 .detalle-descripcion {
   line-height: 1.6;
   margin-bottom: 16px;
 }
 
+/*
+  Lista de ficha técnica.
+  Se separa visualmente del título manteniendo jerarquía.
+*/
 .lista-ficha {
   padding-left: 18px;
   margin-top: 10px;
 }
 
+/*
+  Variante de título para secciones secundarias.
+  Reduce jerarquía visual sin cambiar estructura HTML.
+*/
 .titulo.chico {
   font-size: 18px;
 }
 
+/*
+  Estado vacío del componente.
+  Se centra y se baja la opacidad para no competir con contenido principal.
+*/
 .estado-vacio {
   text-align: center;
   margin-top: 40px;
   opacity: 0.7;
 }
+
+/*
+  ⚠️ FUTURO BACKEND:
+  - Si "infoExtra" comienza a incluir HTML enriquecido, este estilo puede requerir ajustes
+  - El layout podría necesitar adaptación si el contenido dinámico crece significativamente
+*/

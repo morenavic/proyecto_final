@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
+/*
+  Modelo del producto utilizado en la vista.
+  Define la estructura necesaria para renderizar el detalle.
+*/
 interface Producto {
   id: number;
   slug: string;
@@ -18,16 +22,30 @@ interface Producto {
   styleUrl: './productos-detalle.scss',
 })
 export class ProductosDetalle {
+  /*
+    Producto seleccionado a mostrar.
+    Se resuelve dinámicamente a partir del id de la ruta.
+  */
   producto?: Producto;
 
   constructor(private route: ActivatedRoute) {}
 
+  /*
+    Obtiene el id desde la URL y busca el producto correspondiente.
+    Se utiliza snapshot ya que el componente no necesita reaccionar
+    a cambios de parámetros sin recrearse.
+  */
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
     this.producto = this.productos.find((p) => p.id === id);
   }
 
+  /*
+    Colección local de productos.
+    Se utiliza como fuente de datos temporal para el detalle.
+    Está alineada con el listado mediante el uso de id.
+  */
   productos: Producto[] = [
     {
       id: 1,
@@ -57,4 +75,11 @@ export class ProductosDetalle {
       imagen: 'images/imagen.jpg',
     },
   ];
+
+  /*
+    ⚠️ FUTURO BACKEND:
+    - Reemplazar esta colección por datos obtenidos desde un ProductoService
+    - La búsqueda por id debería realizarse mediante una llamada a API
+    - El slug podría utilizarse para URLs más descriptivas (SEO)
+  */
 }

@@ -1,28 +1,22 @@
 <!-- ==================================================
      HEADER / NAVBAR FIJO
-     Navegación principal persistente en toda la app
+     Componente de navegación global persistente
      ================================================== -->
 
 <!--
-     ⚠️ Mejora: Centralizar estado de layout (opcional): si el proyecto crece crear un LayoutService y mover ahí:
-      - estado de dropdowns
-      - estados de menú mobile
-      Útil si aparecen sidebars, overlays, etc.
-      -->
+     Maneja navegación principal y accesos según estado de sesión.
+     Incluye dropdowns controlados por estado del componente.
+-->
 
 <header class="nav-fijo" role="banner">
-  <!-- Logo institucional + nombre de la empresa -->
-  <!-- Se mantiene simple y clickeable visualmente, sin navegación asociada por el momento -->
+  <!-- Logo institucional (sin navegación asociada por ahora) -->
   <div class="logo">
     <img src="images/images_azul.png" alt="Logo ProCoop" class="logo-img" />
     <span class="empresa">ProCoop</span>
   </div>
 
-  <!-- Navegación principal del sitio -->
-  <!-- Uso exclusivo de routerLink para navegación interna -->
   <nav class="nav-links" aria-label="Navegación principal">
-    <!-- Ruta inicio -->
-    <!-- Se marca activa solo cuando la URL es exactamente /inicio -->
+    <!-- Navegación básica -->
     <button
       class="nav-link"
       routerLink="/inicio"
@@ -32,45 +26,46 @@
       Inicio
     </button>
 
-    <!-- Sección empresa -->
     <button class="nav-link" routerLink="/empresa" routerLinkActive="activo">Empresa</button>
 
     <!-- ===============================
-         Productos
-         - Botón principal navega al listado general
-         - Submenú permite acceso directo a productos específicos
+         PRODUCTOS
          =============================== -->
     <div class="dropdown">
-      <!-- Navegación principal de productos -->
+      <!-- Entrada al listado general -->
       <button class="nav-link" routerLink="/productos-listado" routerLinkActive="activo">
         Productos
       </button>
 
-      <!-- Dropdown controlado por estado del componente -->
-      <!-- Se cierra manualmente al navegar a una opción -->
+      <!--
+        Dropdown dinámico basado en colección local de productos.
+        Permite escalar sin hardcodear links.
+      -->
       <ul class="dropdown-menu" [class.abierto]="dropdownProductosAbierto">
-        <li>
-          @for (producto of productos; track producto.id) {
-            <li>
-              <a  [routerLink]="['/productos', producto.id]"
-  (click)="cerrarDropdown('productos')">
-                {{ producto.nombre }}
-              </a>
-            </li>
-          }
-        </li>
+        <!--
+          Se renderizan productos dinámicamente.
+          La navegación utiliza id para mantener consistencia con la ruta de detalle.
+        -->
+        @for (producto of productos; track producto.id) {
+          <li>
+            <a [routerLink]="['/productos', producto.id]" (click)="cerrarDropdown('productos')">
+              {{ producto.nombre }}
+            </a>
+          </li>
+        }
       </ul>
     </div>
+
     <!-- ===============================
-         Servicios
-         - Misma lógica que productos
-         - Permite escalar a más servicios sin cambiar estructura
+         SERVICIOS
          =============================== -->
     <div class="dropdown">
-      <!-- Ruta principal de servicios -->
       <button class="nav-link" routerLink="/servicios" routerLinkActive="activo">Servicios</button>
 
-      <!-- Dropdown controlado desde el componente -->
+      <!--
+        Dropdown estático.
+        A diferencia de productos, aún no está desacoplado a datos dinámicos.
+      -->
       <ul class="dropdown-menu" [class.abierto]="dropdownServiciosAbierto">
         <li>
           <a routerLink="/servicios/soporte-general" (click)="cerrarDropdown('servicios')">
@@ -85,59 +80,64 @@
       </ul>
     </div>
 
-    <!-- Página de contacto -->
+    <!-- Contacto -->
     <button class="nav-link" routerLink="/contacto" routerLinkActive="activo">Contacto</button>
 
-    <!-- ======================================
-         ACCESO (solo si no está logueado)
-         ====================================== -->
-
+    <!--
+      Render condicional según sesión.
+      Se desacopla la UI del estado de autenticación.
+    -->
     @if (!auth.haySesionActiva()) {
       <button class="nav-link" routerLink="/acceso">Acceso</button>
     }
 
-    <!-- ======================================
-         MENÚ HAMBURGUESA USUARIO
-         ====================================== -->
+    <!-- ===============================
+         MENÚ USUARIO
+         =============================== -->
 
     @if (auth.haySesionActiva()) {
       <div class="dropdown">
+        <!-- Controla visibilidad del menú -->
         <button class="nav-link" (click)="toggleMenuUsuario()" aria-label="Menú usuario">☰</button>
 
+        <!--
+          Menú contextual del usuario autenticado.
+          Centraliza accesos al panel cliente.
+        -->
         <ul class="dropdown-menu" [class.abierto]="menuUsuarioAbierto">
           <li>
-            <a routerLink="/panel-cliente-home" (click)="cerrarMenu()"> Inicio </a>
+            <a routerLink="/panel-cliente-home" (click)="cerrarMenu()">Inicio</a>
           </li>
-
           <li>
-            <a routerLink="/panel-cliente-mi-perfil" (click)="cerrarMenu()"> Mi perfil </a>
+            <a routerLink="/panel-cliente-mi-perfil" (click)="cerrarMenu()">Mi perfil</a>
           </li>
-
           <li>
             <a routerLink="/panel-cliente-cambiar-contrasenia" (click)="cerrarMenu()">
               Cambiar contraseña
             </a>
           </li>
-
           <li>
             <a routerLink="/panel-cliente-documentos" (click)="cerrarMenu()"> Documentos </a>
           </li>
-
           <li>
-            <a routerLink="/acceso" (click)="logout()"> Salir </a>
+            <a routerLink="/acceso" (click)="logout()">Salir</a>
           </li>
         </ul>
       </div>
     }
 
-    <!-- ===============================
-         ⚠️​ Accesos temporales
-         Uso exclusivo para testing / desarrollo
-          Posteriormente se accederá a dichos paneles desde los guard de rutas
-         y botones en el área de usuario autenticado
-         =============================== -->
+    <!--
+      ⚠️ Accesos temporales para testing.
+      Deben eliminarse cuando los paneles se integren al flujo real del usuario.
+    -->
     <button routerLink="/panel-cliente-home">Panel Cliente</button>
-
     <button routerLink="/panel-admin-home">Panel Admin</button>
   </nav>
 </header>
+
+<!--
+  ⚠️ FUTURO BACKEND:
+  - La colección "productos" debería provenir de un servicio (ProductoService)
+  - Este header debería consumir ese servicio para evitar duplicación de datos
+  - Servicios también debería migrar a estructura dinámica similar a productos
+-->

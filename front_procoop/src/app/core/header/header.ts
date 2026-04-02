@@ -10,20 +10,22 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './header.scss',
 })
 export class Header {
-  /* Estado del dropdown de Productos
-     Se maneja explícitamente desde el componente */
+  /*
+    Estado de dropdowns independientes.
+    Se manejan desde el componente para controlar apertura/cierre manual.
+  */
   dropdownProductosAbierto = false;
-
-  /* Estado del dropdown de Servicios
-     Independiente, pero coordinado con el de Productos */
   dropdownServiciosAbierto = false;
 
   /**
-   * Alterna el dropdown solicitado.
-   * Decisión de diseño: nunca permitir más de un dropdown abierto.
-   * Simplifica UX y evita superposición visual.
+   * Alterna el dropdown solicitado asegurando que solo uno esté abierto.
+   * Decisión de diseño: evitar múltiples dropdowns abiertos simultáneamente
+   * para mejorar la experiencia y mantener el layout ordenado.
+   *
+   * ⚠️ Actualmente hay conflicto con comportamiento por hover (CSS),
+   * lo que provoca superposición. Este control funciona correctamente
+   * solo si la apertura es gestionada únicamente desde TS.
    */
-  // ⚠️ Mejora: no esta funcionando ya que se superponen. Cuando cliqueo uno se abre y queda abierto, y cuando paso el mause por el otro, se abre pero el otro queda abierto tambien.
   toggleDropdown(tipo: 'productos' | 'servicios'): void {
     if (tipo === 'productos') {
       this.dropdownProductosAbierto = !this.dropdownProductosAbierto;
@@ -35,12 +37,11 @@ export class Header {
   }
 
   /**
-   * Cierre explícito del dropdown.
-   * Se usa al navegar a una opción para:
-   * - limpiar el estado visual
-   * - evitar dropdowns abiertos tras cambiar de ruta
+   * Cierra explícitamente el dropdown activo al navegar.
+   * Evita que queden abiertos al cambiar de vista.
+   *
+   * ⚠️ Mismo caso que toggleDropdown: puede verse afectado si el CSS usa hover.
    */
-  // ⚠️ Mejora: no esta funcionando ya que se superponen. Cuando cliqueo uno se abre y queda abierto, y cuando paso el mause por el otro, se abre pero el otro queda abierto tambien.
   cerrarDropdown(tipo: 'productos' | 'servicios'): void {
     if (tipo === 'productos') {
       this.dropdownProductosAbierto = false;
@@ -51,6 +52,10 @@ export class Header {
 
   constructor(public auth: AuthService) {}
 
+  /*
+    Estado del menú de usuario autenticado.
+    Se maneja de forma independiente a los dropdowns principales.
+  */
   menuUsuarioAbierto = false;
 
   toggleMenuUsuario() {
@@ -61,14 +66,28 @@ export class Header {
     this.menuUsuarioAbierto = false;
   }
 
+  /*
+    Ejecuta logout y limpia estado del menú.
+    Mantiene coherencia visual tras cierre de sesión.
+  */
   logout() {
     this.auth.logout();
     this.menuUsuarioAbierto = false;
   }
 
+  /*
+    Colección de productos utilizada para poblar el dropdown.
+    Se alinea con las rutas dinámicas (/productos/:id).
+  */
   productos = [
     { id: 1, nombre: 'ProCoop Gestión' },
     { id: 2, nombre: 'P-Móvil' },
     { id: 3, nombre: '3S' },
   ];
+
+  /*
+    ⚠️ FUTURO BACKEND:
+    - Reemplazar esta colección por datos provenientes de un ProductoService
+    - Permitir sincronización con listado y detalle (una única fuente de verdad)
+  */
 }

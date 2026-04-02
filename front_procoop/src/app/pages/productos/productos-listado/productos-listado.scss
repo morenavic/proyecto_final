@@ -1,3 +1,7 @@
+/*
+  Grid adaptable para el listado de productos.
+  Uso de auto-fit + minmax para lograr responsividad sin media queries.
+*/
 .grid-productos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -5,33 +9,61 @@
   margin-top: 16px;
 }
 
+/*
+  Card de producto.
+  Estructura flexible para mantener consistencia visual
+  independientemente del contenido.
+*/
 .producto-card {
   background: #ffffff;
   border-radius: 12px;
   padding: 20px;
   transition: all 0.3s ease;
   border: 1px solid #e5e7eb;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+/*
+  Interacción visual en hover.
+  Mejora percepción de clickeabilidad sin agregar elementos extra.
+*/
 .producto-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
+/*
+  Título del producto.
+  Se destaca dentro de la card para facilitar escaneo visual.
+*/
 .producto-titulo {
   margin-bottom: 10px;
   font-weight: 600;
 }
 
+/*
+  Descripción breve del producto.
+  Se reduce tamaño y contraste para no competir con el título.
+*/
 .producto-descripcion {
   font-size: 14px;
   color: #555;
   margin-bottom: 16px;
 }
 
+/*
+  Alineación del botón dentro de la card.
+  Se posiciona al inicio para mantener consistencia entre cards.
+*/
 .btn-principal {
   align-self: flex-start;
 }
+
+/*
+  ⚠️ FUTURO BACKEND:
+  - Si las descripciones varían mucho en longitud,
+    puede ser necesario limitar líneas (line-clamp) para mantener uniformidad
+*/
