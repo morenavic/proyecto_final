@@ -179,3 +179,10 @@
     grid-template-columns: 1fr;
   }
 }
+/* anclas invisibles para scroll correcto con header fijo */
+.ancla {
+  display: block;
+  position: relative;
+  top: -100px; // altura del header aprox
+  visibility: hidden;
+}

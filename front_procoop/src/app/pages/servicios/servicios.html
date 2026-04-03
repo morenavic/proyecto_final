@@ -18,7 +18,10 @@
         El `id` debe mantenerse o mapearse para no romper la navegación.
       -->
       @for (servicio of servicios; track servicio.id) {
-        <div class="servicio-item animar" [id]="servicio.id">
+        <!-- 🔥 ANCLA REAL -->
+        <span class="ancla" [id]="servicio.id"></span>
+
+        <div class="servicio-item animar">
           <h4 class="servicio-titulo">{{ servicio.titulo }}</h4>
           <p class="servicio-descripcion">{{ servicio.descripcion }}</p>
         </div>
@@ -29,7 +32,10 @@
   <!-- ============================
        METODOLOGÍA
        ============================ -->
-  <section [id]="metodologia.id" class="pantalla contenedor-centrado texto-centrado">
+
+  <span class="ancla" [id]="metodologia.id"></span>
+
+  <section class="pantalla contenedor-centrado texto-centrado">
     <h2 class="titulo">{{ metodologia.titulo }}</h2>
 
     <div class="metodologia-columnas">
