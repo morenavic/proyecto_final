@@ -277,22 +277,9 @@ textarea {
   box-shadow: var(--sombra-leve);
 }
 
-// table {
-//   width: 100%;
-//   border-collapse: collapse;
-// }
-
-// th,
-// td {
-//   padding: 10px;
-//   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-// }
-
-// .acciones-btn {
-//   display: flex;
-//   gap: 8px;
-// }
-
+html {
+  scroll-behavior: smooth;
+}
 
 
 

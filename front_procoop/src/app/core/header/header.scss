@@ -1,10 +1,7 @@
 /* ==================================================
    NAVEGACIÓN / HEADER
-   Estilos específicos del navbar principal
    ================================================== */
 
-/* Navbar fijo
-   Se mantiene visible en toda la navegación */
 .nav-fijo {
   position: fixed;
   top: 0;
@@ -21,15 +18,12 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
-/* Contenedor del logo y la empresa */
 .logo {
   display: flex;
   gap: 12px;
   align-items: center;
 }
 
-/* Texto de empresa
-   Refuerza identidad visual */
 .logo .empresa {
   font-family: var(--fuente-tit);
   color: var(--azul-procoop);
@@ -37,37 +31,23 @@
   font-size: 20px;
 }
 
-/* Contenedor de links del navbar
-   Layout horizontal con separación uniforme */
 .nav-links {
   display: flex;
-  gap: 14px;
   align-items: center;
+  gap: 14px;
 }
 
-/* Logo del header
-   Tamaño controlado para mantener altura del navbar */
 .logo-img {
   height: 36px;
   width: auto;
   display: block;
 }
 
-/* Contenedor de links del navbar
-   Layout horizontal y separación uniforme */
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
 
 /* ==================================================
    DROPDOWN
-   Menús desplegables reutilizables (Productos / Servicios)
    ================================================== */
 
-/* Contenedor del dropdown
-   Necesario para posicionar el menú respecto al botón */
 .dropdown {
   position: relative;
   display: flex;
@@ -75,11 +55,23 @@
   gap: 4px;
 }
 
-/* Menú desplegable (estado cerrado por defecto)
-   Se oculta visualmente y se anima al abrir */
+/* 🔥 evita que el dropdown se cierre al mover el mouse */
+.dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 12px; // mismo espacio que margin-top del menú
+}
+
+/*
+  Estado base (cerrado)
+*/
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 12px);
+  top: 100%;
+  margin-top: 12px;
   left: 0;
   min-width: 220px;
   background: var(--blanco);
@@ -97,29 +89,32 @@
   transition:
     opacity 0.18s ease,
     transform 0.18s ease;
+
   z-index: 1000;
 }
 
-/* Apertura automática por hover o focus
-   Permite funcionamiento sin lógica en TypeScript */
-.dropdown:hover .dropdown-menu,
-.dropdown:focus-within .dropdown-menu {
+/*
+  ✅ APERTURA SOLO POR HOVER (fix principal)
+  Se elimina focus-within para evitar que quede abierto al hacer click
+*/
+.dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-  display: block;
 }
 
-/* Apertura controlada desde Angular
-   Usada cuando el estado se maneja desde TS */
+/*
+  ⚠️ SOLO para menú usuario (controlado por TS)
+*/
 .dropdown-menu.abierto {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-/* Links internos del dropdown
-   Se diseñan como botones de navegación */
+/*
+  Items del dropdown
+*/
 .dropdown-menu li a {
   display: block;
   padding: 10px 14px;
@@ -132,35 +127,32 @@
     color 0.15s ease;
 }
 
-/* Hover del item
-   Feedback visual sutil */
 .dropdown-menu li a:hover {
   background: rgba(0, 82, 166, 0.08);
   color: var(--azul-procoop);
 }
 
-/* Item activo
-   Indica sección actual dentro del dropdown */
 .dropdown-menu li a.activo {
   background: rgba(0, 82, 166, 0.12);
   color: var(--azul-procoop);
   font-weight: 600;
 }
 
+
 /* ==================================================
-   Responsive
-   Ajustes para navegación en mobile
+   RESPONSIVE
    ================================================== */
 
 @media (max-width: 980px) {
-  /* Links permiten salto de línea en pantallas chicas */
   .nav-links {
     flex-wrap: wrap;
     gap: 10px;
   }
 
-  /* Dropdown siempre visible en mobile
-     Evita dependencia de hover en touch */
+  /*
+    En mobile se desactiva hover
+    (porque no existe en touch)
+  */
   .dropdown-menu {
     position: static;
     transform: none;
@@ -171,91 +163,10 @@
   }
 }
 
+
 /* ==================================================
-   BLOQUES DUPLICADOS (FUNCIONALES)
-   Mantener: refuerzan reglas clave al final del archivo
-   ================================================== */
-
-/* Repetición intencional
-   Garantiza consistencia si hay overrides previos */
-.dropdown {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* Botón de ícono del dropdown
-   Preparado para futuras variantes visuales */
-.dropdown-toggle {
-  background: transparent;
-  border: none;
-  color: var(--azul-procoop);
-  font-size: 14px;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 50%;
-  transition: background 0.15s ease;
-}
-
-/* Hover del ícono */
-.dropdown-toggle:hover {
-  background: var(--azul-claro);
-}
-
-/* Repetición intencional del menú
-   Asegura que el estado base no quede pisado */
-.dropdown-menu {
-  position: absolute;
-  top: calc(100% + 12px);
-  left: 0;
-  min-width: 220px;
-  background: var(--blanco);
-  border-radius: 14px;
-  padding: 6px;
-  box-shadow:
-    0 10px 25px rgba(11, 27, 50, 0.08),
-    0 4px 10px rgba(11, 27, 50, 0.04);
-  list-style: none;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-6px);
-  transition: all 0.18s ease;
-  z-index: 1000;
-}
-
-/* Estado abierto forzado */
-.dropdown-menu.abierto {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* Items del menú (refuerzo final) */
-.dropdown-menu li a {
-  display: block;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-size: 14px;
-  color: var(--gris-carbon);
-}
-
-/* Hover item */
-.dropdown-menu li a:hover {
-  background: rgba(0, 82, 166, 0.08);
-  color: var(--azul-procoop);
-}
-
-/* Item activo */
-.dropdown-menu li a.activo {
-  background: rgba(0, 82, 166, 0.12);
-  color: var(--azul-procoop);
-  font-weight: 600;
-}
-
-/* ======================================
    MENÚ USUARIO
-   ====================================== */
+   ================================================== */
 
 .menu-usuario {
   position: relative;

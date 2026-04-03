@@ -1,22 +1,14 @@
-<!-- ==================================================
-     HEADER / NAVBAR FIJO
-     Componente de navegación global persistente
-     ================================================== -->
-
-<!--
-     Maneja navegación principal y accesos según estado de sesión.
-     Incluye dropdowns controlados por estado del componente.
--->
-
 <header class="nav-fijo" role="banner">
-  <!-- Logo institucional (sin navegación asociada por ahora) -->
+
+  <!-- LOGO -->
   <div class="logo">
     <img src="images/images_azul.png" alt="Logo ProCoop" class="logo-img" />
     <span class="empresa">ProCoop</span>
   </div>
 
   <nav class="nav-links" aria-label="Navegación principal">
-    <!-- Navegación básica -->
+
+    <!-- Inicio -->
     <button
       class="nav-link"
       routerLink="/inicio"
@@ -26,118 +18,125 @@
       Inicio
     </button>
 
-    <button class="nav-link" routerLink="/empresa" routerLinkActive="activo">Empresa</button>
+    <!-- Empresa -->
+    <button class="nav-link" routerLink="/empresa" routerLinkActive="activo">
+      Empresa
+    </button>
 
     <!-- ===============================
-         PRODUCTOS
+         PRODUCTOS (hover puro)
          =============================== -->
     <div class="dropdown">
-      <!-- Entrada al listado general -->
+
       <button class="nav-link" routerLink="/productos-listado" routerLinkActive="activo">
         Productos
       </button>
 
-      <!--
-        Dropdown dinámico basado en colección local de productos.
-        Permite escalar sin hardcodear links.
-      -->
-      <ul class="dropdown-menu" [class.abierto]="dropdownProductosAbierto">
-        <!--
-          Se renderizan productos dinámicamente.
-          La navegación utiliza id para mantener consistencia con la ruta de detalle.
-        -->
+      <ul class="dropdown-menu">
         @for (producto of productos; track producto.id) {
           <li>
-            <a [routerLink]="['/productos', producto.id]" (click)="cerrarDropdown('productos')">
+            <a [routerLink]="['/productos', producto.id]">
               {{ producto.nombre }}
             </a>
           </li>
         }
       </ul>
+
     </div>
 
     <!-- ===============================
-         SERVICIOS
+         SERVICIOS (anchor navigation)
          =============================== -->
     <div class="dropdown">
-      <button class="nav-link" routerLink="/servicios" routerLinkActive="activo">Servicios</button>
 
-      <!--
-        Dropdown estático.
-        A diferencia de productos, aún no está desacoplado a datos dinámicos.
-      -->
-      <ul class="dropdown-menu" [class.abierto]="dropdownServiciosAbierto">
+      <button class="nav-link" routerLink="/servicios" routerLinkActive="activo">
+        Servicios
+      </button>
+
+      <ul class="dropdown-menu">
+
         <li>
-          <a routerLink="/servicios/soporte-general" (click)="cerrarDropdown('servicios')">
-            Soporte General
+          <a routerLink="/servicios" fragment="consultoria">
+            Consultoría, Análisis e Implementación de Sistemas
           </a>
         </li>
+
         <li>
-          <a routerLink="/servicios/soporte-contable" (click)="cerrarDropdown('servicios')">
-            Soporte Contable
+          <a routerLink="/servicios" fragment="soluciones">
+            Soluciones llave en mano con resultados garantizados
           </a>
         </li>
+
+        <li>
+          <a routerLink="/servicios" fragment="capacitacion">
+            Capacitación y entrenamiento
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/servicios" fragment="metodologia">
+            Metodología de implementación
+          </a>
+        </li>
+
       </ul>
+
     </div>
 
     <!-- Contacto -->
-    <button class="nav-link" routerLink="/contacto" routerLinkActive="activo">Contacto</button>
+    <button class="nav-link" routerLink="/contacto" routerLinkActive="activo">
+      Contacto
+    </button>
 
-    <!--
-      Render condicional según sesión.
-      Se desacopla la UI del estado de autenticación.
-    -->
+    <!-- ACCESO -->
     @if (!auth.haySesionActiva()) {
-      <button class="nav-link" routerLink="/acceso">Acceso</button>
+      <button class="nav-link" routerLink="/acceso">
+        Acceso
+      </button>
     }
 
     <!-- ===============================
          MENÚ USUARIO
          =============================== -->
-
     @if (auth.haySesionActiva()) {
       <div class="dropdown">
-        <!-- Controla visibilidad del menú -->
-        <button class="nav-link" (click)="toggleMenuUsuario()" aria-label="Menú usuario">☰</button>
 
-        <!--
-          Menú contextual del usuario autenticado.
-          Centraliza accesos al panel cliente.
-        -->
+        <button class="nav-link" (click)="toggleMenuUsuario()">☰</button>
+
         <ul class="dropdown-menu" [class.abierto]="menuUsuarioAbierto">
+
           <li>
             <a routerLink="/panel-cliente-home" (click)="cerrarMenu()">Inicio</a>
           </li>
+
           <li>
             <a routerLink="/panel-cliente-mi-perfil" (click)="cerrarMenu()">Mi perfil</a>
           </li>
+
           <li>
             <a routerLink="/panel-cliente-cambiar-contrasenia" (click)="cerrarMenu()">
               Cambiar contraseña
             </a>
           </li>
+
           <li>
-            <a routerLink="/panel-cliente-documentos" (click)="cerrarMenu()"> Documentos </a>
+            <a routerLink="/panel-cliente-documentos" (click)="cerrarMenu()">
+              Documentos
+            </a>
           </li>
+
           <li>
             <a routerLink="/acceso" (click)="logout()">Salir</a>
           </li>
+
         </ul>
+
       </div>
     }
 
-    <!--
-      ⚠️ Accesos temporales para testing.
-      Deben eliminarse cuando los paneles se integren al flujo real del usuario.
-    -->
+    <!-- BOTONES TEMP -->
     <button routerLink="/panel-cliente-home">Panel Cliente</button>
     <button routerLink="/panel-admin-home">Panel Admin</button>
+
   </nav>
 </header>
-
-<!--
-  ⚠️ FUTURO BACKEND:
-  - La colección "productos" debería provenir de un servicio (ProductoService)
-  - Este header debería consumir ese servicio para evitar duplicación de datos
-  - Servicios también debería migrar a estructura dinámica similar a productos
--->
