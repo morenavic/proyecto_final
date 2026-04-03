@@ -1,5 +1,4 @@
 <main class="main-contenedor">
-
   <!-- ============================
        SERVICIOS
        ============================ -->
@@ -8,34 +7,45 @@
     <p class="subtitulo">Consultoría, implementación y capacitación</p>
 
     <div class="servicios-lista">
+      <!--
+        Render dinámico de servicios.
+        Se usa `servicio.id` como:
+        - trackBy (optimización de render)
+        - id HTML para navegación interna desde el header (anchors)
 
+        🔄 FUTURO BACKEND:
+        Esta lista debería venir desde API.
+        El `id` debe mantenerse o mapearse para no romper la navegación.
+      -->
       @for (servicio of servicios; track servicio.id) {
-    <div class="servicio-item animar" [id]="servicio.id">
-      <h4 class="servicio-titulo">{{ servicio.titulo }}</h4>
-      <p class="servicio-descripcion">{{ servicio.descripcion }}</p>
-    </div>
-  }
-
+        <div class="servicio-item animar" [id]="servicio.id">
+          <h4 class="servicio-titulo">{{ servicio.titulo }}</h4>
+          <p class="servicio-descripcion">{{ servicio.descripcion }}</p>
+        </div>
+      }
     </div>
   </section>
 
+  <!-- ============================
+       METODOLOGÍA
+       ============================ -->
+  <section [id]="metodologia.id" class="pantalla contenedor-centrado texto-centrado">
+    <h2 class="titulo">{{ metodologia.titulo }}</h2>
 
-  <!-- METODOLOGÍA -->
-<section
-  [id]="metodologia.id"
-  class="pantalla contenedor-centrado texto-centrado"
->
-  <h2 class="titulo">{{ metodologia.titulo }}</h2>
+    <div class="metodologia-columnas">
+      <!--
+        Render de pasos de metodología.
+        Estructura separada del array de servicios para mantener independencia semántica.
 
-  <div class="metodologia-columnas">
-    @for (paso of metodologia.pasos; track paso.titulo) {
-      <div class="metodologia-card animar">
-        <h4>{{ paso.titulo }}</h4>
-        <p>{{ paso.descripcion }}</p>
-      </div>
-    }
-  </div>
-
-</section>
-
+        🔄 FUTURO BACKEND:
+        `metodologia` podría venir como recurso independiente o anidado dentro de servicios.
+      -->
+      @for (paso of metodologia.pasos; track paso.titulo) {
+        <div class="metodologia-card animar">
+          <h4>{{ paso.titulo }}</h4>
+          <p>{{ paso.descripcion }}</p>
+        </div>
+      }
+    </div>
+  </section>
 </main>

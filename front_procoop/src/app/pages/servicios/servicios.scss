@@ -1,19 +1,32 @@
 /* ============================
    CONTENEDOR + TEXTO CENTRADO
    ============================ */
+
+/*
+  Limita el ancho del contenido para mejorar legibilidad
+  y mantener una estructura consistente tipo layout institucional.
+*/
 .contenedor-centrado {
   max-width: 1000px;
   margin: 0 auto;
 }
 
+/*
+  Se separa la responsabilidad del centrado de texto
+  para poder reutilizarla en distintas secciones.
+*/
 .texto-centrado {
   text-align: center;
 }
 
-
 /* ============================
    SERVICIOS
    ============================ */
+
+/*
+  Layout vertical simple para contenido institucional (no tipo cards).
+  Se prioriza lectura antes que densidad visual.
+*/
 .servicios-lista {
   margin-top: 24px;
   display: flex;
@@ -21,11 +34,18 @@
   gap: 28px;
 }
 
+/*
+  Se limita el ancho de cada bloque para mejorar la lectura
+  y evitar líneas demasiado largas.
+*/
 .servicio-item {
   max-width: 700px;
   margin: 0 auto; // centra cada bloque
 }
 
+/*
+  Tipografía con jerarquía clara (título > descripción).
+*/
 .servicio-titulo {
   font-weight: 600;
   margin-bottom: 8px;
@@ -37,10 +57,16 @@
   line-height: 1.6;
 }
 
-
 /* ============================
    METODOLOGÍA (cards suaves)
    ============================ */
+
+/*
+  Grid en 2 columnas con ancho controlado para lograr:
+  - cards más angostas
+  - mejor aire visual
+  - look más profesional
+*/
 .metodologia-columnas {
   margin-top: 32px;
 
@@ -48,9 +74,15 @@
   grid-template-columns: repeat(2, minmax(260px, 360px));
   justify-content: center; // centra las columnas
 
-  gap: 20px 40px; // menos ancho entre cards
+  gap: 20px 40px; // controla separación vertical y horizontal
 }
 
+/*
+  Cards diseñadas con bajo contraste visual (soft UI):
+  - fondo blanco
+  - borde sutil
+  - sin sombras pesadas
+*/
 .metodologia-card {
   width: 100%;
   padding: 14px 16px;
@@ -62,6 +94,10 @@
   transition: all 0.2s ease;
 }
 
+/*
+  Interacción mínima para mantener estilo profesional
+  (evita efectos exagerados tipo app).
+*/
 .metodologia-card:hover {
   transform: translateY(-2px);
   border-color: rgba(30, 58, 95, 0.2);
@@ -79,23 +115,49 @@
   line-height: 1.5;
 }
 
-
 /* ============================
    ANIMACIONES SCROLL
    ============================ */
+
+/*
+  Animación de entrada reutilizable para mejorar percepción visual.
+  Se aplica a múltiples bloques (servicios + metodología).
+
+  ⚠️ LIMITACIÓN ACTUAL:
+  Se ejecuta al render inicial, no al entrar en viewport.
+
+  🔄 FUTURO BACKEND / UX:
+  Ideal migrar a IntersectionObserver o directiva Angular
+  para activar animación al hacer scroll real.
+*/
 .animar {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.6s ease forwards;
 }
 
-/* delay progresivo */
-.animar:nth-child(1) { animation-delay: 0.1s; }
-.animar:nth-child(2) { animation-delay: 0.2s; }
-.animar:nth-child(3) { animation-delay: 0.3s; }
-.animar:nth-child(4) { animation-delay: 0.4s; }
-.animar:nth-child(5) { animation-delay: 0.5s; }
-.animar:nth-child(6) { animation-delay: 0.6s; }
+/*
+  Delay progresivo para generar efecto escalonado.
+  Mejora percepción de dinamismo sin JS adicional.
+*/
+.animar:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.animar:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.animar:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.animar:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.animar:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.animar:nth-child(6) {
+  animation-delay: 0.6s;
+}
 
 @keyframes fadeInUp {
   to {
@@ -104,10 +166,14 @@
   }
 }
 
-
 /* ============================
    RESPONSIVE
    ============================ */
+
+/*
+  Se pasa a una sola columna en mobile para mantener legibilidad
+  y evitar cards demasiado comprimidas.
+*/
 @media (max-width: 768px) {
   .metodologia-columnas {
     grid-template-columns: 1fr;
