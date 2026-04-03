@@ -62,26 +62,19 @@
     <div class="dropdown">
       <button class="nav-link" routerLink="/servicios" routerLinkActive="activo">Servicios</button>
 
+      <!--
+        Dropdown estático.
+        A diferencia de productos, aún no está desacoplado a datos dinámicos.
+      -->
       <ul class="dropdown-menu" [class.abierto]="dropdownServiciosAbierto">
         <li>
-          <a routerLink="/servicios" fragment="consultoria" (click)="cerrarDropdown('servicios')">
-            Consultoría, Análisis e Implementación de Sistemas
+          <a routerLink="/servicios/soporte-general" (click)="cerrarDropdown('servicios')">
+            Soporte General
           </a>
         </li>
         <li>
-          <a routerLink="/servicios" fragment="soluciones" (click)="cerrarDropdown('servicios')">
-            Soluciones llave en mano con resultados garantizados
-          </a>
-        </li>
-        <li>
-          <a routerLink="/servicios" fragment="capacitacion" (click)="cerrarDropdown('servicios')">
-            Capacitación y entrenamiento
-          </a>
-        </li>
-
-        <li>
-          <a routerLink="/servicios" fragment="metodologia" (click)="cerrarDropdown('servicios')">
-            Metodología de Implementación
+          <a routerLink="/servicios/soporte-contable" (click)="cerrarDropdown('servicios')">
+            Soporte Contable
           </a>
         </li>
       </ul>
