@@ -1,22 +1,41 @@
 <main class="main-contenedor">
-<!-- ============================
-         5. SERVICIOS
-         ============================ -->
-    <section id="servicios" class="pantalla">
-      <h2 class="titulo">Servicios</h2>
-      <p class="subtitulo">Consultoría, implementación y capacitación</p>
 
-      <div style="margin-top:12px" class="grid">
-        <div class="producto-card">
-          <h4>Consultoría, análisis e implementación</h4>
-          <p>Evaluamos procesos, proponemos mejoras y realizamos la implementación técnica.</p>
-          <button class="btn-link" data-target="metodologia">Ir a Metodología →</button>
-        </div>
-        <div class="producto-card">
-          <h4>Soluciones llave en mano + capacitación</h4>
-          <p>Entrega completa del sistema, formación para equipos y documentación.</p>
-          <button routerLink="/contacto" class="btn-link" data-target="contacto">Contactar →</button>
-        </div>
+  <!-- ============================
+       SERVICIOS
+       ============================ -->
+  <section id="servicios" class="pantalla contenedor-centrado texto-centrado">
+    <h2 class="titulo">Servicios</h2>
+    <p class="subtitulo">Consultoría, implementación y capacitación</p>
+
+    <div class="servicios-lista">
+
+      @for (servicio of servicios; track servicio.id) {
+    <div class="servicio-item animar" [id]="servicio.id">
+      <h4 class="servicio-titulo">{{ servicio.titulo }}</h4>
+      <p class="servicio-descripcion">{{ servicio.descripcion }}</p>
+    </div>
+  }
+
+    </div>
+  </section>
+
+
+  <!-- METODOLOGÍA -->
+<section
+  [id]="metodologia.id"
+  class="pantalla contenedor-centrado texto-centrado"
+>
+  <h2 class="titulo">{{ metodologia.titulo }}</h2>
+
+  <div class="metodologia-columnas">
+    @for (paso of metodologia.pasos; track paso.titulo) {
+      <div class="metodologia-card animar">
+        <h4>{{ paso.titulo }}</h4>
+        <p>{{ paso.descripcion }}</p>
       </div>
-    </section>
+    }
+  </div>
+
+</section>
+
 </main>
