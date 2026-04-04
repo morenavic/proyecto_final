@@ -1,26 +1,100 @@
 <main class="main-contenedor">
-   <!-- ============================
-         8. RECUPERAR CONTRASEÑA
-         ============================ -->
-    <section id="recuperar" class="pantalla">
-      <div style="max-width:520px;margin:0 auto" class="form-card">
-        <h2 class="titulo">Recuperar contraseña</h2>
+  <section class="pantalla">
+    <!--
+      Contenedor del formulario con estilo reutilizable (form-card).
+      Decisión: encapsular todo el flujo en un solo bloque visual centrado.
+    -->
+    <div class="form-card contenedor-recuperar">
+      <h2 class="titulo">Recuperar contraseña</h2>
 
-        <form onsubmit="return false;">
-          <label for="rec-email">Email</label>
-          <input id="rec-email" type="email" placeholder="cliente@cooperativa.com" required>
+      <!--
+        Feedback al usuario (éxito/error).
+        Decisión: manejar un "toast" simple controlado por estado local
+        (mensaje + tipoMensaje) en lugar de librería externa.
+      -->
+      @if (mensaje) {
+        <div
+          class="toast"
+          [class.exito]="tipoMensaje === 'exito'"
+          [class.error]="tipoMensaje === 'error'"
+        >
+          {{ mensaje }}
+        </div>
+      }
 
-          <label for="rec-num">Número de cuenta (opcional)</label>
-          <input id="rec-num" type="text" placeholder="12345">
+      <!--
+        Formulario reactivo.
+        Flujo principal: validación → submit → estado de carga → feedback.
+      -->
+      <form [formGroup]="formulario" (ngSubmit)="enviar()">
+        <!-- EMAIL -->
+        <!--
+          Validación visual desacoplada del HTML:
+          se basa en estado del control (touched + valid/invalid).
+        -->
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="cliente@cooperativa.com"
+          [class.input-error]="email?.touched && email?.invalid"
+          [class.input-ok]="email?.touched && email?.valid"
+        />
 
-          <div style="margin-top:8px">
-            <button class="btn-principal">Enviar enlace</button>
-          </div>
+        <!--
+          Mensajes de error específicos por tipo de validación.
+          Decisión: priorizar claridad de feedback al usuario.
+        -->
+        @if (email?.touched && email?.invalid) {
+          <small class="error-texto">
+            @if (email?.errors?.['required']) {
+              El email es obligatorio
+            } @else if (email?.errors?.['email']) {
+              Formato inválido
+            }
+          </small>
+        }
 
-          <div style="margin-top:10px">
-            <a href="/acceso" data-target="login">← Volver al login</a>
-          </div>
-        </form>
-      </div>
-    </section>
+        <!-- NUMERO DE CUENTA -->
+        <!--
+          Campo adicional requerido para validar identidad del usuario.
+          Decisión: incluir doble validación (email + cuenta).
+        -->
+        <label for="numeroCuenta">Número de cuenta</label>
+        <input
+          id="numeroCuenta"
+          type="text"
+          formControlName="numeroCuenta"
+          placeholder="12345"
+          [class.input-error]="numeroCuenta?.touched && numeroCuenta?.invalid"
+          [class.input-ok]="numeroCuenta?.touched && numeroCuenta?.valid"
+        />
+
+        <!--
+          Validación simple (required).
+        -->
+        @if (numeroCuenta?.touched && numeroCuenta?.invalid) {
+          <small class="error-texto"> El número de cuenta es obligatorio </small>
+        }
+
+        <!-- BOTÓN -->
+        <!--
+          Control de estado de envío.
+          Decisión:
+          - deshabilitar durante carga
+          - cambiar texto dinámicamente para feedback inmediato
+        -->
+        <div class="contenedor-boton">
+          <button type="submit" class="nav-link" [disabled]="cargando">
+            @if (cargando) {
+              Enviando...
+            } @else {
+              Enviar enlace
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
 </main>

@@ -1,0 +1,100 @@
+/* ============================
+   CONTENEDOR
+   ============================ */
+
+/*
+  Contenedor específico del formulario de recuperación.
+  Decisión: limitar ancho para mejorar legibilidad y foco en la acción.
+*/
+.contenedor-recuperar {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ============================
+   ESPACIADOS
+   ============================ */
+
+/*
+  Separación del botón respecto al formulario.
+  Ajuste fino de layout sin afectar estilos globales.
+*/
+.contenedor-boton {
+  margin-top: 8px;
+}
+
+/*
+  Espacio reservado para navegación secundaria (ej: "volver").
+  Permite escalar sin tocar estructura principal.
+*/
+.contenedor-volver {
+  margin-top: 10px;
+}
+
+/* ============================
+   INPUT FEEDBACK
+   ============================ */
+
+/*
+  Feedback visual directo basado en estado del control (Angular).
+  Decisión: usar clases dinámicas en lugar de pseudo-clases CSS.
+*/
+.input-error {
+  border: 2px solid #e53935;
+}
+
+.input-ok {
+  border: 2px solid #43a047;
+}
+
+/*
+  Mensaje de error contextual debajo del input.
+*/
+.error-texto {
+  color: #e53935;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ============================
+   BOTÓN LOADING
+   ============================ */
+
+/*
+  Estado deshabilitado durante envío.
+  Refuerza visualmente que no hay interacción disponible.
+*/
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ============================
+   TOAST SIMPLE
+   ============================ */
+
+/*
+  Sistema de feedback básico sin librerías externas.
+  Decisión: mantener solución liviana controlada desde el componente.
+*/
+.toast {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+/*
+  Variantes según tipo de mensaje (éxito/error).
+  Se controlan dinámicamente desde el template.
+*/
+.toast.exito {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.toast.error {
+  background-color: #ffebee;
+  color: #c62828;
+}
