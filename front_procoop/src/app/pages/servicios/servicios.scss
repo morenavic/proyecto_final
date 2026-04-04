@@ -3,8 +3,8 @@
    ============================ */
 
 /*
-  Limita el ancho del contenido para mejorar legibilidad
-  y mantener una estructura consistente tipo layout institucional.
+  Contenedor reutilizable para limitar ancho de lectura.
+  Decisión: mantener un layout tipo institucional centrado.
 */
 .contenedor-centrado {
   max-width: 1000px;
@@ -12,8 +12,8 @@
 }
 
 /*
-  Se separa la responsabilidad del centrado de texto
-  para poder reutilizarla en distintas secciones.
+  Separación de responsabilidad:
+  el centrado de texto se desacopla del layout.
 */
 .texto-centrado {
   text-align: center;
@@ -24,8 +24,8 @@
    ============================ */
 
 /*
-  Layout vertical simple para contenido institucional (no tipo cards).
-  Se prioriza lectura antes que densidad visual.
+  Layout vertical simple enfocado en legibilidad.
+  Se evita grid/cards para no sobrecargar contenido textual.
 */
 .servicios-lista {
   margin-top: 24px;
@@ -35,16 +35,16 @@
 }
 
 /*
-  Se limita el ancho de cada bloque para mejorar la lectura
-  y evitar líneas demasiado largas.
+  Bloques centrados con ancho controlado
+  para evitar líneas demasiado largas.
 */
 .servicio-item {
   max-width: 700px;
-  margin: 0 auto; // centra cada bloque
+  margin: 0 auto;
 }
 
 /*
-  Tipografía con jerarquía clara (título > descripción).
+  Jerarquía tipográfica clara.
 */
 .servicio-titulo {
   font-weight: 600;
@@ -62,26 +62,22 @@
    ============================ */
 
 /*
-  Grid en 2 columnas con ancho controlado para lograr:
-  - cards más angostas
-  - mejor aire visual
-  - look más profesional
+  Grid controlado para mantener cards compactas y centradas.
+  Decisión: limitar ancho máximo de columnas para mejor aire visual.
 */
 .metodologia-columnas {
   margin-top: 32px;
 
   display: grid;
   grid-template-columns: repeat(2, minmax(260px, 360px));
-  justify-content: center; // centra las columnas
+  justify-content: center;
 
-  gap: 20px 40px; // controla separación vertical y horizontal
+  gap: 20px 40px;
 }
 
 /*
-  Cards diseñadas con bajo contraste visual (soft UI):
-  - fondo blanco
-  - borde sutil
-  - sin sombras pesadas
+  Cards con estilo soft UI (bajo contraste).
+  Se evita sombra fuerte para mantener estética limpia.
 */
 .metodologia-card {
   width: 100%;
@@ -95,8 +91,7 @@
 }
 
 /*
-  Interacción mínima para mantener estilo profesional
-  (evita efectos exagerados tipo app).
+  Interacción sutil para feedback visual.
 */
 .metodologia-card:hover {
   transform: translateY(-2px);
@@ -120,15 +115,11 @@
    ============================ */
 
 /*
-  Animación de entrada reutilizable para mejorar percepción visual.
-  Se aplica a múltiples bloques (servicios + metodología).
+  Animación base reutilizable.
+  Decisión: usar CSS puro para evitar dependencia de JS.
 
-  ⚠️ LIMITACIÓN ACTUAL:
-  Se ejecuta al render inicial, no al entrar en viewport.
-
-  🔄 FUTURO BACKEND / UX:
-  Ideal migrar a IntersectionObserver o directiva Angular
-  para activar animación al hacer scroll real.
+  ⚠️ LIMITACIÓN:
+  Se ejecuta al render, no al entrar en viewport.
 */
 .animar {
   opacity: 0;
@@ -137,8 +128,8 @@
 }
 
 /*
-  Delay progresivo para generar efecto escalonado.
-  Mejora percepción de dinamismo sin JS adicional.
+  Delay progresivo para efecto escalonado.
+  Mejora percepción visual sin lógica adicional.
 */
 .animar:nth-child(1) {
   animation-delay: 0.1s;
@@ -166,23 +157,43 @@
   }
 }
 
+/*
+  🔄 FUTURO:
+  Reemplazar por animación controlada por viewport
+  (IntersectionObserver o directiva Angular).
+*/
+
 /* ============================
    RESPONSIVE
    ============================ */
 
 /*
-  Se pasa a una sola columna en mobile para mantener legibilidad
-  y evitar cards demasiado comprimidas.
+  Adaptación a mobile:
+  se pasa a una sola columna para mantener legibilidad.
 */
 @media (max-width: 768px) {
   .metodologia-columnas {
     grid-template-columns: 1fr;
   }
 }
-/* anclas invisibles para scroll correcto con header fijo */
+
+/* ============================
+   ANCLAS (SCROLL CON HEADER FIJO)
+   ============================ */
+
+/*
+  Compensación del header fijo para navegación por fragmentos.
+  Decisión: usar offset negativo en lugar de JS.
+
+  ⚠️ Dependencia:
+  Debe mantenerse sincronizado con la altura real del header.
+
+  🔄 FUTURO:
+  Podría reemplazarse por scroll-margin-top en los elementos destino.
+*/
 .ancla {
   display: block;
   position: relative;
-  top: -100px; // altura del header aprox
+  top: -100px;
   visibility: hidden;
 }

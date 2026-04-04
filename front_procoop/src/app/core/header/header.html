@@ -1,4 +1,8 @@
 <header class="nav-fijo" role="banner">
+  <!--
+    Header principal fijo de la aplicación.
+    Centraliza la navegación global y adapta las opciones según el estado de autenticación.
+  -->
 
   <!-- LOGO -->
   <div class="logo">
@@ -7,8 +11,7 @@
   </div>
 
   <nav class="nav-links" aria-label="Navegación principal">
-
-    <!-- Inicio -->
+    <!-- Navegación simple a rutas principales -->
     <button
       class="nav-link"
       routerLink="/inicio"
@@ -18,16 +21,19 @@
       Inicio
     </button>
 
-    <!-- Empresa -->
-    <button class="nav-link" routerLink="/empresa" routerLinkActive="activo">
-      Empresa
-    </button>
+    <button class="nav-link" routerLink="/empresa" routerLinkActive="activo">Empresa</button>
 
     <!-- ===============================
-         PRODUCTOS (hover puro)
+         PRODUCTOS
          =============================== -->
-    <div class="dropdown">
+    <!--
+      Dropdown dinámico basado en un array de productos.
+      Permite acceder tanto al listado general como a cada producto individual.
 
+      ⚠️ FUTURO BACKEND:
+      'productos' debería venir desde un servicio/API en lugar de estar hardcodeado.
+    -->
+    <div class="dropdown">
       <button class="nav-link" routerLink="/productos-listado" routerLinkActive="activo">
         Productos
       </button>
@@ -41,20 +47,19 @@
           </li>
         }
       </ul>
-
     </div>
 
     <!-- ===============================
-         SERVICIOS (anchor navigation)
+         SERVICIOS
          =============================== -->
+    <!--
+      Dropdown con navegación por fragmentos dentro de la misma página.
+      Se usa para scroll interno a secciones específicas.
+    -->
     <div class="dropdown">
-
-      <button class="nav-link" routerLink="/servicios" routerLinkActive="activo">
-        Servicios
-      </button>
+      <button class="nav-link" routerLink="/servicios" routerLinkActive="activo">Servicios</button>
 
       <ul class="dropdown-menu">
-
         <li>
           <a routerLink="/servicios" fragment="consultoria">
             Consultoría, Análisis e Implementación de Sistemas
@@ -68,43 +73,43 @@
         </li>
 
         <li>
-          <a routerLink="/servicios" fragment="capacitacion">
-            Capacitación y entrenamiento
-          </a>
+          <a routerLink="/servicios" fragment="capacitacion"> Capacitación y entrenamiento </a>
         </li>
 
         <li>
-          <a routerLink="/servicios" fragment="metodologia">
-            Metodología de implementación
-          </a>
+          <a routerLink="/servicios" fragment="metodologia"> Metodología de implementación </a>
         </li>
-
       </ul>
-
     </div>
 
-    <!-- Contacto -->
-    <button class="nav-link" routerLink="/contacto" routerLinkActive="activo">
-      Contacto
-    </button>
+    <!-- Navegación directa -->
+    <button class="nav-link" routerLink="/contacto" routerLinkActive="activo">Contacto</button>
 
-    <!-- ACCESO -->
+    <!--
+      Acceso visible solo si NO hay sesión activa.
+      Controlado desde el servicio de autenticación.
+    -->
     @if (!auth.haySesionActiva()) {
-      <button class="nav-link" routerLink="/acceso">
-        Acceso
-      </button>
+      <button class="nav-link" routerLink="/acceso">Acceso</button>
     }
 
     <!-- ===============================
          MENÚ USUARIO
          =============================== -->
+    <!--
+      Dropdown controlado manualmente (no hover).
+      Permite acciones del usuario autenticado.
+
+      Decisión: usar estado booleano (menuUsuarioAbierto) para manejar apertura/cierre.
+    -->
     @if (auth.haySesionActiva()) {
       <div class="dropdown">
-
         <button class="nav-link" (click)="toggleMenuUsuario()">☰</button>
 
         <ul class="dropdown-menu" [class.abierto]="menuUsuarioAbierto">
-
+          <!--
+            Cada opción cierra el menú para mejorar UX.
+          -->
           <li>
             <a routerLink="/panel-cliente-home" (click)="cerrarMenu()">Inicio</a>
           </li>
@@ -120,23 +125,27 @@
           </li>
 
           <li>
-            <a routerLink="/panel-cliente-documentos" (click)="cerrarMenu()">
-              Documentos
-            </a>
+            <a routerLink="/panel-cliente-documentos" (click)="cerrarMenu()"> Documentos </a>
           </li>
 
+          <!--
+            Logout con redirección.
+
+            ⚠️ FUTURO BACKEND:
+            'logout()' debería invalidar token/sesión en el servidor.
+          -->
           <li>
             <a routerLink="/acceso" (click)="logout()">Salir</a>
           </li>
-
         </ul>
-
       </div>
     }
 
-    <!-- BOTONES TEMP -->
+    <!--
+      Botones temporales para acceso rápido a paneles.
+      ⚠️ Remover en producción o proteger con roles.
+    -->
     <button routerLink="/panel-cliente-home">Panel Cliente</button>
     <button routerLink="/panel-admin-home">Panel Admin</button>
-
   </nav>
 </header>

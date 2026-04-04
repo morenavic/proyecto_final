@@ -8,13 +8,17 @@ import { Component } from '@angular/core';
   styleUrl: './servicios.scss',
 })
 export class Servicios {
-  /**
-   * Fuente de datos para la sección "Servicios".
-   *
-   * Decisión:
-   * - Se incluye `id` para permitir navegación interna (anchors desde header).
-   * - Estructura simple (titulo + descripcion) orientada a render dinámico en el HTML.
-   */
+  /*
+    Fuente de datos para la sección "Servicios".
+
+    Decisión:
+    - Se incluye `id` como clave dual:
+      1) navegación interna (anchors desde header)
+      2) identificación única en el render (@for)
+
+    - Estructura simple orientada a contenido institucional (texto + título),
+      evitando complejidad innecesaria en esta capa.
+  */
   servicios = [
     {
       id: 'consultoria',
@@ -36,16 +40,20 @@ export class Servicios {
     },
   ];
 
-  /**
-   * Representa la sección completa de metodología.
-   *
-   * Decisión:
-   * - Se modela como un objeto (no array) para agrupar:
-   *   - id (navegación desde header)
-   *   - titulo de sección
-   *   - lista de pasos
-   * - Permite tratar esta sección como un bloque independiente en el template.
-   */
+  /*
+    Modelo de la sección "Metodología".
+
+    Decisión:
+    - Se modela como objeto único para representar un bloque completo
+      (no una lista independiente como servicios).
+    - Contiene:
+      - id → navegación por fragmento
+      - titulo → encabezado de sección
+      - pasos → lista interna
+
+    Esto permite mantener separación semántica clara entre:
+    contenido institucional (servicios) vs proceso (metodología).
+  */
   metodologia = {
     id: 'metodologia',
     titulo: 'Metodología de implementación',
@@ -81,11 +89,13 @@ export class Servicios {
     ],
   };
 
-  /**
-   * 🔄 FUTURO BACKEND
-   *
-   * - `servicios` y `metodologia` deberían obtenerse desde una API (ej: ServicioService).
-   * - Este componente pasaría a consumir datos mediante observables.
-   * - Mantener `id` (o equivalente) es clave para no romper la navegación interna.
-   */
+  /*
+    🔄 FUTURO BACKEND
+
+    - Migrar `servicios` y `metodologia` a un servicio (ej: ServiciosService).
+    - Consumir datos vía observables (HttpClient).
+    - Mantener los `id` (o mapearlos) es crítico para no romper:
+      - navegación por fragmentos (#)
+      - vínculos con el header
+  */
 }

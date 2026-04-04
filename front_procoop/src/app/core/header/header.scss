@@ -2,6 +2,11 @@
    NAVEGACIÓN / HEADER
    ================================================== */
 
+/*
+  Contenedor principal fijo.
+  Decisión: usar position: fixed para mantener el header siempre visible.
+  Se prioriza jerarquía visual con z-index alto y sombra suave.
+*/
 .nav-fijo {
   position: fixed;
   top: 0;
@@ -18,12 +23,20 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
+/*
+  Agrupación de logo + nombre.
+  Se usa flex para mantener alineación consistente.
+*/
 .logo {
   display: flex;
   gap: 12px;
   align-items: center;
 }
 
+/*
+  Identidad visual de la marca.
+  Tipografía y color centralizados en variables globales.
+*/
 .logo .empresa {
   font-family: var(--fuente-tit);
   color: var(--azul-procoop);
@@ -31,23 +44,33 @@
   font-size: 20px;
 }
 
+/*
+  Contenedor de navegación principal.
+  Layout horizontal con separación uniforme.
+*/
 .nav-links {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
+/*
+  Imagen del logo controlada para evitar desbordes.
+*/
 .logo-img {
   height: 36px;
   width: auto;
   display: block;
 }
 
-
 /* ==================================================
    DROPDOWN
    ================================================== */
 
+/*
+  Contenedor base para dropdowns.
+  position: relative permite posicionar el menú de forma absoluta.
+*/
 .dropdown {
   position: relative;
   display: flex;
@@ -55,7 +78,10 @@
   gap: 4px;
 }
 
-/* 🔥 evita que el dropdown se cierre al mover el mouse */
+/*
+  Solución UX: evita que el menú se cierre al pasar el mouse
+  entre el botón y el dropdown (zona "puente").
+*/
 .dropdown::after {
   content: '';
   position: absolute;
@@ -66,7 +92,8 @@
 }
 
 /*
-  Estado base (cerrado)
+  Estado base del dropdown (oculto).
+  Se usa opacity + visibility en lugar de display para permitir animación.
 */
 .dropdown-menu {
   position: absolute;
@@ -94,8 +121,8 @@
 }
 
 /*
-  ✅ APERTURA SOLO POR HOVER (fix principal)
-  Se elimina focus-within para evitar que quede abierto al hacer click
+  Apertura por hover (productos y servicios).
+  Decisión: eliminar focus para evitar que quede abierto tras click.
 */
 .dropdown:hover .dropdown-menu {
   opacity: 1;
@@ -104,7 +131,8 @@
 }
 
 /*
-  ⚠️ SOLO para menú usuario (controlado por TS)
+  Estado controlado desde TS (solo menú usuario).
+  Permite abrir/cerrar por click en lugar de hover.
 */
 .dropdown-menu.abierto {
   opacity: 1;
@@ -113,7 +141,8 @@
 }
 
 /*
-  Items del dropdown
+  Estilo de items del dropdown.
+  Se prioriza feedback visual suave en hover/activo.
 */
 .dropdown-menu li a {
   display: block;
@@ -138,11 +167,14 @@
   font-weight: 600;
 }
 
-
 /* ==================================================
    RESPONSIVE
    ================================================== */
 
+/*
+  Adaptación a mobile.
+  Se permite wrap para evitar desbordes horizontales.
+*/
 @media (max-width: 980px) {
   .nav-links {
     flex-wrap: wrap;
@@ -150,8 +182,11 @@
   }
 
   /*
-    En mobile se desactiva hover
-    (porque no existe en touch)
+    En mobile se desactiva el comportamiento flotante del dropdown.
+    Decisión: mostrar contenido inline porque no existe hover en touch.
+
+    ⚠️ FUTURO:
+    Podría reemplazarse por menú hamburguesa con lógica en TS.
   */
   .dropdown-menu {
     position: static;
@@ -163,15 +198,22 @@
   }
 }
 
-
 /* ==================================================
    MENÚ USUARIO
    ================================================== */
 
+/*
+  Contenedor independiente para posibles ajustes futuros
+  (ej: posicionamiento distinto del dropdown).
+*/
 .menu-usuario {
   position: relative;
 }
 
+/*
+  Botón hamburguesa del usuario.
+  Mantiene coherencia visual con el sistema de botones.
+*/
 .btn-hamburguesa {
   background: var(--blanco);
   border: 2px solid transparent;

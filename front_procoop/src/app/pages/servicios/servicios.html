@@ -1,4 +1,9 @@
 <main class="main-contenedor">
+  <!--
+    Contenedor principal que respeta el layout global
+    (compensación de header/footer definidos en estilos globales).
+  -->
+
   <!-- ============================
        SERVICIOS
        ============================ -->
@@ -9,16 +14,25 @@
     <div class="servicios-lista">
       <!--
         Render dinámico de servicios.
-        Se usa `servicio.id` como:
-        - trackBy (optimización de render)
-        - id HTML para navegación interna desde el header (anchors)
+
+        Decisión clave:
+        - `servicio.id` se usa como track (optimización)
+        - y como ancla para navegación desde el header (fragmentos)
+
+        Esto conecta directamente con los links tipo:
+        /servicios#consultoria
+
+        ⚠️ Dependencia importante:
+        Los IDs deben coincidir exactamente con los fragment del header.
 
         🔄 FUTURO BACKEND:
-        Esta lista debería venir desde API.
-        El `id` debe mantenerse o mapearse para no romper la navegación.
+        - Validar que la API mantenga estos IDs o mapearlos antes de renderizar.
       -->
       @for (servicio of servicios; track servicio.id) {
-        <!-- 🔥 ANCLA REAL -->
+        <!--
+          Ancla invisible para scroll preciso.
+          Evita problemas de offset por header fijo.
+        -->
         <span class="ancla" [id]="servicio.id"></span>
 
         <div class="servicio-item animar">
@@ -33,6 +47,9 @@
        METODOLOGÍA
        ============================ -->
 
+  <!--
+    Ancla independiente para navegación directa a metodología.
+  -->
   <span class="ancla" [id]="metodologia.id"></span>
 
   <section class="pantalla contenedor-centrado texto-centrado">
@@ -41,10 +58,16 @@
     <div class="metodologia-columnas">
       <!--
         Render de pasos de metodología.
-        Estructura separada del array de servicios para mantener independencia semántica.
+
+        Decisión:
+        Separar `metodologia` de `servicios` para mantener claridad semántica
+        y evitar mezclar tipos de contenido distintos.
+
+        ⚠️ track por título:
+        Se asume que los títulos son únicos dentro de la lista.
 
         🔄 FUTURO BACKEND:
-        `metodologia` podría venir como recurso independiente o anidado dentro de servicios.
+        - Evaluar usar IDs únicos en lugar de títulos para mayor robustez.
       -->
       @for (paso of metodologia.pasos; track paso.titulo) {
         <div class="metodologia-card animar">
