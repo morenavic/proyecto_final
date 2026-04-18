@@ -1,48 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Producto } from '../../../models/producto.model';
+import { ProductoService } from '../../../services/producto.service';
 
-/*
-  Modelo simplificado para el listado.
-  Contiene solo la información necesaria para mostrar en la grilla.
-*/
-interface ProductoListado {
-  id: number;
-  nombre: string;
-  descripcion: string;
-}
-
+/**
+ * Componente de listado de productos
+ * Muestra una lista resumida para navegación al detalle
+ */
 @Component({
   selector: 'app-productos-listado',
   imports: [RouterLink],
   templateUrl: './productos-listado.html',
   styleUrl: './productos-listado.scss',
 })
-export class ProductosListado {
-  /*
-    Colección de productos para renderizar el listado.
-    Se utiliza id como referencia para navegación al detalle.
-  */
-  productos: ProductoListado[] = [
-    {
-      id: 1,
-      nombre: 'ProCoop Gestión',
-      descripcion: 'Sistema de Gestión Integral para Cooperativas y empresas de servicios.',
-    },
-    {
-      id: 2,
-      nombre: 'P-Móvil',
-      descripcion: 'App móvil para toma de estados de medidores.',
-    },
-    {
-      id: 3,
-      nombre: '3S',
-      descripcion: 'Soporte permanente para sistemas de gestión de servicios públicos.',
-    },
-  ];
+export class ProductosListado implements OnInit {
+  /**
+   * Lista de productos obtenidos desde el service
+   */
+  productos: Producto[] = [];
 
-  /*
-    ⚠️ FUTURO BACKEND:
-    - Reemplazar esta colección por datos provenientes de un ProductoService
-    - Este componente debería limitarse a consumir datos y no definirlos
-  */
+  constructor(private productoService: ProductoService) {}
+
+  /**
+   * Al iniciar:
+   * obtiene los productos desde el service
+   */
+  ngOnInit(): void {
+    this.cargarProductos();
+  }
+
+  /**
+   * Carga los productos
+   */
+  cargarProductos(): void {
+    this.productos = this.productoService.getProductos();
+  }
 }

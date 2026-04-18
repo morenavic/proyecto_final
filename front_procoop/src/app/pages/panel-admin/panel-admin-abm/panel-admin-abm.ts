@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { PanelAdminDataService } from '../panel-admin-data';
+import { ProductoService } from '../../../services/producto.service';
 
 @Component({
   selector: 'app-panel-admin-abm',
@@ -11,43 +12,11 @@ import { PanelAdminDataService } from '../panel-admin-data';
   styleUrl: './panel-admin-abm.scss',
 })
 export class PanelAdminAbm {
-  /**
-   * Tipo de entidad activa (novedades, productos, servicios, etc.).
-   * Se obtiene dinámicamente desde el parámetro :tipo de la ruta.
-   *
-   * Permite que el mismo componente funcione para múltiples
-   * entidades del panel administrativo.
-   */
   tipo!: string;
-
-  /**
-   * ID opcional del registro.
-   * Si existe, el componente entra automáticamente en modo edición.
-   */
   id!: string | null;
-
-  /**
-   * Controla si el formulario está en modo crear o editar.
-   * Esto evita tener dos componentes separados para el ABM.
-   */
   modoEdicion = false;
-
-  /**
-   * Nombre del archivo PDF seleccionado.
-   * Se utiliza únicamente para mostrar feedback visual en el template.
-   */
   nombreArchivo: string | null = null;
-
-  /**
-   * Formulario reactivo construido dinámicamente
-   * en base a la configuración de cada entidad.
-   */
   form!: FormGroup;
-
-  /**
-   * Configuración activa según el tipo de entidad.
-   * Define títulos, campos y rutas de navegación.
-   */
   config: any;
 
   constructor(
@@ -55,17 +24,9 @@ export class PanelAdminAbm {
     private router: Router,
     private fb: FormBuilder,
     private dataService: PanelAdminDataService,
+    private productoService: ProductoService,
   ) {}
 
-  /**
-   * Flujo principal del componente.
-   *
-   * - Lee parámetros de la ruta
-   * - Determina si el componente está en modo crear o editar
-   * - Obtiene la configuración correspondiente
-   * - Construye el formulario dinámico
-   * - Carga datos existentes si corresponde
-   */
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.tipo = params.get('tipo') ?? '';
@@ -83,21 +44,6 @@ export class PanelAdminAbm {
     });
   }
 
-  /* ============================
-     CREAR FORMULARIO DINÁMICO
-  ============================ */
-
-  /**
-   * Construye el FormGroup dinámicamente a partir de
-   * la configuración declarada en configuraciones.
-   *
-   * Esto permite reutilizar el mismo ABM para
-   * diferentes entidades sin duplicar lógica.
-   *
-   * En backend real:
-   * podrían agregarse validaciones específicas
-   * dependiendo del tipo de entidad.
-   */
   crearFormulario(): void {
     const group: any = {};
 
@@ -173,12 +119,9 @@ export class PanelAdminAbm {
       return;
     }
 
-    /**
-     * Restricción explícita a archivos PDF.
-     */
-    if (file.type !== 'application/pdf') {
-      alert('Solo se permiten archivos PDF');
-
+    // ✔ validación simple
+    if (!file.type.startsWith('image/')) {
+      alert('Solo imágenes');
       this.nombreArchivo = null;
       this.form.get(controlName)?.setValue(null);
       return;
@@ -186,9 +129,8 @@ export class PanelAdminAbm {
 
     this.nombreArchivo = file.name;
 
+    // 🔥 guardamos el archivo en el form
     this.form.get(controlName)?.setValue(file);
-    this.form.get(controlName)?.markAsTouched();
-    this.form.get(controlName)?.updateValueAndValidity();
   }
 
   /* ============================
@@ -256,7 +198,10 @@ export class PanelAdminAbm {
       rutaCancelar: '/panel-admin-gestion/productos',
       campos: [
         { name: 'titulo', label: 'Título', type: 'text' },
+        { name: 'subtitulo', label: 'Subtítulo', type: 'text' },
         { name: 'descripcion', label: 'Descripción', type: 'textarea' },
+        { name: 'infoExtra', label: 'Información extra', type: 'textarea' },
+        { name: 'imagen', label: 'Imagen', type: 'file' },
       ],
     },
 

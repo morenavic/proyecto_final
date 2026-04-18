@@ -1,39 +1,38 @@
 <main class="main-contenedor">
   <section class="pantalla detalle-producto">
-    <!--
-      Render condicional del contenido.
-      Evita errores de acceso a propiedades mientras se resuelve el producto.
-    -->
+
+    <!-- Render condicional -->
     @if (producto) {
+
       <div class="detalle-layout">
+
         <!-- CONTENIDO PRINCIPAL -->
         <div class="detalle-info modo-contenedor">
-          <!--
-            Se muestran datos del producto seleccionados dinámicamente
-            según el id recibido por la ruta.
-          -->
+
           <h2 class="titulo">{{ producto.titulo }}</h2>
           <p class="subtitulo">{{ producto.subtitulo }}</p>
 
-          <img [src]="producto.imagen" alt="Imagen del producto" class="detalle-imagen" />
+          <img
+            [src]="producto.imagen"
+            alt="Imagen del producto"
+            class="detalle-imagen"
+          />
 
           <p class="detalle-descripcion">
             {{ producto.descripcion }}
           </p>
 
-          <!--
-            Acción principal del módulo:
-            redirige a contacto para conversión (consulta del producto).
-          -->
-          <button routerLink="/contacto" class="nav-link">Solicitar información</button>
+          <!-- Acción -->
+          <button routerLink="/contacto" class="nav-link">
+            Solicitar información
+          </button>
+
         </div>
 
         <!-- SIDEBAR -->
         <aside class="detalle-sidebar">
-          <!--
-            Información complementaria fija.
-            No depende del producto (actualmente hardcodeada).
-          -->
+
+          <!-- Info fija -->
           <div class="modo-contenedor">
             <strong>Ficha rápida</strong>
             <ul class="lista-ficha">
@@ -43,10 +42,7 @@
             </ul>
           </div>
 
-          <!--
-            Información adicional del producto.
-            Se mantiene separada para mejorar legibilidad y jerarquía visual.
-          -->
+          <!-- Info extra dinámica -->
           <div class="info-extra-contenedor">
             <h3 class="titulo chico">Información extra</h3>
 
@@ -58,20 +54,17 @@
               </div>
             </div>
           </div>
+
         </aside>
+
       </div>
+
     } @else {
-      <!--
-        Estado de fallback cuando no se encuentra el producto.
-        Evita pantalla en blanco y mejora UX.
-      -->
+
+      <!-- Estado vacío -->
       <p class="estado-vacio">Producto no encontrado</p>
+
     }
+
   </section>
 </main>
-
-<!--
-  ⚠️ FUTURO BACKEND:
-  - "producto" vendrá desde un servicio (API) en lugar de datos locales
-  - "ficha rápida" debería formar parte del modelo del producto para ser dinámica
--->

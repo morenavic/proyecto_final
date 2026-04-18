@@ -149,6 +149,11 @@ form {
   gap: 12px;
 }
 
+.form-card {
+  max-width: 760px;
+  width: 100%;
+}
+
 /*
   Inputs unificados para toda la app.
 */
@@ -232,31 +237,49 @@ select {
   Decisión: usar grid para mayor control estructural.
 */
 .panel-layout {
-  display: grid;
+  display: flex;
   grid-template-columns: 260px 1fr;
-  gap: 18px;
-  align-items: start;
+  gap: 24px;
+  align-items: flex-start;
 }
 
 /*
   Sidebar sticky para mantener navegación visible.
 */
 .sidebar {
+  width: 220px;
+  min-width: 220px;
   position: sticky;
   top: calc(var(--nav-height) + 24px);
   background: var(--blanco);
-  padding: 16px;
   border-radius: 12px;
+  padding: 16px;
   box-shadow: var(--sombra-leve);
   height: calc(100vh - var(--nav-height) - var(--footer-height) - 48px);
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.sidebar a:hover {
+  background: rgba(0, 82, 166, 0.08);
 }
 
 /*
   Contenido principal del panel.
 */
 .panel-contenido {
-  padding: 12px;
+  flex: 1;
 }
 
 /*

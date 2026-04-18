@@ -42,7 +42,7 @@
         @for (producto of productos; track producto.id) {
           <li>
             <a [routerLink]="['/productos', producto.id]">
-              {{ producto.nombre }}
+              {{ producto.titulo }}
             </a>
           </li>
         }

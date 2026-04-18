@@ -1,16 +1,9 @@
 <main class="main-contenedor">
   <section class="pantalla">
     <div class="panel-layout">
-
-      <!--
-        Sidebar unificado del panel admin.
-
-        Se reutiliza en todos los módulos del panel para mantener
-        navegación consistente y evitar duplicación de estructura.
-        Las rutas apuntan al componente de gestión cambiando el parámetro :tipo.
-      -->
+      <!-- Sidebar -->
       <aside class="sidebar">
-       <h5>Admin</h5>
+        <h5>Admin</h5>
         <a routerLink="/panel-admin-home" routerLinkActive="activo">Home</a>
         <a routerLink="/panel-admin-gestion/novedades" routerLinkActive="activo">Novedades</a>
         <a routerLink="/panel-admin-gestion/productos" routerLinkActive="activo">Productos</a>
@@ -19,185 +12,76 @@
         <a routerLink="/panel-admin-gestion/documentos" routerLinkActive="activo">Documentos</a>
       </aside>
 
-      <!--
-        Contenedor principal del ABM.
-
-        El mismo componente se utiliza para crear y editar registros.
-        El modo se determina por la presencia del parámetro :id en la ruta.
-      -->
+      <!-- Contenido -->
       <section class="panel-contenido">
-
-        <!--
-          Título dinámico según modo de operación.
-          Permite reutilizar el mismo template para crear y editar.
-        -->
+        <!-- Título dinámico -->
         <h2 class="titulo">
           {{ modoEdicion ? config?.tituloEditar : config?.tituloCrear }}
         </h2>
 
         <div class="form-card">
-
-          <!--
-            Formulario completamente dinámico.
-
-            Los campos no están definidos en el HTML sino en
-            la configuración del componente (config.campos).
-            Esto permite reutilizar el ABM para distintas entidades
-            sin duplicar templates.
-          -->
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
-            <!--
-              Render dinámico de campos según configuración.
-              Cada entidad define su estructura desde el objeto
-              de configuración del componente.
-            -->
+            <!-- Campos dinámicos -->
             @for (campo of config?.campos; track campo.name) {
-
               <div class="form-group">
-
-                <label [for]="campo.name">
-                  {{ campo.label }}
-                </label>
-
-                <!--
-                  Render condicional según tipo de campo.
-
-                  Esta estrategia desacopla el HTML del tipo
-                  de entidad y permite escalar el formulario
-                  agregando nuevos tipos de campo en el futuro.
-                -->
+                <label>{{ campo.label }}</label>
 
                 @if (campo.type === 'text') {
-                  <input
-                    [id]="campo.name"
-                    type="text"
-                    [formControlName]="campo.name"
-                  />
+                  <input type="text" [formControlName]="campo.name" />
                 }
 
                 @if (campo.type === 'number') {
-                  <input
-                    [id]="campo.name"
-                    type="number"
-                    [formControlName]="campo.name"
-                  />
+                  <input type="number" [formControlName]="campo.name" />
                 }
 
                 @if (campo.type === 'date') {
-                  <!--
-                    Uso de input date para mejorar UX y evitar
-                    validaciones manuales de formato de fecha.
-                  -->
-                  <input
-                    [id]="campo.name"
-                    type="date"
-                    [formControlName]="campo.name"
-                  />
+                  <input type="date" [formControlName]="campo.name" />
                 }
 
                 @if (campo.type === 'textarea') {
-                  <textarea
-                    [id]="campo.name"
-                    rows="4"
-                    [formControlName]="campo.name">
-                  </textarea>
+                  <textarea rows="4" [formControlName]="campo.name"></textarea>
                 }
 
                 @if (campo.type === 'file') {
+                  @if (campo.type === 'file') {
+                    <div class="file-wrapper">
+                      <div class="file-box" (click)="fileInput.click()">Seleccionar imagen</div>
 
-                  <!--
-                    Implementación custom del selector de archivo.
-
-                    Se oculta el input nativo y se reemplaza por
-                    una interfaz visual consistente con el diseño
-                    del panel de administración.
-
-                    En backend real:
-                    el archivo deberá enviarse como FormData
-                    desde el método onSubmit del componente.
-                  -->
-                  <div class="file-wrapper">
-
-                    <input
-                      type="file"
-                      [id]="campo.name"
-                      accept="application/pdf"
-                      hidden
-                      #fileInput
-                      (change)="onFileChange($event, campo.name)"
-                    />
-
-                    <!--
-                      Caja visual que actúa como disparador del input.
-                      También refleja el estado de archivo cargado.
-                    -->
-                    <div
-                      class="file-box"
-                      [class.file-cargado]="nombreArchivo"
-                      (click)="fileInput.click()"
-                    >
-
-                      @if (!nombreArchivo) {
-                        <span>📎 Seleccionar archivo PDF</span>
-                      }
+                      <input
+                        #fileInput
+                        type="file"
+                        (change)="onFileChange($event, campo.name)"
+                        style="display: none"
+                      />
 
                       @if (nombreArchivo) {
-                        <span>📄 {{ nombreArchivo }}</span>
+                        <span class="file-name">
+                          {{ nombreArchivo }}
+                        </span>
                       }
-
                     </div>
-
-                  </div>
+                  }
                 }
 
-                <!--
-                  Validación visual uniforme para todos los campos.
-
-                  Se muestra únicamente cuando el campo fue tocado,
-                  evitando mostrar errores al cargar el formulario.
-                -->
+                <!-- error -->
                 @if (form.get(campo.name)?.invalid && form.get(campo.name)?.touched) {
-                  <small class="error-text">
-                    Campo obligatorio
-                  </small>
+                  <small class="error-text">Campo obligatorio</small>
                 }
-
               </div>
             }
 
-            <!--
-              Acciones principales del formulario.
-
-              El botón Guardar/Actualizar se desactiva automáticamente
-              cuando el formulario no cumple las validaciones.
-            -->
+            <!-- acciones -->
             <div class="form-actions">
-
-              <button
-                type="submit"
-                class="nav-link"
-                [disabled]="form.invalid">
+              <button type="submit" class="nav-link" [disabled]="form.invalid">
                 {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
               </button>
 
-              <!--
-                Navegación controlada desde la configuración.
-                Cada entidad define su propia ruta de cancelación.
-              -->
-              <button
-                type="button"
-                class="nav-link"
-                [routerLink]="config?.rutaCancelar">
+              <button type="button" class="nav-link" [routerLink]="config?.rutaCancelar">
                 Cancelar
               </button>
-
             </div>
-
           </form>
-
         </div>
-
       </section>
     </div>
   </section>

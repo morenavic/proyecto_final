@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PanelAdminDataService } from '../panel-admin-data';
+import { ProductoService } from '../../../services/producto.service';
 
 @Component({
   selector: 'app-panel-admin-gestion',
@@ -11,128 +12,66 @@ import { PanelAdminDataService } from '../panel-admin-data';
 })
 export class PanelAdminGestion {
 
-  /**
-   * Tipo de entidad actualmente gestionada.
-   * Se obtiene desde el parámetro :tipo de la ruta
-   * y determina qué configuración y datos cargar.
-   */
   tipo!: string;
-
-  /**
-   * Configuración activa para la entidad actual.
-   * Define título, columnas visibles y acciones disponibles.
-   */
   config: any;
-
-  /**
-   * Datos a mostrar en la tabla.
-   * Actualmente provienen del DataService mock.
-   *
-   * En backend real:
-   * se cargarán desde una llamada HTTP.
-   */
   items: any[] = [];
 
-  /**
-   * Controla visibilidad del modal de confirmación
-   * para acciones destructivas.
-   */
   mostrarModal = false;
-
-  /**
-   * Registro seleccionado para eliminar o inactivar.
-   */
   itemSeleccionado: any = null;
 
   constructor(
     private route: ActivatedRoute,
     private dataService: PanelAdminDataService,
+    private productoService: ProductoService
   ) {}
 
-  /**
-   * Inicialización del componente.
-   *
-   * - Obtiene el tipo de entidad desde la ruta
-   * - Carga la configuración correspondiente
-   * - Recupera los datos desde el DataService
-   *
-   * Esto permite que un único componente gestione
-   * múltiples entidades del panel administrativo.
-   */
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.tipo = params.get('tipo') ?? '';
       this.config = this.configuraciones[this.tipo];
+
+      // PRODUCTOS usa service real
+      if (this.tipo === 'productos') {
+        this.items = this.productoService.getProductos();
+        return;
+      }
+
+      // resto sigue mock
       this.items = this.dataService.getAll(this.tipo);
     });
   }
 
-  /**
-   * Abre el modal de confirmación y guarda
-   * el registro seleccionado.
-   */
   abrirModalEliminar(item: any) {
     this.itemSeleccionado = item;
     this.mostrarModal = true;
   }
 
-  /**
-   * Cierra el modal y limpia el registro seleccionado.
-   */
   cerrarModal() {
     this.mostrarModal = false;
     this.itemSeleccionado = null;
   }
 
-  /**
-   * Confirma la acción destructiva.
-   *
-   * Comportamiento especial:
-   * - clientes → se marca como inactivo
-   * - resto de entidades → eliminación real
-   *
-   * En backend real:
-   * esta lógica deberá delegarse al servicio
-   * mediante una llamada HTTP.
-   */
   confirmarEliminar() {
 
     if (!this.itemSeleccionado) return;
 
     if (this.tipo === 'clientes') {
-
-      // Inactivación lógica en lugar de eliminación física
       this.itemSeleccionado.inactivo = true;
-
     } else {
 
-      this.dataService.delete(this.tipo, this.itemSeleccionado.id);
-
-      /**
-       * Se recargan los datos para reflejar
-       * los cambios en la tabla.
-       */
-      this.items = this.dataService.getAll(this.tipo);
+      // productos (por ahora mock visual)
+      if (this.tipo === 'productos') {
+        console.log('DELETE producto', this.itemSeleccionado.id);
+        this.items = this.items.filter(i => i.id !== this.itemSeleccionado.id);
+      } else {
+        this.dataService.delete(this.tipo, this.itemSeleccionado.id);
+        this.items = this.dataService.getAll(this.tipo);
+      }
     }
 
     this.cerrarModal();
   }
 
-  /**
-   * Configuración central del módulo de gestión.
-   *
-   * Define para cada entidad:
-   * - título del módulo
-   * - texto del botón principal
-   * - columnas de la tabla
-   * - acciones disponibles
-   *
-   * Esta estrategia permite reutilizar un único
-   * componente para gestionar distintas entidades.
-   *
-   * Para agregar nuevas entidades solo se debe
-   * incorporar una nueva entrada en este objeto.
-   */
   configuraciones: any = {
 
     novedades: {
@@ -145,12 +84,13 @@ export class PanelAdminGestion {
       acciones: ['editar', 'eliminar'],
     },
 
+    // CORREGIDO
     productos: {
       titulo: 'Gestión de productos',
       boton: 'Crear producto',
       columnas: [
         { key: 'titulo', label: 'Título' },
-        { key: 'categoria', label: 'Categoría' },
+        { key: 'subtitulo', label: 'Subtítulo' },
       ],
       acciones: ['editar', 'eliminar'],
     },
@@ -160,7 +100,6 @@ export class PanelAdminGestion {
       boton: 'Crear servicio',
       columnas: [
         { key: 'titulo', label: 'Título' },
-        { key: 'categoria', label: 'Categoría' },
       ],
       acciones: ['editar', 'eliminar'],
     },
